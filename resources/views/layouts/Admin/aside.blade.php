@@ -1,9 +1,11 @@
+
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="{{ asset('Admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+    <a href="" class="brand-link">
+        <img src="{{ asset('Admin/dist/img/logo1.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">GSSSC</span>
     </a>
 
     <!-- Sidebar -->
@@ -44,17 +46,17 @@
                 </li>
                 <li class="nav-header">   WEBSITE</li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
+                <li class="nav-item ">
+                    <a href="#" class="nav-link {{ Route::is('HeaderShow') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-header"></i>
                         <p>
                             Header
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/charts/chartjs.html" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="{{route('HeaderShow')}}" class="nav-link {{ Route::is('HeaderShow') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Menu</p>
                             </a>
@@ -70,7 +72,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tree"></i>
+                        <i class="nav-icon fa fa-sliders"></i>
                         <p>
                             Carousal
                             <i class="fas fa-angle-left right"></i>
@@ -111,7 +113,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-chalkboard"></i>
                         <p>
                             Classes
                             <i class="fas fa-angle-left right"></i>
@@ -128,7 +130,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
                             Teachers
                             <i class="fas fa-angle-left right"></i>
@@ -145,7 +147,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon 	far fa-comment-alt"></i>
                         <p>
                             Blog
                             <i class="fas fa-angle-left right"></i>
@@ -162,7 +164,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon far fa-user-circle"></i>
                         <p>
                             Quick Links
                             <i class="fas fa-angle-left right"></i>
@@ -179,7 +181,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon far fa-address-book"></i>
                         <p>
                             Contact
                             <i class="fas fa-angle-left right"></i>
@@ -196,7 +198,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-comment-alt"></i>
                         <p>
                             Social Links
                             <i class="fas fa-angle-left right"></i>
@@ -215,7 +217,7 @@
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
                             Students
                             <i class="fas fa-angle-left right"></i>
@@ -232,7 +234,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-laptop-code"></i>
                         <p>
                             Test
                             <i class="fas fa-angle-left right"></i>
@@ -285,7 +287,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-plus-square"></i>
+                        <i class="nav-icon far fas fa-dollar-sign"></i>
                         <p>
                             Fee
                             <i class="fas fa-angle-left right"></i>
@@ -314,3 +316,5 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+
+

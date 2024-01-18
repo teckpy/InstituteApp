@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HeaderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::middleware([
         return view('Admin.Dashboard');
     })->name('dashboard');
 });
+
+Route::get('/Header',[HeaderController::class, 'index'])->name('HeaderShow');
