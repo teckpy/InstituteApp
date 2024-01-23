@@ -4,35 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Subject;
 
-class HeaderController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('Admin.header');
-    }
 
+        try {
+            $data = Subject::all();
+            return  view('Admin.subject',compact('data'));
+        } catch (\Exception $e) {
+            return response()->json(['success'=>false,'msg'=>$e->getMessage()]);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-        $request->validate([
-            'name'=>'required|string',
-            'link'=>'required|string'
-        ]);
-
-        Menu::create([
-            'name'=> $request->input('name'),
-            'link'=> $request->input('link')
-        ]);
-
-        return redirect()->route('menu.show')->with('success','Menu item added successfully !');
-
+        //
     }
 
     /**
@@ -40,7 +35,21 @@ class HeaderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->validate([
+                'subject'=>'required|string',
+            ]);
+
+            Subject::create([
+                'subject'=> $request->input('subject'),
+            ]);
+
+            notify()->success('Subject Added Successfully!');
+
+            return response()->json(['success'=>true,'msg'=>'Subject Added Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success'=>false,'msg'=>$e->getMessage()]);
+        }
     }
 
     /**
@@ -48,7 +57,7 @@ class HeaderController extends Controller
      */
     public function show(string $id)
     {
-        $data = Subject::all();
+
     }
 
     /**

@@ -254,9 +254,21 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('subject')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Subject</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="pages/examples/e-commerce.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Question</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/examples/e-commerce.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Answer</p>
                             </a>
                         </li>
                         <li class="nav-item">

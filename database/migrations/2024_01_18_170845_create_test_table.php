@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('type');
             $table->string('question');
             $table->string('result');
+            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->timestamps();
-            $table->foreign('class_id')->reference('id')->on('classes')->onDelete('cascade');
-            $table->foreign('student_id')->reference('id')->on('students')->onDelete('cascade');
         });
     }
 

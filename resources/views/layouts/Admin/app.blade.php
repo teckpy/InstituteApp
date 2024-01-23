@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @vite('resources/css/app.css')
     <title>@yield('title')</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -31,9 +32,17 @@
     <link rel="stylesheet" href="{{ asset('Admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('Admin/plugins/summernote/summernote-bs4.min.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    @notifyCss
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <x-notify::notify />
+    <style>
+        #laravel-notify {
+            z-index: 9999;
+        }
+    </style>
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -56,7 +65,7 @@
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="{{ asset('Admin/plugins/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="{{ asset('Admin/plugins/jquery/jquery.min.js') }}"></script> --}}
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('Admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -89,6 +98,7 @@
     <script src="{{ asset('Admin/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('Admin/dist/js/pages/dashboard.js') }}"></script>
+    @notifyJs
 </body>
 
 </html>

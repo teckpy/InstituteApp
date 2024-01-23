@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HeaderController;
+use App\Http\Controllers\Admin\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,5 @@ Route::middleware([
 });
 
 Route::get('/Header',[HeaderController::class, 'index'])->name('HeaderShow');
+Route::get('/Subject',[SubjectController::class, 'index'])->name('subject');
+Route::POST('/add-Subject',[SubjectController::class, 'store'])->name('subjectstore');

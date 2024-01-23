@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('mobille');
             $table->string('email');
             $table->string('password');
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
             $table->timestamps();
-            $table->foreign('class_id')->reference('id')->on('classes')->onDelete('cascade');
         });
     }
 
