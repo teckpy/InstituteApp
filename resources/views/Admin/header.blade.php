@@ -32,16 +32,17 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form">
+                            <form role="form" action="" method="POST">
+                                @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Menu Name</label>
-                                        <input type="text" class="form-control" id="menu"
+                                        <input type="text" class="form-control" id="menu" name="name"
                                             placeholder="Enter Menu Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Menu Link</label>
-                                        <input type="text" class="form-control" id="link"
+                                        <input type="text" class="form-control" id="link" name="link"
                                             placeholder="Menu Link">
                                     </div>
                                 </div>

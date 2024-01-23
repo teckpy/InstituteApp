@@ -15,12 +15,24 @@ class HeaderController extends Controller
         return view('Admin.header');
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required|string',
+            'link'=>'required|string'
+        ]);
+
+        Menu::create([
+            'name'=> $request->input('name'),
+            'link'=> $request->input('link')
+        ]);
+
+        return redirect()->route('menu.show')->with('success','Menu item added successfully !');
+
     }
 
     /**
@@ -36,7 +48,7 @@ class HeaderController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
