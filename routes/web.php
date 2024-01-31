@@ -30,5 +30,10 @@ Route::middleware([
 });
 
 Route::get('/Header',[HeaderController::class, 'index'])->name('HeaderShow');
-Route::get('/Subject',[SubjectController::class, 'index'])->name('subject');
-Route::POST('/add-Subject',[SubjectController::class, 'store'])->name('subjectstore');
+
+
+
+Route::resource('Subject', SubjectController::class);
+Route::Post('/edit-subject',[SubjectController::class, 'update'])->name('editSubject');
+Route::Post('/delete-subject',[SubjectController::class, 'destroy'])->name('deleteSubject');
+

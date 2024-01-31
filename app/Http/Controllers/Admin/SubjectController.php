@@ -14,12 +14,8 @@ class SubjectController extends Controller
     public function index()
     {
 
-        try {
-            $data = Subject::all();
-            return  view('Admin.subject',compact('data'));
-        } catch (\Exception $e) {
-            return response()->json(['success'=>false,'msg'=>$e->getMessage()]);
-        }
+        $subjects = Subject::latest()->get();
+        return view('Admin.subject', compact('subjects'));
     }
 
     /**
@@ -35,21 +31,8 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'subject'=>'required|string',
-            ]);
-
-            Subject::create([
-                'subject'=> $request->input('subject'),
-            ]);
-
-            notify()->success('Subject Added Successfully!');
-
-            return response()->json(['success'=>true,'msg'=>'Subject Added Successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['success'=>false,'msg'=>$e->getMessage()]);
-        }
+        $subject = Subject::create($request->all());
+        return response()->json($subject);
     }
 
     /**
@@ -63,24 +46,39 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit($id)
+{
+
+}
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request)
+{
+    try {
+        $subject = Subject::find($request->id);
+        $subject->subject = $request->subject;
+        $subject->save();
+
+        return response()->json(['success' => true, 'msg' => 'Subject Updated Successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['success' => false, 'msg' => $e->getMessage()]);
     }
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            Subject::where('id',$request->id)->delete();
+            return response()->json(['success' => true, 'msg' => 'Subject Delete Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 }

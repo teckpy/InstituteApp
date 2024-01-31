@@ -44,15 +44,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data as $item)
-                                        <tr>
-                                            <td>{{$item->id}}</td>
-                                            <td>{{$item->subject}}</td>
-                                            <td><span class="badge bg-warning">
-                                           <a href="http://"> <i class="fas fa-edit"></i></a></span>
-                                           <span class="badge bg-danger"> <a href="http://"> <i class="fas fa-trash-alt"></i></a></span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($subjects as $item)
+                                            <tr>
+                                                <td>{{ $item->id }}</td>
+                                                <td>{{ $item->subject }}</td>
+                                                <td><span class="badge bg-warning">
+                                                        <a class="editSubjectbutton" href="javascript:void(0);"
+                                                            data-toggle="modal" data-target="#modal-editsubject"
+                                                            data-id="{{ $item->id }}"
+                                                            data-subject="{{ $item->subject }}">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a></span>
+                                                    <span class="badge bg-danger"> <a class="deleteSubject"
+                                                        data-toggle="modal" data-target="#modal-delete"
+                                                            data-id="{{ $item->id }}" href="#"> <i
+                                                                class="fas fa-trash-alt"></i></a></span>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -63,10 +71,10 @@
             </div>
         </section>
     </div>
-    {{-- subject model --}}
+    {{-- Add subject model --}}
     <div class="modal fade" id="modal-subject">
         <div class="modal-dialog">
-            <form id="addSubject">
+            <form id="addSubject" action="{{ route('Subject.store') }}" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -77,7 +85,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject_name" name="subject"
+                            <input type="text" class="form-control" id="" name="subject"
                                 placeholder="Enter Subject Name">
                         </div>
                     </div>
@@ -89,30 +97,141 @@
             </form>
             <!-- /.modal-content -->
         </div>
+        <!-- /Edit .modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-editsubject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Subject</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="editSubjectForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="edit_subject" name="subject">
+                            <input type="hidden" id="edit_subject_id" name="id">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark">Save</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- /.modal-content -->
+        </div>
         <!-- /.modal-dialog -->
     </div>
+
+
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Subject</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="deletesubject">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p>Are you sure you want to delete this Subject !</p>
+                        <input type="hidden" name="id" id="delete_subject_id">
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
     <script>
         $(document).ready(function() {
 
             $("#addSubject").submit(function(e) {
                 e.preventDefault();
-
-                var  formData = $(this).serialize();
-
                 $.ajax({
-                    url: "{{ route('subjectstore') }}",
-                    type: "POST",
+                    url: "{{ route('Subject.store') }}",
+                    method: "POST",
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        $("#modal-subject").modal("hide");
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                        // Refresh the page or update the table with the new item
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
+            //edit
+            $(".editSubjectbutton").click(function(e) {
+                e.preventDefault();
+
+                var subject_id = $(this).data("id");
+                var subject = $(this).data("subject");
+                $("#edit_subject").val(subject);
+                $("#edit_subject_id").val(subject_id);
+            });
+            $("#editSubjectForm").submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: "{{ route('editSubject') }}",
+                    method: "POST",
                     data: formData,
                     success: function(data) {
-                        if(data.success == true)
-                        {
+                        if (data.success == true) {
                             location.reload();
-                        }
-                        else
-                        {
+                        } else {
                             alert(data.msg);
                         }
-                    }
+                    },
+
+                });
+            });
+
+            //delete
+
+            $(".deleteSubject").click(function(e) {
+                e.preventDefault();
+
+                var subject_id = $(this).data("id");
+
+                $("#delete_subject_id").val(subject_id);
+            });
+            $("#deletesubject").submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: "{{ route('deleteSubject') }}",
+                    method: "POST",
+                    data: formData,
+                    success: function(data) {
+                        if (data.success == true) {
+                            location.reload();
+                        } else {
+                            alert(data.msg);
+                        }
+                    },
+
                 });
             });
         });
