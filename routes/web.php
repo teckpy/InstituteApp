@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HeaderController;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,6 @@ Route::resource('Subject', SubjectController::class);
 Route::Post('/edit-subject',[SubjectController::class, 'update'])->name('editSubject');
 Route::Post('/delete-subject',[SubjectController::class, 'destroy'])->name('deleteSubject');
 
+//test
+
+Route::resource('Test', TestController::class);
