@@ -14,6 +14,7 @@ class Test extends Model
         'date',
         'subject_id',
         'time',
+        'attempt'
     ];
 
     public function subject()

@@ -69,6 +69,7 @@ class TestController extends Controller
             $test->subject_id = $request->subject_id;
             $test->date = $request->date;
             $test->time = $request->time;
+            $test->attempt = $request->attempt;
             $test->save();
 
             return response()->json(['success' => true, 'msg' => 'Test Updated Successfully']);

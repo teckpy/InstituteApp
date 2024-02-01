@@ -48,7 +48,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($tests as $test)
+                                        {{-- @foreach ($tests as $test)
                                             <tr>
                                                 <td>{{ $test->id }}</td>
                                                 <td>{{ $test->name }}</td>
@@ -67,7 +67,7 @@
                                                             href="#"> <i class="fas fa-trash-alt"></i></a></span>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -80,7 +80,7 @@
     {{-- Add subject model --}}
     <div class="modal fade" id="modal-test">
         <div class="modal-dialog">
-            <form id="addtest" action="{{ route('Test.store') }}" method="POST">
+            <form id="addtest" action="" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -97,11 +97,11 @@
                         <div class="form-group">
                             <select class="form-control" name="subject_id" required id="">
                                 <option value="">Select Subject</option>
-                                @if (count($subjects) > 0)
+                                {{-- @if (count($subjects) > 0)
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
                                     @endforeach
-                                @endif
+                                @endif --}}
                             </select>
                         </div>
                         <div class="form-group">
@@ -146,11 +146,11 @@
                         <div class="form-group">
                             <select class="form-control" name="subject_id" required id="subject_id">
                                 <option value="">Select Subject</option>
-                                @if (count($subjects) > 0)
+                                {{-- @if (count($subjects) > 0)
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
                                     @endforeach
-                                @endif
+                                @endif --}}
                             </select>
                         </div>
                         <div class="form-group">
@@ -206,7 +206,7 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
 
             $("#addtest").submit(function(e) {
@@ -320,5 +320,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endsection

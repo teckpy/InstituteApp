@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HeaderController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TestController;
+use App\Http\Controllers\Admin\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,4 @@ Route::Post('/delete-subject',[SubjectController::class, 'destroy'])->name('dele
 //test
 
 Route::resource('Test', TestController::class);
+Route::resource('Question', QuestionController::class);
