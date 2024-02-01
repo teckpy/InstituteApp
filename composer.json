@@ -13,7 +13,6 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
-        "mckenziearts/laravel-notify": "^2.4",
         "pusher/pusher-php-server": "^7.2",
         "razorpay/razorpay": "^2.9"
     },
@@ -30,7 +29,8 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Mckenziearts\\Notify\\": "path/to/notify/src"
         }
     },
     "autoload-dev": {

@@ -33,16 +33,11 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('Admin/plugins/summernote/summernote-bs4.min.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    @notifyCss
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <x-notify::notify />
-    <style>
-        #laravel-notify {
-            z-index: 9999;
-        }
-    </style>
+
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -98,7 +93,7 @@
     <script src="{{ asset('Admin/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('Admin/dist/js/pages/dashboard.js') }}"></script>
-    @notifyJs
+
 </body>
 
 </html>

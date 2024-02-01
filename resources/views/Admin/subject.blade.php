@@ -44,6 +44,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+<<<<<<< Updated upstream
                                         @foreach ($subjects as $item)
                                             <tr>
                                                 <td>{{ $item->id }}</td>
@@ -61,6 +62,17 @@
                                                                 class="fas fa-trash-alt"></i></a></span>
                                                 </td>
                                             </tr>
+=======
+                                        @foreach($data as $item)
+                                        <tr>
+                                            <td>{{$item->id}}</td>
+                                            <td>{{$item->subject}}</td>
+                                            <td><span class="badge bg-warning">
+                                           <a href="#"> <i class="fas fa-edit edit-btn" data-id="{{ $item->id }}"></i></a></span>
+                                           <span class="badge bg-danger"> <a href="http://"> <i class="fas fa-trash-alt"></i></a></span>
+                                            </td>
+                                        </tr>
+>>>>>>> Stashed changes
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -74,8 +86,15 @@
     {{-- Add subject model --}}
     <div class="modal fade" id="modal-subject">
         <div class="modal-dialog">
+<<<<<<< Updated upstream
             <form id="addSubject" action="{{ route('Subject.store') }}" method="POST">
+=======
+            <form id="addSubject" action="{{isset($data) ? route('subject.update',$data->id) : route('subject.store') }}" method="POST">
+>>>>>>> Stashed changes
                 @csrf
+                @if(isset($data))
+                    @method('PUT')
+                @endif
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Create New Subject</h4>
@@ -85,13 +104,18 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
+<<<<<<< Updated upstream
                             <input type="text" class="form-control" id="" name="subject"
                                 placeholder="Enter Subject Name">
+=======
+                            <input type="text" class="form-control" id="subject_name" name="subject"
+                                placeholder="Enter Subject Name" value="{{ isset($data) ? $data->subject : ""}}">
+>>>>>>> Stashed changes
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Save</button>
+                        <button type="submit"  class="btn btn-dark">{{ isset($data) ? 'update' : 'save' }}</button>
                     </div>
                 </div>
             </form>
@@ -164,6 +188,7 @@
 
             $("#addSubject").submit(function(e) {
                 e.preventDefault();
+<<<<<<< Updated upstream
                 $.ajax({
                     url: "{{ route('Subject.store') }}",
                     method: "POST",
@@ -197,6 +222,16 @@
                 $.ajax({
                     url: "{{ route('editSubject') }}",
                     method: "POST",
+=======
+
+                var  formData = $(this).serialize();
+                var  url = $(this).attr('action');
+                var  method = $(this).attr('method');
+
+                $.ajax({
+                    url: url,
+                    type: method,
+>>>>>>> Stashed changes
                     data: formData,
                     success: function(data) {
                         if (data.success == true) {
@@ -234,6 +269,28 @@
                     },
 
                 });
+            });
+
+
+
+
+            $("#edit-btn").submit(function(e) {
+                e.preventDefault();
+
+                var  subjectid = $(this).data('id');
+                var  url = '/subject/'+ subjectid + '/edit';
+                var  method = $(this).attr('method');
+
+               $.get(url,function(data){
+
+                $("#addSubject").attr('action','/subject/' + subjectid );
+                $("#addSubject").attr('method','PUT');
+
+                $("#subject").val(data.name);
+
+                $("#modal-subject").modal('show')
+
+               });
             });
         });
     </script>
