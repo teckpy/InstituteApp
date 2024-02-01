@@ -7,12 +7,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-12">
-                        <h1>Test Form</h1>
+                        <h1>Question Form</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Test</li>
+                            <li class="breadcrumb-item active">Question</li>
                         </ol>
                     </div>
                 </div>
@@ -27,8 +27,7 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#modal-test">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-question">
                                         New
                                     </button>
                                 </h3>
@@ -78,45 +77,26 @@
         </section>
     </div>
     {{-- Add subject model --}}
-    <div class="modal fade" id="modal-test">
+    <div class="modal fade" id="modal-question">
         <div class="modal-dialog">
-            <form id="addtest" action="" method="POST">
+            <form id="addquestion" action="" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Create New Test</h4>
+                        <h4 class="modal-title">Create New Question</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="" name="name"
-                                placeholder="Enter Test Name">
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="subject_id" required id="">
-                                <option value="">Select Subject</option>
-                                {{-- @if (count($subjects) > 0)
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
-                                    @endforeach
-                                @endif --}}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control" id="" name="date" required
-                                min="@php echo date('Y,m,d'); @endphp">
-                        </div>
-                        <div class="form-group">
-                            <input type="time" class="form-control" id="" name="time" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" min="1" placeholder="Enter Exam Attempt Time" id="" name="attempt" required>
+                            <input type="text" class="form-control" id="" name="question"
+                                placeholder="Enter Question">
                         </div>
 
                     </div>
                     <div class="modal-footer justify-content-between">
+                        <span class="error"></span>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
                     </div>
@@ -126,22 +106,22 @@
         </div>
         <!-- /Edit .modal-dialog -->
     </div>
-    <div class="modal fade" id="modal-edittest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modal-editquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Update Test</h4>
+                    <h4 class="modal-title">Update Question</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="edittestform" method="POST">
+                <form id="editquestionform" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="edit_test" name="name">
-                            <input type="hidden" id="edit_test_id" name="id">
+                            <input type="text" class="form-control" id="edit_question" name="question_name">
+                            <input type="hidden" id="edit_question_id" name="id">
                         </div>
                         <div class="form-group">
                             <select class="form-control" name="subject_id" required id="subject_id">
