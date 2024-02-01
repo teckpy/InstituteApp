@@ -14,13 +14,8 @@ class SubjectController extends Controller
     public function index()
     {
 
-<<<<<<< Updated upstream
         $subjects = Subject::first()->get();
         return view('Admin.subject', compact('subjects'));
-=======
-       $data = Subject::all();
-       return view('Admin.subject',compact('data'));
->>>>>>> Stashed changes
     }
 
     /**
@@ -28,7 +23,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -36,14 +31,8 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
         $subject = Subject::create($request->all());
         return response()->json($subject);
-=======
-       $item = Subject::create($request->all());
-
-        return response()->json($item);
->>>>>>> Stashed changes
     }
 
     /**
@@ -57,21 +46,11 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-<<<<<<< Updated upstream
     public function edit($id)
 {
 
 }
 
-=======
-    public function edit(string $id)
-    {
-        $data = Subject::find($id);
-
-        return response()->json($data);
-
-    }
->>>>>>> Stashed changes
 
     /**
      * Update the specified resource in storage.
