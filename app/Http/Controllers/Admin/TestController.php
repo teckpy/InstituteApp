@@ -49,15 +49,32 @@ class TestController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $test = Test::where('id',$id)->get();
+            return response()->json(['success' => true, 'data' => $test]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-        //
+        try {
+            \Log::info('Received ID for update: ' . $id);
+            $test = Test::find($id);
+            $test->name = $request->name;
+            $test->subject_id = $request->subject_id;
+            $test->date = $request->date;
+            $test->time = $request->time;
+            $test->save();
+
+            return response()->json(['success' => true, 'msg' => 'Test Updated Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -65,6 +82,12 @@ class TestController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            \Log::info('Received ID for delete: ' . $id);
+            Test::where('id',$id)->delete();
+            return response()->json(['success' => true, 'msg' => 'Subject Delete Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 }

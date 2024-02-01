@@ -190,6 +190,7 @@
                 $("#edit_subject").val(subject);
                 $("#edit_subject_id").val(subject_id);
             });
+
             $("#editSubjectForm").submit(function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
