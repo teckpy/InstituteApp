@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Subject;
 use App\Models\Admin\Test;
+use App\Models\Admin\Answer;
+use App\Models\Admin\Question;
+
 
 class QuestionController extends Controller
 {
@@ -14,9 +17,8 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::first()->get();
-        $tests = Test::with('subject')->first()->get();
-        return view('Admin.question', compact('subjects','tests'));
+        $questions = Question::with('answers')->get();
+        return view('Admin.question', compact('questions'));
     }
 
     /**
@@ -32,7 +34,26 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $questionId = Question::insertGetId([
+                'question' => $request->question
+            ]);
+
+            foreach ($request->answers as $answer) {
+                $is_correct = 0;
+                if ($request->is_correct == $answer) {
+                    $is_correct = 1;
+                }
+                Answer::insert([
+                    'question_id' => $questionId,
+                    'answer' => $answer,
+                    'is_correct' => $is_correct
+                ]);
+            }
+            return response()->json(['success' => true, 'msg' => 'Question Answer Added Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**

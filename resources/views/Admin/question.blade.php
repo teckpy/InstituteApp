@@ -27,7 +27,8 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-question">
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#modal-question">
                                         New
                                     </button>
                                 </h3>
@@ -38,35 +39,42 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">S.N</th>
-                                            <th>Test</th>
-                                            <th>Subject</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Attempt</th>
+                                            <th>Question</th>
+                                            <th>Answers</th>
+                                            <th>Created_at</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($tests as $test)
+                                        @if (count($questions) > 0)
+                                            @foreach ($questions as $question)
+                                                <tr>
+                                                    <td>{{ $question->id }}</td>
+                                                    <td>{{ $question->question }}</td>
+                                                    <td>
+                                                        <a href="" class="ansButton" data-id="{{ $question->id }}"
+                                                            data-toggle="modal" data-target="#modal-showAns">SeeAnswer</a>
+                                                    </td>
+                                                    <td>{{ $question->created_at }}</td>
+                                                    <td><span class="badge bg-warning">
+                                                            <a class="edittestbutton" href="javascript:void(0);"
+                                                                data-toggle="modal" data-target="#modal-editqa"
+                                                                data-id="{{ $question->id }}"
+                                                                data-test="{{ $question->name }}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a></span>
+                                                        <span class="badge bg-danger"> <a class="deletetest"
+                                                                data-toggle="modal" data-target="#modal-delete"
+                                                                data-id="{{ $question->id }}" href="#"> <i
+                                                                    class="fas fa-trash-alt"></i></a></span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
                                             <tr>
-                                                <td>{{ $test->id }}</td>
-                                                <td>{{ $test->name }}</td>
-                                                <td>{{ $test->subject[0]['subject'] }}</td>
-                                                <td>{{ $test->date }}</td>
-                                                <td>{{ $test->time }}</td>
-                                                <td>{{ $test->attempt }}</td>
-                                                <td><span class="badge bg-warning">
-                                                        <a class="edittestbutton" href="javascript:void(0);"
-                                                            data-toggle="modal" data-target="#modal-edittest"
-                                                            data-id="{{ $test->id }}" data-test="{{ $test->name }}">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a></span>
-                                                    <span class="badge bg-danger"> <a class="deletetest" data-toggle="modal"
-                                                            data-target="#modal-delete" data-id="{{ $test->id }}"
-                                                            href="#"> <i class="fas fa-trash-alt"></i></a></span>
-                                                </td>
+                                                <td colspan="3">Questions 7 Answer Not Found !</td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -84,19 +92,20 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Create New Question</h4>
+                        <button id="addAnswer" class="btn btn-info">Add Answer</button>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+
                         <div class="form-group">
                             <input type="text" class="form-control" id="" name="question"
-                                placeholder="Enter Question">
+                                placeholder="Enter Question" required>
                         </div>
-
                     </div>
+                    <span class="error"></span>
                     <div class="modal-footer justify-content-between">
-                        <span class="error"></span>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
                     </div>
@@ -106,54 +115,39 @@
         </div>
         <!-- /Edit .modal-dialog -->
     </div>
-    <div class="modal fade" id="modal-editquestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modal-showAns">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Update Question</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="editquestionform" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="edit_question" name="question_name">
-                            <input type="hidden" id="edit_question_id" name="id">
-                        </div>
-                        <div class="form-group">
-                            <select class="form-control" name="subject_id" required id="subject_id">
-                                <option value="">Select Subject</option>
-                                {{-- @if (count($subjects) > 0)
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
-                                    @endforeach
-                                @endif --}}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="date" class="form-control" id="date" name="date" required
-                                min="@php echo date('Y,m,d'); @endphp">
-                        </div>
-                        <div class="form-group">
-                            <input type="time" class="form-control" id="time" name="time" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="number" min="1"  class="form-control" id="attempt" name="attempt" required>
-                        </div>
+            <form id="">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Answers</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                                <th>#</th>
+                                <th>Answer</th>
+                                <th>Is Correct</th>
+                            </thead>
+                            <tbody class="showanswers">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <span class="error"></span>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Update</button>
+                        <button type="submit" class="btn btn-dark">Save</button>
                     </div>
-                </form>
-            </div>
-
+                </div>
+            </form>
             <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /Edit .modal-dialog -->
     </div>
 
     {{-- //dlete --}}
@@ -186,119 +180,118 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    {{-- <script>
+    <script>
         $(document).ready(function() {
 
-            $("#addtest").submit(function(e) {
+            $("#addquestion").submit(function(e) {
                 e.preventDefault();
 
-                $.ajax({
-                    url: "{{ route('Test.store') }}",
-                    method: "POST",
-                    data: $(this).serialize(),
-                    success: function(data) {
-                        $("#modal-test").modal("hide");
+                if ($(".answers").length < 2) {
+                    $(".error").text("Please add minimum two answers !")
+                    setTimeout(function() {
+                        $(".error").text("")
+                    }, 2000);
+                } else {
+                    var checkIsCorrect = false;
+                    for (let i = 0; i < $(".is_correct").length; i++) {
+                        if ($(".is_correct:eq(" + i + ")").prop('checked') == true) {
+                            checkIsCorrect = true;
+                            $(".is_correct:eq(" + i + ")").val($(".is_correct:eq(" + i + ")").next().find(
+                                'input').val());
+                        }
+                    }
+                    if (checkIsCorrect) {
+                        var formData = $(this).serialize();
+
+                        $.ajax({
+                            url: "{{ route('Question.store') }}",
+                            method: "POST",
+                            data: formData,
+                            success: function(data) {
+                                if (data.success == true) {
+                                    location.reload();
+                                } else {
+                                    alert(data.msg);
+                                }
+                            },
+
+                        });
+                    } else {
+                        $(".error").text("Please select anyone correct answers !")
                         setTimeout(function() {
-                            location.reload();
-                        }, 1000);
-                        // Refresh the page or update the table with the new item
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                            $(".error").text("")
+                        }, 2000);
                     }
-                });
+
+                }
             });
 
-            //edit
-            $(".edittestbutton").click(function(e) {
+
+            $("#addAnswer").click(function(e) {
                 e.preventDefault();
 
-                var id = $(this).data("id");
+                if ($(".answers").length >= 16) {
+                    $(".error").text("You can add maximum 6 answers !")
+                    setTimeout(function() {
+                        $(".error").text("")
+                    }, 2000);
 
-                $("#edit_test_id").val(id);
-
-                var url = '{{ route('Test.edit', 'id') }}';
-                url = url.replace('id', id);
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    success: function(data) {
-                        if (data.success == true) {
-                            var test = data.data;
-                            $("#edit_test").val(test[0].name);
-                            $("#subject_id").val(test[0].subject_id);
-                            $("#date").val(test[0].date);
-                            $("#time").val(test[0].time);
-                            $("#attempt").val(test[0].attempt);
-                        } else {
-                            alert(data.msg);
-                        }
-                    },
-
-                });
+                } else {
+                    var html = `
+                <div class="row answers">
+                    <input type="radio" class="is_correct" name="is_correct">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="" name="answers[]"
+                                        placeholder="Enter Answer" required>
+                                </div>
+                            </div>
+                           <button class="btn btn-outline-danger btn-sm removeButton"> <i class="fas fa-trash-alt"></i></button>
+                        </div>
+                `;
+                    $(".modal-body").append(html);
+                }
             });
-            $("#edittestform").submit(function(e) {
+
+            $(document).on("click", ".removeButton", function() {
+                $(this).parent().remove();
+            });
+
+            $(".ansButton").click(function(e) {
                 e.preventDefault();
+                var questions = @json($questions);
 
-                var id = $("#edit_test_id").val();
-                var url = '{{ route('Test.update', 'id') }}';
-                url = url.replace('id', id);
+                var qid = $(this).attr('data-id');
+                var html = ``;
+                console.log(questions);
 
-                $.ajax({
-                    url: url,
-                    method: "POST",
-                    data: {
-                        _method: 'PUT', // or 'PATCH'
-                        _token: $('input[name="_token"]').val(),
-                        name: $("#edit_test").val(),
-                        subject_id: $("#subject_id").val(),
-                        date: $("#date").val(),
-                        time: $("#time").val(),
-                        attempt: $("#attempt").val(),
-                    },
-                    success: function(data) {
-                        if (data.success == true) {
-                            location.reload();
-                        } else {
-                            alert(data.msg);
+                for (let i = 0; i < questions.length; i++) {
+
+                    if (questions[i]['id'] == qid) {
+                        var answersLength = questions[i]['answers'].length;
+                        for (let j = 0; j < answersLength; j++) {
+                            let is_correct = 'No';
+                            if (questions[i]['answers'][j]['is_correct'] == 1) {
+                                is_correct = 'Yes';
+                            }
+                            html +=
+                                `
+                                <tr>
+                                    <td>` + (j + 1) + `</td>
+                                    <td>` + questions[i]['answers'][j]['answer'] + `</td>
+                                    <td>` + is_correct + `</td>
+                                </tr>
+                            `;
+
                         }
-
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
+                        break;
                     }
-                });
-            });
 
-            //delete
-            $(".deletetest").click(function(e) {
-                e.preventDefault();
+                }
 
-                var test_id = $(this).data("id");
+                $(".showanswers").html(html);
 
-                $("#delete_test_id").val(test_id);
-            });
-            $("#deletetest").submit(function(e) {
-                e.preventDefault();
-
-                var id = $("#delete_test_id").val();
-                var url = '{{ route('Test.destroy', 'id') }}';
-                url = url.replace('id', id);
-                $.ajax({
-                    url: url,
-                    method: "DELETE",
-                    data: {
-                        _token: $('input[name="_token"]').val(),
-                    },
-                    success: function(data) {
-                        if (data.success == true) {
-                            location.reload();
-                        } else {
-                            alert(data.msg);
-                        }
-                    },
-                });
             });
         });
-    </script> --}}
+    </script>
 @endsection
