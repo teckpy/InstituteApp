@@ -34,6 +34,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             $questionId = Question::insertGetId([
                 'question' => $request->question
@@ -64,12 +65,20 @@ class QuestionController extends Controller
         //
     }
 
+    public function removeAns(Request $request)
+    {
+        Answer::where('id',$request->id)->delete();
+        return response()->josn(['success' => true,'msg'=>'Answer Delete Successfully !']);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $qna = Question::where('id',$id)->with('answers')->get();
+
+        return response()->json(['data' => $qna]);
     }
 
     /**
@@ -77,7 +86,57 @@ class QuestionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        try {
+            \Log::info("message",$id);
+    Log::info('Update method called with ID: ' . $id);
+        Log::info('Request data: ' . json_encode($request->all()));
+
+            Question::where('id',$id)->update([
+                'question' => $request->question
+            ]);
+
+            if(isset($request->answers))
+            {
+                foreach ($request->answers as $key => $value) {
+                    $is_correct = 0;
+                    if($request->is_correct == $value)
+                    {
+                        $is_correct = 1;
+                    }
+
+                    Answer::where('id',$key)->update([
+                        'question_id' => $request->question_id,
+                        'answer' => $value,
+                        'is_correct' => $is_correct
+                    ]);
+                }
+
+            }
+
+            //// new answer
+
+            if(isset($request->new_answers))
+            {
+                foreach ($request->new_answers as $answer) {
+                    $is_correct = 0;
+                    if($request->is_correct == $answer)
+                    {
+                        $is_correct = 1;
+                    }
+
+                    Answer::insert([
+                        'question_id' => $request->question_id,
+                        'answer' => $value,
+                        'is_correct' => $is_correct
+                    ]);
+                }
+
+            }
+            return response()->json(['success' => true, 'msg' => 'Question & Answers Updated Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**

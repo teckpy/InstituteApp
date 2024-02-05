@@ -1,29 +1,30 @@
 @extends('Admin.Dashboard')
-@section('title')Add Header Content
+@section('title')Add Subjects
+@endsection
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Subject Form</h1>
-                    </div>
+                        <h1 class="m-0"></h1>
+                    </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                             <li class="breadcrumb-item active">Subject</li>
                         </ol>
-                    </div>
-                </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-        </section>
+        </div>
 
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
@@ -44,24 +45,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if (count($subjects) > 0)
                                         @foreach ($subjects as $item)
+                                        <tr>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->subject }}</td>
+                                            <td><span class="badge bg-warning">
+                                                    <a class="editSubjectbutton" href="javascript:void(0);"
+                                                        data-toggle="modal" data-target="#modal-editsubject"
+                                                        data-id="{{ $item->id }}"
+                                                        data-subject="{{ $item->subject }}">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a></span>
+                                                <span class="badge bg-danger"> <a class="deleteSubject"
+                                                    data-toggle="modal" data-target="#modal-delete"
+                                                        data-id="{{ $item->id }}" href="#"> <i
+                                                            class="fas fa-trash-alt"></i></a></span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                        @else
                                             <tr>
-                                                <td>{{ $item->id }}</td>
-                                                <td>{{ $item->subject }}</td>
-                                                <td><span class="badge bg-warning">
-                                                        <a class="editSubjectbutton" href="javascript:void(0);"
-                                                            data-toggle="modal" data-target="#modal-editsubject"
-                                                            data-id="{{ $item->id }}"
-                                                            data-subject="{{ $item->subject }}">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a></span>
-                                                    <span class="badge bg-danger"> <a class="deleteSubject"
-                                                        data-toggle="modal" data-target="#modal-delete"
-                                                            data-id="{{ $item->id }}" href="#"> <i
-                                                                class="fas fa-trash-alt"></i></a></span>
-                                                </td>
+                                                <td colspan="4"> Subject Data Not Found !</td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -86,7 +93,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="text" class="form-control" id="" name="subject"
-                                placeholder="Enter Subject Name">
+                                placeholder="Enter Subject Name" required>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -113,7 +120,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="edit_subject" name="subject">
+                            <input type="text" class="form-control" id="edit_subject" name="subject" required>
                             <input type="hidden" id="edit_subject_id" name="id">
                         </div>
                     </div>

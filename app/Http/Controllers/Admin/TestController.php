@@ -63,7 +63,7 @@ class TestController extends Controller
     public function update(Request $request,$id)
     {
         try {
-            \Log::info('Received ID for update: ' . $id);
+
             $test = Test::find($id);
             $test->name = $request->name;
             $test->subject_id = $request->subject_id;

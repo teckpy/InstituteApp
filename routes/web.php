@@ -43,3 +43,4 @@ Route::Post('/delete-subject',[SubjectController::class, 'destroy'])->name('dele
 
 Route::resource('Test', TestController::class);
 Route::resource('Question', QuestionController::class);
+Route::get('/delete-ans',[QuestionController::class,'removeAns'])->name('removeAns');

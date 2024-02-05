@@ -1,29 +1,30 @@
 @extends('Admin.Dashboard')
-@section('title')Add Header Content
+@section('title')Add Test
+@endsection
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-12">
-                        <h1>Test Form</h1>
-                    </div>
+                    <div class="col-sm-6">
+                        <h1 class="m-0"></h1>
+                    </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                             <li class="breadcrumb-item active">Test</li>
                         </ol>
-                    </div>
-                </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-        </section>
+        </div>
 
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
@@ -48,6 +49,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if (count($test) > 0)
                                         @foreach ($tests as $test)
                                             <tr>
                                                 <td>{{ $test->id }}</td>
@@ -68,6 +70,12 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+
+                                        @else
+                                            <tr>
+                                                <td colspan="4"> Test Data Not Found !</td>
+                                            </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -92,7 +100,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="text" class="form-control" id="" name="name"
-                                placeholder="Enter Test Name">
+                                placeholder="Enter Test Name" required>
                         </div>
                         <div class="form-group">
                             <select class="form-control" name="subject_id" required id="">
@@ -140,7 +148,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="edit_test" name="name">
+                            <input type="text" class="form-control" id="edit_test" name="name" required>
                             <input type="hidden" id="edit_test_id" name="id">
                         </div>
                         <div class="form-group">

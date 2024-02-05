@@ -1,29 +1,31 @@
 @extends('Admin.Dashboard')
-@section('title')Add Header Content
+@section('title')
+    Add Questionand Answers
+@endsection
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-12">
-                        <h1>Question Form</h1>
-                    </div>
+                    <div class="col-sm-6">
+                        <h1 class="m-0"></h1>
+                    </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Question</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item active">Questions</li>
                         </ol>
-                    </div>
-                </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-        </section>
+        </div>
 
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-12">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
@@ -57,12 +59,12 @@
                                                     </td>
                                                     <td>{{ $question->created_at }}</td>
                                                     <td><span class="badge bg-warning">
-                                                            <a class="edittestbutton" href="javascript:void(0);"
+                                                            <button class="editquestiontbutton" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-editqa"
                                                                 data-id="{{ $question->id }}"
                                                                 data-test="{{ $question->name }}">
                                                                 <i class="fas fa-edit"></i>
-                                                            </a></span>
+                                                            </button></span>
                                                         <span class="badge bg-danger"> <a class="deletetest"
                                                                 data-toggle="modal" data-target="#modal-delete"
                                                                 data-id="{{ $question->id }}" href="#"> <i
@@ -91,20 +93,22 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Create New Question</h4>
-                        <button id="addAnswer" class="btn btn-info">Add Answer</button>
+                        <button id="addAnswer" class="btn btn-info">Add
+                            Answer</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h4 class="modal-title">Create New Question</h4>
+
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body modalanswer">
 
                         <div class="form-group">
                             <input type="text" class="form-control" id="" name="question"
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                    <span class="error"></span>
+                    <span style="color: rgb(122, 8, 8)" class="error"></span>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
@@ -115,6 +119,44 @@
         </div>
         <!-- /Edit .modal-dialog -->
     </div>
+
+    {{-- Edit Qustion model --}}
+    <div class="modal fade" id="modal-editqa">
+        <div class="modal-dialog">
+            <form id="editquestion" method="POST">
+                @csrf
+                @method("PUT")
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button id="addeditAnswer" class="btn btn-info">Add
+                            Answer</button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h4 class="modal-title">Update Question & Answers</h4>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body editmodalanswer">
+
+                        <div class="form-group">
+                            <input type="hidden" id="question_id" name="question_id">
+                            <input type="text" class="form-control" id="question" name="question"
+                                placeholder="Enter Question" required>
+                        </div>
+                    </div>
+                    <span style="color: rgb(122, 8, 8)" class="editerror"></span>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark">Update</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /Edit .modal-dialog -->
+    </div>
+
+
     <div class="modal fade" id="modal-showAns">
         <div class="modal-dialog">
             <form id="">
@@ -138,10 +180,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <span class="error"></span>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Save</button>
+
                     </div>
                 </div>
             </form>
@@ -150,36 +190,6 @@
         <!-- /Edit .modal-dialog -->
     </div>
 
-    {{-- //dlete --}}
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Test</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="deletetest" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <p>Are you sure you want to delete this Test !</p>
-                            <input type="hidden" name="id" id="delete_test_id">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
     <script>
         $(document).ready(function() {
 
@@ -217,7 +227,7 @@
 
                         });
                     } else {
-                        $(".error").text("Please select anyone correct answers !")
+                        $(".error").text("     Please select anyone correct answers !")
                         setTimeout(function() {
                             $(".error").text("")
                         }, 2000);
@@ -226,11 +236,11 @@
                 }
             });
 
-
+            // add answer
             $("#addAnswer").click(function(e) {
                 e.preventDefault();
 
-                if ($(".answers").length >= 16) {
+                if ($(".answers").length >= 6) {
                     $(".error").text("You can add maximum 6 answers !")
                     setTimeout(function() {
                         $(".error").text("")
@@ -249,7 +259,7 @@
                            <button class="btn btn-outline-danger btn-sm removeButton"> <i class="fas fa-trash-alt"></i></button>
                         </div>
                 `;
-                    $(".modal-body").append(html);
+                    $(".modalanswer").append(html);
                 }
             });
 
@@ -263,7 +273,7 @@
 
                 var qid = $(this).attr('data-id');
                 var html = ``;
-                console.log(questions);
+
 
                 for (let i = 0; i < questions.length; i++) {
 
@@ -291,6 +301,153 @@
 
                 $(".showanswers").html(html);
 
+            });
+
+            //update answer
+            $("#addeditAnswer").click(function(e) {
+                e.preventDefault();
+
+                if ($(".editanswers").length >= 6) {
+                    $(".error").text("You can add maximum 6 answers !")
+                    setTimeout(function() {
+                        $(".error").text("")
+                    }, 2000);
+
+                } else {
+                    var html = `
+                <div class="row editanswers">
+                    <input type="radio"  class="edit_is_correct" name="edit_is_correct">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="" name="new_answers[]"
+                                        placeholder="Enter Answer" required>
+                                </div>
+                            </div>
+                           <button class="removeButton removeans"> <i class="fas fa-trash-alt"></i></button>
+                        </div>
+                `;
+                    $(".editmodalanswer").append(html);
+                }
+            });
+
+
+            /// edit question and answers ////
+            $(".editquestiontbutton").click(function(e) {
+                e.preventDefault();
+
+                var id = $(this).data("id");
+
+                var url = '{{ route('Question.edit', 'id') }}';
+                url = url.replace('id', id);
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function(data) {
+
+                        var qna = data.data[0];
+                        $("#question_id").val(qna['id']);
+                        $("#question").val(qna['question']);
+                        $(".editanswers").remove();
+
+                        var html = ``;
+                        for (let i = 0; i < qna['answers'].length; i++) {
+                            var checked = '';
+                            if (qna['answers'][i]["is_correct"] == 1) {
+                                checked = 'checked';
+                            }
+                            html +=
+                                `
+                                                <div class="row editanswers">
+                                                    <input type="radio" class="edit_is_correct" name="edit_is_correct" ` +
+                                checked + `>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control"  name="answers['${qna['answers'][i]['answer']}']"
+                                                            placeholder="Enter Answer" value="${qna['answers'][i]['answer']}" required>
+                                                    </div>
+                                                </div>
+                                            <button class="removeButton removeans" data-id="` + qna['answers'][i][
+                                    'id'
+                                ] + `"> <i class="fas fa-trash-alt"></i></button>
+                                                </div>
+                                            `;
+
+                        }
+                        $(".editmodalanswer").append(html);
+
+                    }
+
+                });
+            });
+            /////Remove answers///////
+            $(document).on('click', '.removeans', function() {
+                var ansId = $(this).attr('data-id');
+
+
+                $.ajax({
+                    url: "{{ route('removeAns') }}",
+                    type: "GET",
+                    data: {
+                        id: ansId
+                    },
+                    success: function(data) {
+                        if (data.success == true) {
+
+                        }
+                    }
+                });
+            });
+
+
+            /////// update question answer
+            $("#editquestion").submit(function(e) {
+                e.preventDefault();
+
+                if ($(".editanswers").length < 2) {
+                    $(".editerror").text("Please add minimum two answers !")
+                    setTimeout(function() {
+                        $(".editerror").text("")
+                    }, 2000);
+                } else {
+                    var checkIsCorrect = false;
+                    for (let i = 0; i < $(".edit_is_correct").length; i++) {
+                        if ($(".edit_is_correct:eq(" + i + ")").prop('checked') == true) {
+                            checkIsCorrect = true;
+                            $(".edit_is_correct:eq(" + i + ")").val($(".edit_is_correct:eq(" + i + ")")
+                                .next().find(
+                                    'input').val());
+                        }
+                    }
+
+                    if (checkIsCorrect) {
+                        var formData = $(this).serialize();
+
+                        var id = $("#question_id").val();
+                        var url = '{{ route('Question.update', 'id') }}';
+                        url = url.replace('id', id);
+
+                        $.ajax({
+                            url: url,
+                            method: "PUT",
+                            data: $(this).serialize(),
+                            success: function(data) {
+                                if (data.success == true) {
+                                    location.reload();
+
+                                } else {
+                                    alert(data.msg);
+                                }
+                            },
+
+                        });
+                    } else {
+                        $(".editerror").text(" Please select anyone correct answers !")
+                        setTimeout(function() {
+                            $(".editerror").text("")
+                        }, 2000);
+                    }
+
+                }
             });
         });
     </script>
