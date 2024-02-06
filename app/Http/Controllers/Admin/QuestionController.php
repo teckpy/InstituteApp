@@ -88,9 +88,6 @@ class QuestionController extends Controller
     {
 
         try {
-            \Log::info("message",$id);
-    Log::info('Update method called with ID: ' . $id);
-        Log::info('Request data: ' . json_encode($request->all()));
 
             Question::where('id',$id)->update([
                 'question' => $request->question
@@ -98,14 +95,15 @@ class QuestionController extends Controller
 
             if(isset($request->answers))
             {
+
                 foreach ($request->answers as $key => $value) {
                     $is_correct = 0;
-                    if($request->is_correct == $value)
-                    {
+
+                    if ($request->is_correct === $value) {
                         $is_correct = 1;
                     }
 
-                    Answer::where('id',$key)->update([
+                    Answer::where('id', $key)->update([
                         'question_id' => $request->question_id,
                         'answer' => $value,
                         'is_correct' => $is_correct
@@ -113,7 +111,6 @@ class QuestionController extends Controller
                 }
 
             }
-
             //// new answer
 
             if(isset($request->new_answers))
@@ -127,7 +124,7 @@ class QuestionController extends Controller
 
                     Answer::insert([
                         'question_id' => $request->question_id,
-                        'answer' => $value,
+                        'answer' => $answer,
                         'is_correct' => $is_correct
                     ]);
                 }
@@ -142,8 +139,10 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,string $id)
     {
-        //
+        Question::where('id',$id)->delete();
+        Answer::where('question_id',$request->question_id)->delete();
+        return response()->json(['success' => true, 'msg' => 'Question & Answers Deleted Successfully']);
     }
 }

@@ -65,7 +65,7 @@
                                                                 data-test="{{ $question->name }}">
                                                                 <i class="fas fa-edit"></i>
                                                             </button></span>
-                                                        <span class="badge bg-danger"> <a class="deletetest"
+                                                        <span class="badge bg-danger"> <a class="deletequestion"
                                                                 data-toggle="modal" data-target="#modal-delete"
                                                                 data-id="{{ $question->id }}" href="#"> <i
                                                                     class="fas fa-trash-alt"></i></a></span>
@@ -108,7 +108,10 @@
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                    <span style="color: rgb(122, 8, 8)" class="error"></span>
+                    <div class="modal-footer justify-content-between">
+                        <span style="color: rgb(122, 8, 8)" class="error"></span>
+
+                    </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
@@ -125,7 +128,7 @@
         <div class="modal-dialog">
             <form id="editquestion" method="POST">
                 @csrf
-                @method("PUT")
+                @method('PUT')
                 <div class="modal-content">
                     <div class="modal-header">
                         <button id="addeditAnswer" class="btn btn-info">Add
@@ -144,10 +147,14 @@
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                    <span style="color: rgb(122, 8, 8)" class="editerror"></span>
+
+                    <div class="modal-footer justify-content-between">
+                        <span style="color: rgb(122, 8, 8)" class="editerror"></span>
+
+                    </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Update</button>
+                        <button type="submit" class="btn btn-dark">Save</button>
                     </div>
                 </div>
             </form>
@@ -189,7 +196,37 @@
         </div>
         <!-- /Edit .modal-dialog -->
     </div>
+    <div class="modal fade" id="modal-delete">
+        <div class="modal-dialog">
+            <form id="deletequestion">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modalanswer">
 
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" id="delete_qna">
+                            <p>Are you sure you want to delete delete Question and Answers !</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <span style="color: rgb(122, 8, 8)" class="error"></span>
+
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark">Delete</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /Edit .modal-dialog -->
+    </div>
     <script>
         $(document).ready(function() {
 
@@ -303,32 +340,6 @@
 
             });
 
-            //update answer
-            $("#addeditAnswer").click(function(e) {
-                e.preventDefault();
-
-                if ($(".editanswers").length >= 6) {
-                    $(".error").text("You can add maximum 6 answers !")
-                    setTimeout(function() {
-                        $(".error").text("")
-                    }, 2000);
-
-                } else {
-                    var html = `
-                <div class="row editanswers">
-                    <input type="radio"  class="edit_is_correct" name="edit_is_correct">
-                            <div class="col">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="" name="new_answers[]"
-                                        placeholder="Enter Answer" required>
-                                </div>
-                            </div>
-                           <button class="removeButton removeans"> <i class="fas fa-trash-alt"></i></button>
-                        </div>
-                `;
-                    $(".editmodalanswer").append(html);
-                }
-            });
 
 
             /// edit question and answers ////
@@ -358,7 +369,7 @@
                             html +=
                                 `
                                                 <div class="row editanswers">
-                                                    <input type="radio" class="edit_is_correct" name="edit_is_correct" ` +
+                                                    <input type="radio" class="edit_is_correct" name="is_correct" ` +
                                 checked + `>
                                                 <div class="col">
                                                     <div class="form-group">
@@ -379,6 +390,35 @@
 
                 });
             });
+
+            //update answer
+            $("#addeditAnswer").click(function(e) {
+                e.preventDefault();
+
+                if ($(".editanswers").length >= 6) {
+                    $(".editerror").text("You can add maximum 6 answers !")
+                    setTimeout(function() {
+                        $(".editerror").text("")
+                    }, 2000);
+
+                } else {
+                    var html = `
+                <div class="row editanswers">
+                    <input type="radio"  class="
+                    edit_is_correct" name="is_correct">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"  name="new_answers[]"
+                                        placeholder="Enter Answer" required>
+                                </div>
+                            </div>
+                           <button class="removeButton removeans"> <i class="fas fa-trash-alt"></i></button>
+                        </div>
+                `;
+                    $(".editmodalanswer").append(html);
+                }
+            });
+
             /////Remove answers///////
             $(document).on('click', '.removeans', function() {
                 var ansId = $(this).attr('data-id');
@@ -429,8 +469,9 @@
                         $.ajax({
                             url: url,
                             method: "PUT",
-                            data: $(this).serialize(),
+                            data: formData,
                             success: function(data) {
+                                console.log(data);
                                 if (data.success == true) {
                                     location.reload();
 
@@ -448,6 +489,31 @@
                     }
 
                 }
+            });
+
+
+            $(".deletequestion").click(function() {
+                var id = $(this).attr('data-id');
+                $(".delete_qna").val(id);
+            });
+
+            $("#deletequestion").submit(function() {
+                e.preventDefault();
+                var formData = $(this).serialize();
+
+                var id =  $(".delete_qna").val();
+                var url = '{{ route('Question.destroy', 'id') }}';
+                url = url.replace('id', id);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    success: function(data) {
+                        if (data.success == true) {
+                            location.reload();
+                        }
+                    }
+                });
             });
         });
     </script>
