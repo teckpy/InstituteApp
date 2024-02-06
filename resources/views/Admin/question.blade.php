@@ -125,7 +125,7 @@
         <div class="modal-dialog">
             <form id="editquestion" method="POST">
                 @csrf
-                @method("PUT")
+                @method('PUT')
                 <div class="modal-content">
                     <div class="modal-header">
                         <button id="addeditAnswer" class="btn btn-info">Add
@@ -319,7 +319,7 @@
                     <input type="radio"  class="edit_is_correct" name="edit_is_correct">
                             <div class="col">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="" name="new_answers[]"
+                                    <input type="text" class="form-control"  name="new_answers[]"
                                         placeholder="Enter Answer" required>
                                 </div>
                             </div>
@@ -358,8 +358,7 @@
                             html +=
                                 `
                                                 <div class="row editanswers">
-                                                    <input type="radio" class="edit_is_correct" name="edit_is_correct" ` +
-                                checked + `>
+                                                    <input type="radio" class="edit_is_correct" name="edit_is_correct" ` + checked + `>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"  name="answers['${qna['answers'][i]['answer']}']"
@@ -421,15 +420,15 @@
 
                     if (checkIsCorrect) {
                         var formData = $(this).serialize();
-
                         var id = $("#question_id").val();
                         var url = '{{ route('Question.update', 'id') }}';
                         url = url.replace('id', id);
 
                         $.ajax({
                             url: url,
-                            method: "PUT",
-                            data: $(this).serialize(),
+                            method: "POST",
+                            data: formData,
+                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // Set content type
                             success: function(data) {
                                 if (data.success == true) {
                                     location.reload();

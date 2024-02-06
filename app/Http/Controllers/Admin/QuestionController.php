@@ -8,7 +8,7 @@ use App\Models\Admin\Subject;
 use App\Models\Admin\Test;
 use App\Models\Admin\Answer;
 use App\Models\Admin\Question;
-
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -88,30 +88,42 @@ class QuestionController extends Controller
     {
 
         try {
-            \Log::info("message",$id);
-    Log::info('Update method called with ID: ' . $id);
-        Log::info('Request data: ' . json_encode($request->all()));
 
             Question::where('id',$id)->update([
                 'question' => $request->question
             ]);
 
             if(isset($request->answers))
+            \Log::info('Request Data:', $request->all());
             {
                 foreach ($request->answers as $key => $value) {
-                    $is_correct = 0;
-                    if($request->is_correct == $value)
-                    {
-                        $is_correct = 1;
+                    $edit_is_correct = 0;
+
+                    \Log::info('Processing answer:', [
+                        'key' => $key,
+                        'value' => $value,
+                        'edit_is_correct' => $request->edit_is_correct,
+                        'edit_is_correct_value' => $request->edit_is_correct == $value,
+                    ]);
+
+                    // Check if edit_is_correct is not null and matches the current answer
+                    if (!is_null($request->edit_is_correct) && $request->edit_is_correct == $value) {
+                        $edit_is_correct = 1;
                     }
 
-                    Answer::where('id',$key)->update([
+                    \Log::info('Condition check:', [
+                        'edit_is_correct' => $request->edit_is_correct,
+                        'value' => $value,
+                        'comparison_result' => $request->edit_is_correct == $value,
+                    ]);
+
+
+                    Answer::where('id', $key)->update([
                         'question_id' => $request->question_id,
                         'answer' => $value,
-                        'is_correct' => $is_correct
+                        'is_correct' => $edit_is_correct
                     ]);
                 }
-
             }
 
             //// new answer
@@ -119,16 +131,16 @@ class QuestionController extends Controller
             if(isset($request->new_answers))
             {
                 foreach ($request->new_answers as $answer) {
-                    $is_correct = 0;
-                    if($request->is_correct == $answer)
+                    $edit_is_correct = 0;
+                    if($request->edit_is_correct == $answer)
                     {
-                        $is_correct = 1;
+                        $edit_is_correct = 1;
                     }
 
                     Answer::insert([
                         'question_id' => $request->question_id,
-                        'answer' => $value,
-                        'is_correct' => $is_correct
+                        'answer' => $answer,
+                        'is_correct' => $edit_is_correct
                     ]);
                 }
 

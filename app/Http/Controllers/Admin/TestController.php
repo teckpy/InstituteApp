@@ -84,7 +84,6 @@ class TestController extends Controller
     public function destroy(string $id)
     {
         try {
-            \Log::info('Received ID for delete: ' . $id);
             Test::where('id',$id)->delete();
             return response()->json(['success' => true, 'msg' => 'Subject Delete Successfully']);
         } catch (\Exception $e) {
