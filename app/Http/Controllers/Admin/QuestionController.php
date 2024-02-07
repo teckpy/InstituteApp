@@ -95,6 +95,7 @@ class QuestionController extends Controller
             ]);
 
             if(isset($request->answers))
+<<<<<<< HEAD
 
             {
                 foreach ($request->answers as $answerId  => $value) {
@@ -121,11 +122,26 @@ class QuestionController extends Controller
                         } else {
                             Log::error("Answer with ID $answerId not found.");
                         }
+=======
+            {
+
+                foreach ($request->answers as $key => $value) {
+                    $is_correct = 0;
+
+                    if ($request->is_correct === $value) {
+                        $is_correct = 1;
+                    }
+
+                    Answer::where('id', $key)->update([
+                        'question_id' => $request->question_id,
+                        'answer' => $value,
+                        'is_correct' => $is_correct
+                    ]);
+>>>>>>> cd816db6f17cb9c01d5f4fae33bdfc23800be9a0
                 }
 
 
             }
-
             //// new answer
 
             if(isset($request->new_answers))
@@ -154,8 +170,9 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request,string $id)
     {
+<<<<<<< HEAD
         try {
             Answer::where('question_id', $id)->delete();
 
@@ -169,5 +186,10 @@ class QuestionController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
+=======
+        Question::where('id',$id)->delete();
+        Answer::where('question_id',$request->question_id)->delete();
+        return response()->json(['success' => true, 'msg' => 'Question & Answers Deleted Successfully']);
+>>>>>>> cd816db6f17cb9c01d5f4fae33bdfc23800be9a0
     }
 }
