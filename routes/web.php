@@ -40,6 +40,9 @@ Route::middleware([
     Route::get('/delete-ans',[QuestionController::class,'removeAns'])->name('removeAns');
     Route::POST('/import-qna',[QuestionController::class,'import'])->name('import');
 
+    Route::get('/get-questions',[QuestionController::class,'getQuestion'])->name('getQuestion');
+    Route::POST('/add-qna',[QuestionController::class,'addQuestion'])->name('addQuestion');
+
 });
 
 

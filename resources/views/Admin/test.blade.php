@@ -1,5 +1,6 @@
 @extends('Admin.Dashboard')
-@section('title')Add Test
+@section('title')
+    Add Test
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -45,32 +46,42 @@
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Attempt</th>
+                                            <th>Add Answer</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if (count($tests) > 0)
-                                        @foreach ($tests as $test)
-                                            <tr>
-                                                <td>{{ $test->id }}</td>
-                                                <td>{{ $test->name }}</td>
-                                                <td>{{ $test->subject[0]['subject'] }}</td>
-                                                <td>{{ $test->date }}</td>
-                                                <td>{{ $test->time }}</td>
-                                                <td>{{ $test->attempt }}</td>
-                                                <td><span class="badge bg-warning">
-                                                        <a class="edittestbutton" href="javascript:void(0);"
-                                                            data-toggle="modal" data-target="#modal-edittest"
-                                                            data-id="{{ $test->id }}" data-test="{{ $test->name }}">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a></span>
-                                                    <span class="badge bg-danger"> <a class="deletetest" data-toggle="modal"
-                                                            data-target="#modal-delete" data-id="{{ $test->id }}"
-                                                            href="#"> <i class="fas fa-trash-alt"></i></a></span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
+                                            @foreach ($tests as $test)
+                                                <tr>
+                                                    <td>{{ $test->id }}</td>
+                                                    <td>{{ $test->name }}</td>
+                                                    <td>{{ $test->subject[0]['subject'] }}</td>
+                                                    <td>{{ $test->date }}</td>
+                                                    <td>{{ $test->time }}</td>
+                                                    <td>{{ $test->attempt }}</td>
+                                                    <td>
+                                                        <span class="badge bg-success">
+                                                            <a class="Addquestions" href="javascript:void(0);"
+                                                                data-toggle="modal" data-target="#modal-AddAnswer"
+                                                                data-id="{{ $test->id }}">
+                                                                <i class="fas fa-plus"></i>
+                                                            </a></span>
+                                                    </td>
+                                                    <td><span class="badge bg-warning">
+                                                            <a class="edittestbutton" href="javascript:void(0);"
+                                                                data-toggle="modal" data-target="#modal-edittest"
+                                                                data-id="{{ $test->id }}"
+                                                                data-test="{{ $test->name }}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a></span>
+                                                        <span class="badge bg-danger"> <a class="deletetest"
+                                                                data-toggle="modal" data-target="#modal-delete"
+                                                                data-id="{{ $test->id }}" href="#"> <i
+                                                                    class="fas fa-trash-alt"></i></a></span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @else
                                             <tr>
                                                 <td colspan="4"> Test Data Not Found !</td>
@@ -120,7 +131,8 @@
                             <input type="time" class="form-control" id="" name="time" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" min="1" placeholder="Enter Exam Attempt Time" id="" name="attempt" required>
+                            <input type="number" class="form-control" min="1" placeholder="Enter Exam Attempt Time"
+                                id="" name="attempt" required>
                         </div>
 
                     </div>
@@ -169,7 +181,8 @@
                             <input type="time" class="form-control" id="time" name="time" required>
                         </div>
                         <div class="form-group">
-                            <input type="number" min="1"  class="form-control" id="attempt" name="attempt" required>
+                            <input type="number" min="1" class="form-control" id="attempt" name="attempt"
+                                required>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -213,6 +226,45 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
+    </div>
+    {{-- Add Answer model --}}
+    <div class="modal fade" id="modal-AddAnswer">
+        <div class="modal-dialog">
+            <form id="AddQNA">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Question Answers</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control"  id="examId" name="examId">
+                            <input type="search" name="search" class="form-control w-100" placeholder="Search here">
+                        </div>
+                        <div class="form-group">
+                            <table>
+                                <thead>
+                                    <th>Select</th>
+                                    <th>Question</th>
+                                </thead>
+                                <tbody class="addBody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-dark">Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /Edit .modal-dialog -->
     </div>
     <script>
         $(document).ready(function() {
@@ -327,6 +379,74 @@
                     },
                 });
             });
+
+            // Add question //
+            $(".Addquestions").click(function(e) {
+                e.preventDefault();
+
+                var id = $(this).attr("data-id");
+                $("#examId").val(id);
+
+                $.ajax({
+                    url: "{{ route('getQuestion') }}",
+                    method: "GET",
+                    data: {
+                        examId: id
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if (data.success == true) {
+                            var questions = data.data;
+                            var html = ``;
+
+                            if (questions.length > 0) {
+                                for (let i = 0; i < questions.length; i++) {
+                                    html += `
+                                    <tr>
+                                    <td><input type="checkbox" value="` + questions[i]['id'] + `" name="questions_ids[]"></td>   
+                                    <td>` + questions[i]['question'] + `</td>     
+                                    </tr>
+                                    `;
+                                }
+                            } else {
+                                html += `
+                            <tr>
+                            <td colspan="2">Question not found !</td>    
+                            </tr>
+                            `;
+                            }
+                            $('.addBody').html(html);
+                        } else {
+                            alert(data.msg);
+                        }
+                    },
+                });
+
+            });
+
+
+            $("#AddQNA").submit(function(e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: "{{ route('addQuestion') }}",
+                    method: "POST",
+                    data: formData,
+                    success: function(data) {
+                       console.log(data);
+                        setTimeout(function() {
+                           location.reload();
+                        }, 1000);
+                        // Refresh the page or update the table with the new item
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+
         });
     </script>
 @endsection

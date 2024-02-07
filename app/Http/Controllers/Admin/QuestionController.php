@@ -8,10 +8,11 @@ use App\Models\Admin\Subject;
 use App\Models\Admin\Test;
 use App\Models\Admin\Answer;
 use App\Models\Admin\Question;
+use App\Models\Admin\QueExam;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\UsersImport;
+
+
 
 class QuestionController extends Controller
 {
@@ -172,19 +173,70 @@ class QuestionController extends Controller
         }
     }
 
-    public function import(Request $request)
+    public function getQuestion(Request $request)
     {
+        
         try {
-            \Log::info('File content:', ['content' => substr($request->file('file')->get(), 0, 200)]);
+            $questions = Question::all();           
 
-            Excel::import(new UsersImport, $request->file('file'));
-            return response()->json(['success' => true, 'msg' => 'Import Question and Answers Successfully !']);
+            if (count($questions) > 0) {
+
+                $data = [];
+                $counter = 0;
+
+                foreach($questions as $question)
+                {
+                    $qnaExam = QueExam::where(['exam_id' => $request->examId, 'question_id' => $question->id])->get();
+
+
+
+                  if($qnaExam->isEmpty())
+                  {
+                    $data[$counter]['id'] = $question->id;
+                    $data[$counter]['question'] = $question->question;
+
+                    $counter++;
+                  }
+                  else
+                  {
+
+                  }
+                }
+
+                return response()->json(['success' => true, 'msg' => 'Question data','data'=>$data]);
+                
+            }
+            else
+            {
+                return response()->json(['success' => false, 'msg' => 'Question not found']);
+            }
+
         } catch (\Exception $e) {
-            \Log::error('Import error:', ['message' => $e->getMessage(), 'trace' => $e->getTrace()]);
-            return response()->json(['success' => false, 'msg' => 'Error during import. Check the server logs for details.']);
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
     }
 
+    public function addQuestion(Request $request)
+    {
+        \Log::info("message".$request->examId);
+        try {
 
-
+            if(isset($request->questions_ids))
+            {
+                foreach($request->questions_ids as $qid)
+                {
+                    QueExam::insert([
+                        'exam_id' => $request->examId,
+                        'question_id' => $qid
+                    ]);
+                }
+            }
+            
+                return response()->json(['success' => false, 'msg' => 'Question not found']);
+            }
+         catch (\Exception $e) 
+        {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
+    }
 }

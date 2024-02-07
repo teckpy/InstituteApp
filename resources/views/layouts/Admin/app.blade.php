@@ -35,6 +35,12 @@
     <link rel="stylesheet" href="{{ asset('Admin/plugins/summernote/summernote-bs4.min.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('Admin/js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('Admin/js/multiselect-dropdown.js') }}"></script>
+    <style>
+        .multiselect-dropdown{
+            width: 100% !important;
+        }
+    </style>
 
 
 </head>
