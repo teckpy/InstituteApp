@@ -309,7 +309,7 @@
             $("#addAnswer").click(function(e) {
                 e.preventDefault();
 
-                if ($(".answers").length >= 6) {
+                if ($(".answers").length >= 4) {
                     $(".error").text("You can add maximum 6 answers !")
                     setTimeout(function() {
                         $(".error").text("")
@@ -373,7 +373,7 @@
             $("#addeditAnswer").click(function(e) {
                 e.preventDefault();
 
-                if ($(".editanswers").length >= 6) {
+                if ($(".editanswers").length >= 4) {
                     $(".editerror").text("You can add maximum 6 answers !")
                     setTimeout(function() {
                         $(".editerror").text("")
