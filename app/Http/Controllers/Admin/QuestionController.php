@@ -94,34 +94,19 @@ class QuestionController extends Controller
             ]);
 
             if(isset($request->answers))
-            \Log::info('Request Data:', $request->all());
+
             {
                 foreach ($request->answers as $key => $value) {
-                    $edit_is_correct = 0;
+                    $is_correct = 0;
 
-                    \Log::info('Processing answer:', [
-                        'key' => $key,
-                        'value' => $value,
-                        'edit_is_correct' => $request->edit_is_correct,
-                        'edit_is_correct_value' => $request->edit_is_correct == $value,
-                    ]);
-
-                    // Check if edit_is_correct is not null and matches the current answer
-                    if (!is_null($request->edit_is_correct) && $request->edit_is_correct == $value) {
-                        $edit_is_correct = 1;
+                    if (!is_null($request->is_correct) && $request->is_correct == $value) {
+                        $is_correct = 1;
                     }
-
-                    \Log::info('Condition check:', [
-                        'edit_is_correct' => $request->edit_is_correct,
-                        'value' => $value,
-                        'comparison_result' => $request->edit_is_correct == $value,
-                    ]);
-
 
                     Answer::where('id', $key)->update([
                         'question_id' => $request->question_id,
                         'answer' => $value,
-                        'is_correct' => $edit_is_correct
+                        'is_correct' => $is_correct
                     ]);
                 }
             }

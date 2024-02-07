@@ -49,7 +49,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (count($test) > 0)
+                                        @if (count($tests) > 0)
                                         @foreach ($tests as $test)
                                             <tr>
                                                 <td>{{ $test->id }}</td>

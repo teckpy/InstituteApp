@@ -59,12 +59,12 @@
                                                     </td>
                                                     <td>{{ $question->created_at }}</td>
                                                     <td><span class="badge bg-warning">
-                                                            <button class="editquestiontbutton" href="javascript:void(0);"
+                                                            <a class="editquestiontbutton" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-editqa"
                                                                 data-id="{{ $question->id }}"
                                                                 data-test="{{ $question->name }}">
                                                                 <i class="fas fa-edit"></i>
-                                                            </button></span>
+                                                    </a></span>
                                                         <span class="badge bg-danger"> <a class="deletetest"
                                                                 data-toggle="modal" data-target="#modal-delete"
                                                                 data-id="{{ $question->id }}" href="#"> <i
@@ -358,7 +358,8 @@
                             html +=
                                 `
                                                 <div class="row editanswers">
-                                                    <input type="radio" class="edit_is_correct" name="edit_is_correct" ` + checked + `>
+                                                    <input type="radio" class="edit_is_correct" name="edit_is_correct" ` +
+                                checked + `>
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"  name="answers['${qna['answers'][i]['answer']}']"
