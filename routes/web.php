@@ -38,6 +38,7 @@ Route::middleware([
     Route::resource('Test', TestController::class);
     Route::resource('Question', QuestionController::class);
     Route::get('/delete-ans',[QuestionController::class,'removeAns'])->name('removeAns');
+    Route::POST('/import-qna',[QuestionController::class,'import'])->name('import');
 
 });
 

@@ -10,6 +10,8 @@ use App\Models\Admin\Answer;
 use App\Models\Admin\Question;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\UsersImport;
 
 class QuestionController extends Controller
 {
@@ -169,4 +171,20 @@ class QuestionController extends Controller
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
     }
+
+    public function import(Request $request)
+    {
+        try {
+            \Log::info('File content:', ['content' => substr($request->file('file')->get(), 0, 200)]);
+
+            Excel::import(new UsersImport, $request->file('file'));
+            return response()->json(['success' => true, 'msg' => 'Import Question and Answers Successfully !']);
+        } catch (\Exception $e) {
+            \Log::error('Import error:', ['message' => $e->getMessage(), 'trace' => $e->getTrace()]);
+            return response()->json(['success' => false, 'msg' => 'Error during import. Check the server logs for details.']);
+        }
+    }
+
+
+
 }

@@ -33,6 +33,10 @@
                                         data-target="#modal-question">
                                         New
                                     </button>
+                                    <span> <button type="button" class="btn btn-info" data-toggle="modal"
+                                            data-target="#modal-import">
+                                            import
+                                        </button></span>
                                 </h3>
                             </div>
                             <div class="card-body">
@@ -222,9 +226,41 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <div class="modal fade" id="modal-import">
+        <div class="modal-dialog">
+            <form id="import" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import New Question and Answers !</h4>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="file" id="file" name="file"required
+                                accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms.excel">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Import</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /Edit .modal-dialog -->
+    </div>
     <script>
         $(document).ready(function() {
 
+
+
+            /////// Add  question answer /////
             $("#addquestion").submit(function(e) {
                 e.preventDefault();
 
@@ -268,7 +304,8 @@
                 }
             });
 
-            // add answer
+
+            // add answer //
             $("#addAnswer").click(function(e) {
                 e.preventDefault();
 
@@ -295,6 +332,8 @@
                 }
             });
 
+
+            /////// Remove Answer /////
             $(document).on("click", ".removeButton", function() {
                 $(this).parent().remove();
             });
@@ -330,7 +369,7 @@
             });
 
 
-            //update answer
+            // Add New  answer When update //
             $("#addeditAnswer").click(function(e) {
                 e.preventDefault();
 
@@ -427,9 +466,7 @@
                     }
                 });
             });
-
-
-            /////// update question answer
+            /////// update question answer ///////
             $("#editquestion").submit(function(e) {
                 e.preventDefault();
 
@@ -479,6 +516,8 @@
                 }
             });
 
+
+            /////// Delete  question answer /////
             $(".deleteQNA").click(function() {
                 var id = $(this).attr('data-id');
                 $("#delete_QNA_id").val(id);
@@ -502,6 +541,40 @@
                 });
             });
 
+
+            /////// Import  question answer /////
+            $("#import").submit(function(e) {
+                e.preventDefault();
+
+                let formData = new FormData();
+                let fileInput = $("#file");
+
+                if (fileInput[0].files.length > 0) {
+                    formData.append('file', fileInput[0].files[0]);
+
+                    $.ajaxSetup({
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        }
+                    });
+                    $.ajax({
+                        url: "{{ route('import') }}",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.success == true) {
+                                location.reload();
+                            }
+                        }
+                    });
+
+                } else {
+
+                    console.error("Please select a file");
+                }
+            });
         });
     </script>
 @endsection
