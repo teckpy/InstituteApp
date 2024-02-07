@@ -9,6 +9,7 @@ use App\Models\Admin\Test;
 use App\Models\Admin\Answer;
 use App\Models\Admin\Question;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
@@ -17,7 +18,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::with('answers')->get();
+        $questions = Question::with('answers')->latest()->get();
         return view('Admin.question', compact('questions'));
     }
 
@@ -96,19 +97,33 @@ class QuestionController extends Controller
             if(isset($request->answers))
 
             {
-                foreach ($request->answers as $key => $value) {
+                foreach ($request->answers as $answerId  => $value) {
                     $is_correct = 0;
 
                     if (!is_null($request->is_correct) && $request->is_correct == $value) {
                         $is_correct = 1;
-                    }
+                        }
 
-                    Answer::where('id', $key)->update([
-                        'question_id' => $request->question_id,
-                        'answer' => $value,
-                        'is_correct' => $is_correct
-                    ]);
+                        $answer = Answer::find((int)$answerId);
+
+
+                        if ($answer) {
+                            $answer->question_id = $request->question_id;
+                            $answer->answer = $value;
+                            $answer->is_correct = $is_correct;
+
+                            // Save the model
+                            if ($answer->save()) {
+                                Log::info("Answer with ID $answerId updated successfully.");
+                            } else {
+                                Log::error("Failed to update answer with ID $answerId.");
+                            }
+                        } else {
+                            Log::error("Answer with ID $answerId not found.");
+                        }
                 }
+
+
             }
 
             //// new answer
@@ -116,16 +131,16 @@ class QuestionController extends Controller
             if(isset($request->new_answers))
             {
                 foreach ($request->new_answers as $answer) {
-                    $edit_is_correct = 0;
-                    if($request->edit_is_correct == $answer)
+                    $is_correct = 0;
+                    if($request->is_correct == $answer)
                     {
-                        $edit_is_correct = 1;
+                        $is_correct = 1;
                     }
 
                     Answer::insert([
                         'question_id' => $request->question_id,
                         'answer' => $answer,
-                        'is_correct' => $edit_is_correct
+                        'is_correct' => $is_correct
                     ]);
                 }
 
@@ -141,6 +156,18 @@ class QuestionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Answer::where('question_id', $id)->delete();
+
+            $question = Question::find($id);
+            if ($question) {
+                $question->delete();
+                return response()->json(['success' => true, 'msg' => 'Question & Answers Deleted Successfully']);
+            } else {
+                return response()->json(['success' => false, 'msg' => 'Question not found']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 }

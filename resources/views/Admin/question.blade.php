@@ -64,9 +64,9 @@
                                                                 data-id="{{ $question->id }}"
                                                                 data-test="{{ $question->name }}">
                                                                 <i class="fas fa-edit"></i>
-                                                    </a></span>
-                                                        <span class="badge bg-danger"> <a class="deletetest"
-                                                                data-toggle="modal" data-target="#modal-delete"
+                                                            </a></span>
+                                                        <span class="badge bg-danger"> <a class="deleteQNA"
+                                                                data-toggle="modal" data-target="#modal-deleteQ"
                                                                 data-id="{{ $question->id }}" href="#"> <i
                                                                     class="fas fa-trash-alt"></i></a></span>
                                                     </td>
@@ -108,7 +108,9 @@
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                    <span style="color: rgb(122, 8, 8)" class="error"></span>
+                    <div class="modal-footer justify-content-between">
+                        <span style="color: rgb(122, 8, 8)" class="error"></span>
+                    </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
@@ -125,7 +127,6 @@
         <div class="modal-dialog">
             <form id="editquestion" method="POST">
                 @csrf
-                @method('PUT')
                 <div class="modal-content">
                     <div class="modal-header">
                         <button id="addeditAnswer" class="btn btn-info">Add
@@ -144,7 +145,9 @@
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                    <span style="color: rgb(122, 8, 8)" class="editerror"></span>
+                    <div class="modal-footer justify-content-between">
+                        <span style="color: rgb(122, 8, 8)" class="editerror"></span>
+                    </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Update</button>
@@ -189,7 +192,36 @@
         </div>
         <!-- /Edit .modal-dialog -->
     </div>
+    {{-- //dlete --}}
+    <div class="modal fade" id="modal-deleteQ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Question & Answers !</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="deleteQA" action="javascript:void(0);">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <p>Are you sure you want to delete this Question & Answers !</p>
+                            <input type="hidden" name="id" id="delete_QNA_id">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
 
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <script>
         $(document).ready(function() {
 
@@ -274,56 +306,51 @@
                 var qid = $(this).attr('data-id');
                 var html = ``;
 
-
                 for (let i = 0; i < questions.length; i++) {
-
                     if (questions[i]['id'] == qid) {
                         var answersLength = questions[i]['answers'].length;
                         for (let j = 0; j < answersLength; j++) {
-                            let is_correct = 'No';
-                            if (questions[i]['answers'][j]['is_correct'] == 1) {
-                                is_correct = 'Yes';
-                            }
+                            let is_correct = questions[i]['answers'][j]['is_correct'] == 1;
+                            let badgeClass = is_correct ? 'badge badge-success' : 'badge badge-danger';
+
                             html +=
                                 `
-                                <tr>
-                                    <td>` + (j + 1) + `</td>
-                                    <td>` + questions[i]['answers'][j]['answer'] + `</td>
-                                    <td>` + is_correct + `</td>
-                                </tr>
-                            `;
-
+                    <tr>
+                        <td>` + (j + 1) + `</td>
+                        <td>` + questions[i]['answers'][j]['answer'] + `</td>
+                        <td><span class="` + badgeClass + `">` + (is_correct ? 'Yes' : 'No') + `</span></td>
+                    </tr>
+                `;
                         }
                         break;
                     }
-
                 }
 
                 $(".showanswers").html(html);
-
             });
+
 
             //update answer
             $("#addeditAnswer").click(function(e) {
                 e.preventDefault();
 
                 if ($(".editanswers").length >= 6) {
-                    $(".error").text("You can add maximum 6 answers !")
+                    $(".editerror").text("You can add maximum 6 answers !")
                     setTimeout(function() {
-                        $(".error").text("")
+                        $(".editerror").text("")
                     }, 2000);
 
                 } else {
                     var html = `
                 <div class="row editanswers">
-                    <input type="radio"  class="edit_is_correct" name="edit_is_correct">
+                    <input type="radio"  class="edit_is_correct" name="is_correct">
                             <div class="col">
                                 <div class="form-group">
                                     <input type="text" class="form-control"  name="new_answers[]"
                                         placeholder="Enter Answer" required>
                                 </div>
                             </div>
-                           <button class="removeButton removeans"> <i class="fas fa-trash-alt"></i></button>
+                           <button class="btn btn-outline-danger btm-sm removeButton removeans"> <i class="fas fa-trash-alt"></i></button>
                         </div>
                 `;
                     $(".editmodalanswer").append(html);
@@ -358,15 +385,18 @@
                             html +=
                                 `
                                                 <div class="row editanswers">
-                                                    <input type="radio" class="edit_is_correct" name="edit_is_correct" ` +
-                                checked + `>
+                                                    <input type="radio" class="edit_is_correct" name="is_correct" ` +
+                                checked +
+                                `>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control"  name="answers['${qna['answers'][i]['answer']}']"
+                                                        <input type="text" class="form-control"  name="answers[${qna['answers'][i]['id']}]"
                                                             placeholder="Enter Answer" value="${qna['answers'][i]['answer']}" required>
                                                     </div>
                                                 </div>
-                                            <button class="removeButton removeans" data-id="` + qna['answers'][i][
+                                            <button class="btn btn-outline-danger btn-sm  removeButton removeans" data-id="` +
+                                qna[
+                                    'answers'][i][
                                     'id'
                                 ] + `"> <i class="fas fa-trash-alt"></i></button>
                                                 </div>
@@ -427,10 +457,10 @@
 
                         $.ajax({
                             url: url,
-                            method: "POST",
+                            method: "PUT",
                             data: formData,
-                            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // Set content type
                             success: function(data) {
+                                console.log(data);
                                 if (data.success == true) {
                                     location.reload();
 
@@ -438,7 +468,6 @@
                                     alert(data.msg);
                                 }
                             },
-
                         });
                     } else {
                         $(".editerror").text(" Please select anyone correct answers !")
@@ -449,6 +478,30 @@
 
                 }
             });
+
+            $(".deleteQNA").click(function() {
+                var id = $(this).attr('data-id');
+                $("#delete_QNA_id").val(id);
+            });
+
+            $("#deleteQA").submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                var id = $("#delete_QNA_id").val();
+                var url = '{{ route('Question.destroy', 'id') }}';
+                url = url.replace('id', id);
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    data: formData,
+                    success: function(data) {
+                        if (data.success == true) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+
         });
     </script>
 @endsection
