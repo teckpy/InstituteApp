@@ -112,10 +112,8 @@
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer">
                         <span style="color: rgb(122, 8, 8)" class="error"></span>
-                    </div>
-                    <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
                     </div>
@@ -149,10 +147,9 @@
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
+                   
+                    <div class="modal-footer">
                         <span style="color: rgb(122, 8, 8)" class="editerror"></span>
-                    </div>
-                    <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Update</button>
                     </div>
@@ -215,7 +212,7 @@
                             <input type="hidden" name="id" id="delete_QNA_id">
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </div>
@@ -245,7 +242,7 @@
                                 accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms.excel">
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-info">Import</button>
                     </div>

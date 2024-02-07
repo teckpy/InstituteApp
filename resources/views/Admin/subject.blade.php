@@ -96,7 +96,7 @@
                                 placeholder="Enter Subject Name" required>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
                     </div>
@@ -124,7 +124,7 @@
                             <input type="hidden" id="edit_subject_id" name="id">
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-between">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
                     </div>
@@ -155,7 +155,7 @@
                         <input type="hidden" name="id" id="delete_subject_id">
                     </div>
                 </div>
-                <div class="modal-footer justify-content-between">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
