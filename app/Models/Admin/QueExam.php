@@ -15,4 +15,9 @@ class QueExam extends Model
         'exam_id',
         'question_id'
     ];
+
+    public function question()
+    {
+        return $this->hasMany(Question::class,'id','question_id');
+    }
 }

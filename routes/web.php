@@ -42,6 +42,7 @@ Route::middleware([
 
     Route::get('/get-questions',[QuestionController::class,'getQuestion'])->name('getQuestion');
     Route::POST('/add-qna',[QuestionController::class,'addQuestion'])->name('addQuestion');
+    Route::get('/show-questions',[QuestionController::class,'showQuestion'])->name('showQuestion');
 
 });
 

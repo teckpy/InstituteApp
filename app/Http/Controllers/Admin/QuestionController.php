@@ -175,9 +175,9 @@ class QuestionController extends Controller
 
     public function getQuestion(Request $request)
     {
-        
+
         try {
-            $questions = Question::all();           
+            $questions = Question::all();
 
             if (count($questions) > 0) {
 
@@ -204,7 +204,7 @@ class QuestionController extends Controller
                 }
 
                 return response()->json(['success' => true, 'msg' => 'Question data','data'=>$data]);
-                
+
             }
             else
             {
@@ -218,7 +218,6 @@ class QuestionController extends Controller
 
     public function addQuestion(Request $request)
     {
-        \Log::info("message".$request->examId);
         try {
 
             if(isset($request->questions_ids))
@@ -231,10 +230,24 @@ class QuestionController extends Controller
                     ]);
                 }
             }
-            
-                return response()->json(['success' => false, 'msg' => 'Question not found']);
+
+                return response()->json(['success' => true, 'msg' => 'Question not found']);
             }
-         catch (\Exception $e) 
+         catch (\Exception $e)
+        {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
+    }
+
+    public function showQuestion(Request $request)    {
+
+        try {
+
+            $data = QueExam::where('exam_id',$request->examId)->with('question')->get();
+
+            return response()->json(['success' => true, 'msg' => 'Question found','data' => $data]);
+            }
+         catch (\Exception $e)
         {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }

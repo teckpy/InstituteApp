@@ -46,7 +46,8 @@
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Attempt</th>
-                                            <th>Add Answer</th>
+                                            <th>Add Question</th>
+                                            <th>Show Question</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -66,6 +67,14 @@
                                                                 data-toggle="modal" data-target="#modal-AddAnswer"
                                                                 data-id="{{ $test->id }}">
                                                                 <i class="fas fa-plus"></i>
+                                                            </a></span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-warning">
+                                                            <a class="Showquestions" href="javascript:void(0);"
+                                                                data-toggle="modal" data-target="#modal-Showanswer"
+                                                                data-id="{{ $test->id }}">
+                                                                <i class="fas fa-eye"></i>
                                                             </a></span>
                                                     </td>
                                                     <td><span class="badge bg-warning">
@@ -241,11 +250,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="hidden" class="form-control"  id="examId" name="examId">
-                            <input type="search" name="search" class="form-control w-100" placeholder="Search here">
+                            <input type="hidden" class="form-control" id="examId" name="examId">
+                            <input type="search" name="search" id="search" onkeyup="searchTable()"
+                                class="form-control w-100" placeholder="Search here">
                         </div>
                         <div class="form-group">
-                            <table>
+                            <table class="table" id="questionTable">
                                 <thead>
                                     <th>Select</th>
                                     <th>Question</th>
@@ -259,6 +269,40 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark">Save</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /Edit .modal-dialog -->
+    </div>
+    {{-- Show Question model --}}
+    <div class="modal fade" id="modal-Showanswer">
+        <div class="modal-dialog">
+            <form id="Showqna">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Show Question Answers</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <table class="table">
+                                <thead>
+                                    <th>S.N</th>
+                                    <th>Question</th>
+                                </thead>
+                                <tbody class="showBody">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </form>
@@ -317,6 +361,7 @@
 
                 });
             });
+            //////////////////////////
             $("#edittestform").submit(function(e) {
                 e.preventDefault();
 
@@ -403,15 +448,15 @@
                                 for (let i = 0; i < questions.length; i++) {
                                     html += `
                                     <tr>
-                                    <td><input type="checkbox" value="` + questions[i]['id'] + `" name="questions_ids[]"></td>   
-                                    <td>` + questions[i]['question'] + `</td>     
+                                    <td><input type="checkbox" value="` + questions[i]['id'] + `" name="questions_ids[]"></td>
+                                    <td>` + questions[i]['question'] + `</td>
                                     </tr>
                                     `;
                                 }
                             } else {
                                 html += `
                             <tr>
-                            <td colspan="2">Question not found !</td>    
+                            <td colspan="2">Question not found !</td>
                             </tr>
                             `;
                             }
@@ -435,9 +480,9 @@
                     method: "POST",
                     data: formData,
                     success: function(data) {
-                       console.log(data);
+                        console.log(data);
                         setTimeout(function() {
-                           location.reload();
+                            location.reload();
                         }, 1000);
                         // Refresh the page or update the table with the new item
                     },
@@ -447,6 +492,70 @@
                 });
             });
 
+            ////////////////////////////////////////
+            $(".Showquestions").click(function(e) {
+                e.preventDefault();
+
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: "{{ route('showQuestion') }}",
+                    method: "GET",
+                    data:{examId:id},
+                    success: function(data) {
+                        console.log(data);
+                        if (data.success == true) {
+                            var html = ``;
+                            var questions = data.data;
+                            if(questions.length > 0)
+                            {
+                                for(i=0;i<questions.length;i++)
+                                {
+                                    html += `
+                                    <tr>
+                                        <td>`+(i+1)+`</td>
+                                        <td>`+questions[i]['question'][0]['question']+`</td>
+                                    </tr>
+                                    `;
+                                }
+                            }
+                            else
+                            {
+                                html += `
+                                    <tr><td colspan="1"> Question not Avilable !</td></tr>
+                                    `;
+                            }
+                            $(".showBody").html(html);
+
+
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+
+                });
+            });
+
         });
+    </script>
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById('search');
+            filter = input.value.toUpperCase();
+            table = document.getElementById('questionTable');
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
     </script>
 @endsection
