@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HeaderController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,22 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
+        return view('User.Dashboard');
+    })->name('dashboard');
+
+});
+
+Route::middleware('admin:admin')->group(function(){
+    Route::get('admin/login',[AdminController::class,'loginForm']);
+    Route::POST('admin/login',[AdminController::class,'store'])->name('admin.login');
+});
+
+
+Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verified',])->group(function () {
+    Route::get('/admin/Dashboard', function () {
         return view('Admin.Dashboard');
     })->name('dashboard');
+
 
     Route::get('/Header',[HeaderController::class, 'index'])->name('HeaderShow');
     Route::resource('Subject', SubjectController::class);
@@ -45,5 +60,6 @@ Route::middleware([
     Route::get('/show-questions',[QuestionController::class,'showQuestion'])->name('showQuestion');
 
 });
+
 
 
