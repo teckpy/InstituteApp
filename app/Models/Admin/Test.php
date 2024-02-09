@@ -21,4 +21,9 @@ class Test extends Model
     {
         return $this->hasMany(Subject::class,'id','subject_id');
     }
+
+    public function getQnaExam()
+    {
+        return $this->hasMany(QueExam::class,'exam_id','id');
+    }
 }

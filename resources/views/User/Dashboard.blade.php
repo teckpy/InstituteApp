@@ -1,4 +1,4 @@
-@extends('layouts.Admin.app')
+@extends('layouts.User.app')
 @section('title')
     Admin | Dashboard
 @endsection
@@ -9,12 +9,19 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
+                       <span class="badge badge-warning"> <h1 class="m-0">Welcome -@if (auth()->check())
+                        {{ auth()->user()->name }}
+                    @endif
+                </h1></span>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item active">
+                                @if (auth()->check())
+                                    {{ auth()->user()->name }}
+                                @endif
+                            </li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,69 +34,54 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>150</h3>
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                   
+                                </h3>
+                            </div>
+                            <div class="card-body">
 
-                                <p>New Orders</p>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">S.N</th>
+                                            <th>Test Name</th>
+                                            <th>Subject Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Total Attempt</th>
+                                            <th>Available Attempt</th>
+                                            <th>Copy Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($data && count($data) > 0)
+                                        @php $count = 1; @endphp
+                                        @foreach ($data as $item)
+                                        <tr>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->subject[0]['subject'] }}</td>
+                                            <td>{{ $item->date }}</td>
+                                            <td>{{ $item->time }}</td>
+                                            <td>{{ $item->attempt }}</td>
+                                            <td></td>
+                                            <td><a href="" data-code="{{ $item->test_exam_id }}" class="copy"><i class="fa fa-copy"></i></a></td>                                          
+                                        </tr>
+                                    @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="4"> Subject Data Not Found !</td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                                <p>Bounce Rate</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>44</h3>
-
-                                <p>User Registrations</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>65</h3>
-
-                                <p>Unique Visitors</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <section class="col-lg-7 connectedSortable">
@@ -103,4 +95,25 @@
         </section>
         <!-- /.content -->
     </div>
+    <script>
+        $(document).ready(function(){
+
+            $(".copy").click(function(){
+                $(this).parent().prepend('<span class="copied_test">Copied</span>');
+
+                var code = $(this).attr('data-code');
+                var url = "{{ URL::to('/') }}/exam/"+code;
+
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val(url).select();
+                document.execCommand("copy");
+                $temp.remove();
+
+                setTimeout(() => {
+                    $('.copied_text').remove();
+                }, 1000);
+            });
+        });
+    </script>
 @endsection

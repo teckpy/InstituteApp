@@ -32,7 +32,16 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        $test = Test::create($request->all());
+        $test_exam_id = uniqid('TE');
+
+        $test = Test::insert([
+            'name' => $request->name,
+            'subject_id' => $request->subject_id,
+            'date' => $request->date,
+            'time' => $request->time,
+            'attempt' => $request->attempt,
+            'test_exam_id' => $test_exam_id
+        ]);
         return response()->json($test);
     }
 

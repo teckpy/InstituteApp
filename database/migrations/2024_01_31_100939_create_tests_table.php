@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('date');
+            $table->string('test_exam_id');
             $table->string('time');
             $table->integer('attempt');
             $table->integer('subject_id');

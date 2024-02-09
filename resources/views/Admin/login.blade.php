@@ -92,7 +92,7 @@
                     @endif
                 </p>
                 <span><p class="mb-0">
-                    {{-- <a class="text-center" href="{{ route('register') }}">Create an account</a> --}}
+                    <a class="text-center" href="{{ route('register') }}">Create an account</a>
                 </p></span>
             </div>
             <!-- /.card-body -->
