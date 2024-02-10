@@ -67,6 +67,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
+    Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
 });
 
 Route::get('/register/students', [UserController::class, 'create'])->name('students.register');

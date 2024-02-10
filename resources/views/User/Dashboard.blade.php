@@ -1,6 +1,8 @@
 @extends('layouts.User.app')
 @section('title')
-    Admin | Dashboard
+    @if (auth()->check())
+        {{ auth()->user()->name }}
+    @endif | Dashboard
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -9,10 +11,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                       <span class="badge badge-warning"> <h1 class="m-0">Welcome -@if (auth()->check())
-                        {{ auth()->user()->name }}
-                    @endif
-                </h1></span>
+                        <span class="badge badge-warning">
+                            <h1 class="m-0">Welcome -@if (auth()->check())
+                                    {{ auth()->user()->name }}
+                                @endif
+                            </h1>
+                        </span>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -38,7 +42,7 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                   
+
                                 </h3>
                             </div>
                             <div class="card-body">
@@ -58,19 +62,20 @@
                                     </thead>
                                     <tbody>
                                         @if ($data && count($data) > 0)
-                                        @php $count = 1; @endphp
-                                        @foreach ($data as $item)
-                                        <tr>
-                                            <td>{{ $item->id }}</td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->subject[0]['subject'] }}</td>
-                                            <td>{{ $item->date }}</td>
-                                            <td>{{ $item->time }}</td>
-                                            <td>{{ $item->attempt }}</td>
-                                            <td></td>
-                                            <td><a href="" data-code="{{ $item->test_exam_id }}" class="copy"><i class="fa fa-copy"></i></a></td>                                          
-                                        </tr>
-                                    @endforeach
+                                            @php $count = 1; @endphp
+                                            @foreach ($data as $item)
+                                                <tr>
+                                                    <td>{{ $item->id }}</td>
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->subject[0]['subject'] }}</td>
+                                                    <td>{{ $item->date }}</td>
+                                                    <td>{{ $item->time }}</td>
+                                                    <td>{{ $item->attempt }}</td>
+                                                    <td></td>
+                                                    <td><a href="" data-code="{{ $item->test_exam_id }}"
+                                                            class="copy"><i class="fa fa-copy"></i></a></td>
+                                                </tr>
+                                            @endforeach
                                         @else
                                             <tr>
                                                 <td colspan="4"> Subject Data Not Found !</td>
@@ -96,13 +101,13 @@
         <!-- /.content -->
     </div>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
 
-            $(".copy").click(function(){
+            $(".copy").click(function() {
                 $(this).parent().prepend('<span class="copied_test">Copied</span>');
 
                 var code = $(this).attr('data-code');
-                var url = "{{ URL::to('/') }}/exam/"+code;
+                var url = "{{ URL::to('/') }}/exam/" + code;
 
                 var $temp = $("<input>");
                 $("body").append($temp);
