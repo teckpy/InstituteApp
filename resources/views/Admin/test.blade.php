@@ -53,12 +53,12 @@
                                     </thead>
                                     <tbody>
                                         @if (count($tests) > 0)
-                                            @foreach ($tests as $test)
+                                            @foreach ($tests as $test)  
                                                 <tr>
                                                     <td>{{ $test->id }}</td>
                                                     <td>{{ $test->name }}</td>
                                                     <td>{{ $test->subject[0]['subject'] }}</td>
-                                                    <td>{{ $test->date }}</td>
+                                                    <td>{{ date("d-m-Y", strtotime($test->date)) }}</td>
                                                     <td>{{ $test->time }}</td>
                                                     <td>{{ $test->attempt }}</td>
                                                     <td>
@@ -133,11 +133,11 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="date" class="form-control" id="" name="date" required
-                                min="@php echo date('Y,m,d'); @endphp">
+                            <input type="date" class="form-control" name="date" required min="{{ date('Y-m-d') }}">
+
                         </div>
                         <div class="form-group">
-                            <input type="time" class="form-control" id="" name="time" required>
+                            <input type="text" id="duration" name="time" placeholder="Enter Valid Duration Format hh:mm:ss" class="form-control" onblur="validateDuration()">
                         </div>
                         <div class="form-group">
                             <input type="number" class="form-control" min="1" placeholder="Enter Exam Attempt Time"
@@ -187,7 +187,7 @@
                                 min="@php echo date('Y,m,d'); @endphp">
                         </div>
                         <div class="form-group">
-                            <input type="time" class="form-control" id="time" name="time" required>
+                            <input type="text" id="time" name="time" placeholder="Enter Valid Duration Format hh:mm:ss" class="form-control" onblur="validateDuration()">
                         </div>
                         <div class="form-group">
                             <input type="number" min="1" class="form-control" id="attempt" name="attempt"
@@ -558,4 +558,15 @@
             }
         }
     </script>
+     <script>
+        function validateDuration() {
+          var input = document.getElementById("duration");
+          var durationPattern = /^([0-9]{2}):([0-9]{2}):([0-9]{2})$/;
+    
+          if (!durationPattern.test(input.value)) {
+            alert("Please enter a valid duration in the format HH:MM:SS");
+            input.value = "00:00:00"; // You can set a default value or clear the field
+          }
+        }
+      </script>
 @endsection
