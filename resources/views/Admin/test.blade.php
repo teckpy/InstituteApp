@@ -48,6 +48,7 @@
                                             <th>Attempt</th>
                                             <th>Add Question</th>
                                             <th>Show Question</th>
+                                            <th>Registration Link</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -61,7 +62,7 @@
                                                     <td>{{ date('d-m-Y', strtotime($test->date)) }}</td>
                                                     <td>{{ $test->time }}</td>
                                                     <td>{{ $test->attempt }}</td>
-                                                    <td>
+                                                    <td class="text-center">
                                                         <span class="badge bg-success">
                                                             <a class="Addquestions" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-AddAnswer"
@@ -69,7 +70,7 @@
                                                                 <i class="fas fa-plus"></i>
                                                             </a></span>
                                                     </td>
-                                                    <td>
+                                                    <td class="text-center">
                                                         <span class="badge bg-warning">
                                                             <a class="Showquestions" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-Showanswer"
@@ -77,6 +78,10 @@
                                                                 <i class="fas fa-eye"></i>
                                                             </a></span>
                                                     </td>
+                                                    <td class="text-center"><a href="{{ route('examregistration', ['id' => $test->test_exam_id]) }}"
+                                                            target="_blank"><span class="badge badge-info"><i
+                                                                    class="fas fa-hand-pointer"></i></span></a></td>
+
                                                     <td><span class="badge bg-warning">
                                                             <a class="edittestbutton" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-edittest"
@@ -142,8 +147,8 @@
                                 onblur="validateDuration()">
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" min="1" placeholder="Enter Exam Attempt Time"
-                                id="" name="attempt" required>
+                            <input type="number" class="form-control" min="1"
+                                placeholder="Enter Exam Attempt Time" id="" name="attempt" required>
                         </div>
 
                     </div>

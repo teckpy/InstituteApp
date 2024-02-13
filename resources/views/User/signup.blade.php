@@ -22,7 +22,7 @@
     <div class="wrapper">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        {{-- <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <div class="container">
                 <a href="" class="navbar-brand">
 
@@ -44,7 +44,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
         <!-- /.navbar -->
 
         <!-- Content Wrapper. Contains page content -->
@@ -70,9 +70,9 @@
                                 <div class="card-body register-card-body">
                                     <p class="login-box-msg">Register a new membership</p>
 
-                                    <form action="../../index.html" method="post">
+                                    <form action="" method="post">
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Full name">
+                                            <input type="text" class="form-control" name="name" placeholder="Full name">
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-user"></span>
@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Mobile">
+                                            <input type="text" name="mobile" class="form-control" placeholder="Mobile">
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-phone"></span>
@@ -88,7 +88,7 @@
                                             </div>
                                         </div>
                                         <div class="input-group mb-3">
-                                            <input type="email" class="form-control" placeholder="Email">
+                                            <input type="email" name="email" class="form-control" placeholder="Email">
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-envelope"></span>

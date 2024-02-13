@@ -72,10 +72,4 @@ class ExamController extends Controller
         return view('Exam.thanks');
     }
 
-    public function saveAnswer(Request $request)
-    {
-
-
-        return response()->json(['success' => true, 'message' => 'Answer saved successfully']);
-    }
 }

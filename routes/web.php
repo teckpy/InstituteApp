@@ -69,8 +69,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
     Route::post('/save-answer', [ExamController::class, 'saveAnswer'])->name('saveAnswer');
+
+   
+    Route::post('/questions/next', [ExamController::class, 'getNextQuestion']);
 });
 
 Route::get('/register/students', [UserController::class, 'create'])->name('students.register');
 Route::get('/signup/students', [UserController::class, 'signUp'])->name('students.signup');
+
+Route::get('/examregistration/{id}', [TestController::class,'examregistration'])->name('examregistration');
 

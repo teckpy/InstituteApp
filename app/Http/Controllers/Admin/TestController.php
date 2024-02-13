@@ -33,6 +33,7 @@ class TestController extends Controller
     public function store(Request $request)
     {
         $test_exam_id = uniqid('TE');
+        
 
         $test = Test::insert([
             'name' => $request->name,
@@ -40,7 +41,8 @@ class TestController extends Controller
             'date' => $request->date,
             'time' => $request->time,
             'attempt' => $request->attempt,
-            'test_exam_id' => $test_exam_id
+            'test_exam_id' => $test_exam_id,
+            'registration_link' =>$test_exam_id
         ]);
         return response()->json($test);
     }
@@ -98,5 +100,10 @@ class TestController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
+    }
+
+    public function examregistration()
+    {
+        return view('User.signup');
     }
 }
