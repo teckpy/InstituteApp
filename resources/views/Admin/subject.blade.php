@@ -176,6 +176,7 @@
                     method: "POST",
                     data: $(this).serialize(),
                     success: function(data) {
+                        location.reload(true);
                         $("#modal-subject").modal("hide");
                         setTimeout(function() {
 
@@ -207,7 +208,8 @@
                     data: formData,
                     success: function(data) {
                         if (data.success == true) {
-
+                            location.reload(true);
+                            $("#modal-editsubject").modal("hide");
                         } else {
                             alert(data.msg);
                         }
@@ -234,7 +236,8 @@
                     data: formData,
                     success: function(data) {
                         if (data.success == true) {
-
+                            location.reload(true);
+                            $("#modal-delete").modal("hide");
                         } else {
                             alert(data.msg);
                         }

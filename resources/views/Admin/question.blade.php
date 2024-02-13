@@ -284,7 +284,8 @@
                             data: formData,
                             success: function(data) {
                                 if (data.success == true) {
-
+                                    location.reload(true);
+                                    $("#modal-question").modal("hide");
                                 } else {
                                     alert(data.msg);
                                 }
@@ -496,7 +497,8 @@
                             success: function(data) {
                                 console.log(data);
                                 if (data.success == true) {
-
+                                    location.reload(true);
+                                    $("#modal-editqa").modal("hide");
 
                                 } else {
                                     alert(data.msg);
@@ -532,7 +534,8 @@
                     data: formData,
                     success: function(data) {
                         if (data.success == true) {
-
+                            location.reload(true);
+                            $("#modal-deleteQ").modal("hide");
                         }
                     }
                 });
@@ -562,7 +565,8 @@
                         contentType: false,
                         success: function(data) {
                             if (data.success == true) {
-
+                                location.reload(true);
+                                $("#modal-import").modal("hide");
                             }
                         }
                     });

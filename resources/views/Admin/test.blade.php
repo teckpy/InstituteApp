@@ -58,7 +58,7 @@
                                                     <td>{{ $test->id }}</td>
                                                     <td>{{ $test->name }}</td>
                                                     <td>{{ $test->subjects[0]['subject'] }}</td>
-                                                    <td>{{ date("d-m-Y", strtotime($test->date)) }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($test->date)) }}</td>
                                                     <td>{{ $test->time }}</td>
                                                     <td>{{ $test->attempt }}</td>
                                                     <td>
@@ -137,7 +137,9 @@
 
                         </div>
                         <div class="form-group">
-                            <input type="text" id="time" name="time" placeholder="Enter Valid Duration Format hh:mm:ss" class="form-control" onblur="validateDuration()">
+                            <input type="text" id="time" name="time"
+                                placeholder="Enter Valid Duration Format hh:mm:ss" class="form-control"
+                                onblur="validateDuration()">
                         </div>
                         <div class="form-group">
                             <input type="number" class="form-control" min="1" placeholder="Enter Exam Attempt Time"
@@ -187,7 +189,8 @@
                                 min="@php echo date('Y,m,d'); @endphp">
                         </div>
                         <div class="form-group">
-                            <input type="text" id="timeedit" name="time"  class="form-control" onblur="validateDuration()">
+                            <input type="text" id="timeedit" name="time" class="form-control"
+                                onblur="validateDuration()">
                         </div>
                         <div class="form-group">
                             <input type="number" min="1" class="form-control" id="attempt" name="attempt"
@@ -321,6 +324,7 @@
                     method: "POST",
                     data: $(this).serialize(),
                     success: function(data) {
+                        location.reload(true);
                         $("#modal-test").modal("hide");
                         setTimeout(function() {
 
@@ -383,7 +387,8 @@
                     },
                     success: function(data) {
                         if (data.success == true) {
-
+                            location.reload(true);
+                            $('#modal-edittest').modal('hide');
                         } else {
                             alert(data.msg);
                         }
@@ -417,7 +422,8 @@
                     },
                     success: function(data) {
                         if (data.success == true) {
-
+                            location.reload(true);
+                            $('#modal-delete').modal('hide');
                         } else {
                             alert(data.msg);
                         }
@@ -482,7 +488,8 @@
                     success: function(data) {
                         console.log(data);
                         setTimeout(function() {
-
+                            location.reload(true);
+                            $('#modal-AddAnswer').modal('hide');
                         }, 1000);
                         // Refresh the page or update the table with the new item
                     },
@@ -500,26 +507,24 @@
                 $.ajax({
                     url: "{{ route('showQuestion') }}",
                     method: "GET",
-                    data:{examId:id},
+                    data: {
+                        examId: id
+                    },
                     success: function(data) {
                         console.log(data);
                         if (data.success == true) {
                             var html = ``;
                             var questions = data.data;
-                            if(questions.length > 0)
-                            {
-                                for(i=0;i<questions.length;i++)
-                                {
+                            if (questions.length > 0) {
+                                for (i = 0; i < questions.length; i++) {
                                     html += `
                                     <tr>
-                                        <td>`+(i+1)+`</td>
-                                        <td>`+questions[i]['question'][0]['question']+`</td>
+                                        <td>` + (i + 1) + `</td>
+                                        <td>` + questions[i]['question'][0]['question'] + `</td>
                                     </tr>
                                     `;
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 html += `
                                     <tr><td colspan="1"> Question not Avilable !</td></tr>
                                     `;
@@ -558,15 +563,4 @@
             }
         }
     </script>
-     <script>
-        function validateDuration() {
-          var input = document.getElementById("duration");
-          var durationPattern = /^([0-9]{2}):([0-9]{2}):([0-9]{2})$/;
-
-          if (!durationPattern.test(input.value)) {
-            alert("Please enter a valid duration in the format HH:MM:SS");
-            input.value = "00:00:00"; // You can set a default value or clear the field
-          }
-        }
-      </script>
 @endsection

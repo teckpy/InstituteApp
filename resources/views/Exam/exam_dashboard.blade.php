@@ -75,7 +75,7 @@
             <nav class="mt-2">
                 <p class="text-center" style="color: white;">Max 55 Marks</p>
                 <div class="text-center d-flex justify-content-center">
-                    {{-- <table class="table-responsive table-sm" style="margin-left: 20%;">
+                    <table class="table-responsive table-sm" style="margin-left: 20%;">
                         @foreach ($qnas as $question)
                         <tr>
                             <td><a href="" data-id="{{ $question['question'][0]['id'] }}"><span class="badge badge-light">{{ $qnas[$loop->index + 1] }}</span></a></td>
@@ -96,7 +96,7 @@
                             <td><span class="badge badge-light">4</span></td>
                             <td><span class="badge badge-light">4</span></td>
                         </tr>
-                    </table> --}}
+                    </table>
                 </div>
             </nav>
             <!-- /.sidebar-menu -->

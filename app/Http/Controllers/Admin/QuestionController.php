@@ -22,6 +22,7 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::with('answers')->latest()->get();
+
         return view('Admin.question', compact('questions'));
     }
 
@@ -71,8 +72,8 @@ class QuestionController extends Controller
 
     public function removeAns(Request $request)
     {
-        Answer::where('id',$request->id)->delete();
-        return response()->josn(['success' => true,'msg'=>'Answer Delete Successfully !']);
+        Answer::where('id', $request->id)->delete();
+        return response()->josn(['success' => true, 'msg' => 'Answer Delete Successfully !']);
     }
 
     /**
@@ -80,7 +81,7 @@ class QuestionController extends Controller
      */
     public function edit(string $id)
     {
-        $qna = Question::where('id',$id)->with('answers')->get();
+        $qna = Question::where('id', $id)->with('answers')->get();
 
         return response()->json(['data' => $qna]);
     }
@@ -93,49 +94,43 @@ class QuestionController extends Controller
 
         try {
 
-            Question::where('id',$id)->update([
+            Question::where('id', $id)->update([
                 'question' => $request->question
             ]);
 
-            if(isset($request->answers))
-
-            {
+            if (isset($request->answers)) {
                 foreach ($request->answers as $answerId  => $value) {
                     $is_correct = 0;
 
                     if (!is_null($request->is_correct) && $request->is_correct == $value) {
                         $is_correct = 1;
-                        }
+                    }
 
-                        $answer = Answer::find((int)$answerId);
+                    $answer = Answer::find((int)$answerId);
 
 
-                        if ($answer) {
-                            $answer->question_id = $request->question_id;
-                            $answer->answer = $value;
-                            $answer->is_correct = $is_correct;
+                    if ($answer) {
+                        $answer->question_id = $request->question_id;
+                        $answer->answer = $value;
+                        $answer->is_correct = $is_correct;
 
-                            // Save the model
-                            if ($answer->save()) {
-                                Log::info("Answer with ID $answerId updated successfully.");
-                            } else {
-                                Log::error("Failed to update answer with ID $answerId.");
-                            }
+                        // Save the model
+                        if ($answer->save()) {
+                            Log::info("Answer with ID $answerId updated successfully.");
                         } else {
-                            Log::error("Answer with ID $answerId not found.");
+                            Log::error("Failed to update answer with ID $answerId.");
                         }
+                    } else {
+                        Log::error("Answer with ID $answerId not found.");
+                    }
                 }
-
-
             }
             //// new answer
 
-            if(isset($request->new_answers))
-            {
+            if (isset($request->new_answers)) {
                 foreach ($request->new_answers as $answer) {
                     $is_correct = 0;
-                    if($request->is_correct == $answer)
-                    {
+                    if ($request->is_correct == $answer) {
                         $is_correct = 1;
                     }
 
@@ -145,7 +140,6 @@ class QuestionController extends Controller
                         'is_correct' => $is_correct
                     ]);
                 }
-
             }
             return response()->json(['success' => true, 'msg' => 'Question & Answers Updated Successfully']);
         } catch (\Exception $e) {
@@ -156,7 +150,7 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,string $id)
+    public function destroy(Request $request, string $id)
     {
         try {
             Answer::where('question_id', $id)->delete();
@@ -184,33 +178,24 @@ class QuestionController extends Controller
                 $data = [];
                 $counter = 0;
 
-                foreach($questions as $question)
-                {
+                foreach ($questions as $question) {
                     $qnaExam = QueExam::where(['exam_id' => $request->examId, 'question_id' => $question->id])->get();
 
 
 
-                  if($qnaExam->isEmpty())
-                  {
-                    $data[$counter]['id'] = $question->id;
-                    $data[$counter]['question'] = $question->question;
+                    if ($qnaExam->isEmpty()) {
+                        $data[$counter]['id'] = $question->id;
+                        $data[$counter]['question'] = $question->question;
 
-                    $counter++;
-                  }
-                  else
-                  {
-
-                  }
+                        $counter++;
+                    } else {
+                    }
                 }
 
-                return response()->json(['success' => true, 'msg' => 'Question data','data'=>$data]);
-
-            }
-            else
-            {
+                return response()->json(['success' => true, 'msg' => 'Question data', 'data' => $data]);
+            } else {
                 return response()->json(['success' => false, 'msg' => 'Question not found']);
             }
-
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
@@ -220,10 +205,8 @@ class QuestionController extends Controller
     {
         try {
 
-            if(isset($request->questions_ids))
-            {
-                foreach($request->questions_ids as $qid)
-                {
+            if (isset($request->questions_ids)) {
+                foreach ($request->questions_ids as $qid) {
                     QueExam::insert([
                         'exam_id' => $request->examId,
                         'question_id' => $qid
@@ -231,24 +214,21 @@ class QuestionController extends Controller
                 }
             }
 
-                return response()->json(['success' => true, 'msg' => 'Question not found']);
-            }
-         catch (\Exception $e)
-        {
+            return response()->json(['success' => true, 'msg' => 'Question not found']);
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
     }
 
-    public function showQuestion(Request $request)    {
+    public function showQuestion(Request $request)
+    {
 
         try {
 
-            $data = QueExam::where('exam_id',$request->examId)->with('question')->get();
+            $data = QueExam::where('exam_id', $request->examId)->with('question')->get();
 
-            return response()->json(['success' => true, 'msg' => 'Question found','data' => $data]);
-            }
-         catch (\Exception $e)
-        {
+            return response()->json(['success' => true, 'msg' => 'Question found', 'data' => $data]);
+        } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
     }
