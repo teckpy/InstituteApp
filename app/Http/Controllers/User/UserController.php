@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = Test::with('subject')->orderBy('date')->get();
+        $data = Test::with('subjects')->orderBy('date')->get();
         return view('User.Dashboard',compact('data'));
     }
 

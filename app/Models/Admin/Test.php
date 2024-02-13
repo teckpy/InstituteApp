@@ -17,13 +17,15 @@ class Test extends Model
         'attempt'
     ];
 
-    public function subject()
+    public function subjects()
     {
         return $this->hasMany(Subject::class,'id','subject_id');
     }
 
-    public function getQnaExam()
+    public function getQnaExams()
     {
         return $this->hasMany(QueExam::class,'exam_id','id');
     }
+
+
 }

@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
+    Route::post('/save-answer', [ExamController::class, 'saveAnswer'])->name('saveAnswer');
 });
 
 Route::get('/register/students', [UserController::class, 'create'])->name('students.register');

@@ -178,7 +178,7 @@
                     success: function(data) {
                         $("#modal-subject").modal("hide");
                         setTimeout(function() {
-                            location.reload();
+
                         }, 1000);
                         // Refresh the page or update the table with the new item
                     },
@@ -207,7 +207,7 @@
                     data: formData,
                     success: function(data) {
                         if (data.success == true) {
-                            location.reload();
+
                         } else {
                             alert(data.msg);
                         }
@@ -234,7 +234,7 @@
                     data: formData,
                     success: function(data) {
                         if (data.success == true) {
-                            location.reload();
+
                         } else {
                             alert(data.msg);
                         }

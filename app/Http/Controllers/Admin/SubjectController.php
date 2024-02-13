@@ -14,7 +14,7 @@ class SubjectController extends Controller
     public function index()
     {
 
-        $subjects = Subject::first()->get();
+        $subjects = Subject::get();
         return view('Admin.subject', compact('subjects'));
     }
 

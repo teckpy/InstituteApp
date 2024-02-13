@@ -14,8 +14,8 @@ class TestController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::first()->get();
-        $tests = Test::with('subject')->get();
+        $subjects = Subject::get();
+        $tests = Test::with('subjects')->get();
         return view('Admin.test', compact('subjects','tests'));
     }
 

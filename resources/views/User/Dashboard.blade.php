@@ -67,7 +67,7 @@
                                                 <tr>
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->subject[0]['subject'] }}</td>
+                                                    <td>{{ $item->subjects[0]['subject'] }}</td>
                                                     <td>{{ $item->date }}</td>
                                                     <td>{{ $item->time }}</td>
                                                     <td>{{ $item->attempt }}</td>

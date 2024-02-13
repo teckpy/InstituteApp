@@ -52,7 +52,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
-                            Students
+                            Examination
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -60,7 +60,13 @@
                         <li class="nav-item">
                             <a href="pages/mailbox/mailbox.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Students List</p>
+                                <p>Exam</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Result</p>
                             </a>
                         </li>
                     </ul>

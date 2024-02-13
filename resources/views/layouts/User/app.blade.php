@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @vite('resources/css/app.css')
+
     <title>@yield('title')</title>
     <link rel="icon" href="{{asset('Admin/dist/img/logo1.png')}}" type="image/icon type">
     <!-- Google Font: Source Sans Pro -->

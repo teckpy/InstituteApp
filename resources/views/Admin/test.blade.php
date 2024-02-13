@@ -53,11 +53,11 @@
                                     </thead>
                                     <tbody>
                                         @if (count($tests) > 0)
-                                            @foreach ($tests as $test)  
+                                            @foreach ($tests as $test)
                                                 <tr>
                                                     <td>{{ $test->id }}</td>
                                                     <td>{{ $test->name }}</td>
-                                                    <td>{{ $test->subject[0]['subject'] }}</td>
+                                                    <td>{{ $test->subjects[0]['subject'] }}</td>
                                                     <td>{{ date("d-m-Y", strtotime($test->date)) }}</td>
                                                     <td>{{ $test->time }}</td>
                                                     <td>{{ $test->attempt }}</td>
@@ -137,7 +137,7 @@
 
                         </div>
                         <div class="form-group">
-                            <input type="text" id="duration" name="time" placeholder="Enter Valid Duration Format hh:mm:ss" class="form-control" onblur="validateDuration()">
+                            <input type="text" id="time" name="time" placeholder="Enter Valid Duration Format hh:mm:ss" class="form-control" onblur="validateDuration()">
                         </div>
                         <div class="form-group">
                             <input type="number" class="form-control" min="1" placeholder="Enter Exam Attempt Time"
@@ -187,7 +187,7 @@
                                 min="@php echo date('Y,m,d'); @endphp">
                         </div>
                         <div class="form-group">
-                            <input type="text" id="time" name="time" placeholder="Enter Valid Duration Format hh:mm:ss" class="form-control" onblur="validateDuration()">
+                            <input type="text" id="timeedit" name="time"  class="form-control" onblur="validateDuration()">
                         </div>
                         <div class="form-group">
                             <input type="number" min="1" class="form-control" id="attempt" name="attempt"
@@ -323,7 +323,7 @@
                     success: function(data) {
                         $("#modal-test").modal("hide");
                         setTimeout(function() {
-                            location.reload();
+
                         }, 1000);
                         // Refresh the page or update the table with the new item
                     },
@@ -352,7 +352,7 @@
                             $("#edit_test").val(test[0].name);
                             $("#subject_id").val(test[0].subject_id);
                             $("#date").val(test[0].date);
-                            $("#time").val(test[0].time);
+                            $("#timeedit").val(test[0].time);
                             $("#attempt").val(test[0].attempt);
                         } else {
                             alert(data.msg);
@@ -378,12 +378,12 @@
                         name: $("#edit_test").val(),
                         subject_id: $("#subject_id").val(),
                         date: $("#date").val(),
-                        time: $("#time").val(),
+                        time: $("#timeedit").val(),
                         attempt: $("#attempt").val(),
                     },
                     success: function(data) {
                         if (data.success == true) {
-                            location.reload();
+
                         } else {
                             alert(data.msg);
                         }
@@ -417,7 +417,7 @@
                     },
                     success: function(data) {
                         if (data.success == true) {
-                            location.reload();
+
                         } else {
                             alert(data.msg);
                         }
@@ -482,7 +482,7 @@
                     success: function(data) {
                         console.log(data);
                         setTimeout(function() {
-                            location.reload();
+
                         }, 1000);
                         // Refresh the page or update the table with the new item
                     },
@@ -562,7 +562,7 @@
         function validateDuration() {
           var input = document.getElementById("duration");
           var durationPattern = /^([0-9]{2}):([0-9]{2}):([0-9]{2})$/;
-    
+
           if (!durationPattern.test(input.value)) {
             alert("Please enter a valid duration in the format HH:MM:SS");
             input.value = "00:00:00"; // You can set a default value or clear the field

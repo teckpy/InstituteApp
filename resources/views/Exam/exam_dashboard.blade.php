@@ -17,19 +17,50 @@
     }
 </style>
 @section('aside')
+    <style>
+        .navbar {
+            height: 40px;
+            /* Set your desired height */
+        }
+    </style>
+    <style>
+        .brand-image {
+            margin-bottom: 10px;
+            /* Set your desired margin-bottom */
+        }
+    </style>
+    <style>
+        .name {
+            margin-top: 5px !important;
+            /* Set your desired margin-top */
+        }
+    </style>
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
+
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            <li style="margin-top: 2.5%">Welcome -
-                @if (auth()->check())
-                    {{ auth()->user()->name }}
-                @endif
+        </ul>
+
+        <!-- Move the brand logo to the right end -->
+        <ul class="navbar-nav">
+            <li class="nav-item name">
+                <a  class="nav-link text-uppercase">
+                    @if (auth()->check())
+                        {{ auth()->user()->name }}
+                    @endif
+                </a>
+            </li>
+            <li class="nav-item">
+                <div class="brand-link" style="margin-left: auto; margin-right: 15px;">
+                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8">
+                </div>
             </li>
         </ul>
     </nav>
+
+
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <div class="brand-link">
@@ -44,14 +75,13 @@
             <nav class="mt-2">
                 <p class="text-center" style="color: white;">Max 55 Marks</p>
                 <div class="text-center d-flex justify-content-center">
-                    <table class="table-responsive table-sm" style="margin-left: 20%;">
+                    {{-- <table class="table-responsive table-sm" style="margin-left: 20%;">
+                        @foreach ($qnas as $question)
                         <tr>
-                            <td><a href=""><span class="badge badge-light">1</span></a></td>
-                            <td><a href=""><span class="badge badge-light">2</span></a></td>
-                            <td><span class="badge badge-light">3</span></td>
-                            <td><span class="badge badge-light">4</span></td>
-                            <td><span class="badge badge-light">4</span></td>
+                            <td><a href="" data-id="{{ $question['question'][0]['id'] }}"><span class="badge badge-light">{{ $qnas[$loop->index + 1] }}</span></a></td>
                         </tr>
+                        @endforeach
+
                         <tr>
                             <td><span class="badge badge-light">1</span></td>
                             <td><span class="badge badge-success">2</span></td>
@@ -66,7 +96,7 @@
                             <td><span class="badge badge-light">4</span></td>
                             <td><span class="badge badge-light">4</span></td>
                         </tr>
-                    </table>
+                    </table> --}}
                 </div>
             </nav>
             <!-- /.sidebar-menu -->
@@ -96,9 +126,9 @@
                 <div class="row">
                     <div class="col-10 mx-auto">
                         <!-- Default box -->
-                        <h6>Exam: {{ $qnaExam[0]['name'] }} </h6>
-                        <h6>Test Id:</h6>
-                        <h6>Subject:</h6>
+                        <h6 class="font-weight-bold text-uppercase">Exam    : {{ $qnaExam[0]['name'] }} </h6>
+                        <h6 class="font-weight-bold text-uppercase">Test Id :{{ $qnaExam[0]['test_exam_id'] }}</h6>
+                        {{-- <h6>Subject:{{ $qnaExam->subject[0]['subject'] }}</h6> --}}
                         <hr>
                         <form action="{{ route('examSubmit') }}" method="POST" id="exam_form">
                             @php $qcount = 1; @endphp
@@ -150,21 +180,25 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="text-center">
+                                            <a class="btn btn-dark" onclick="goBack()">Back</a>
+                                            <a class="btn btn-info" onclick="skipQuestion()"
+                                                style="color: white">Skip</a>
+                                            <a class="btn btn-danger" onclick="clearAnswer()"
+                                                style="color: white">Clear</a>
+                                            <a class="btn btn-success" onclick="markForReview()"
+                                                style="color: white">Mark for
+                                                Review</a>
+                                            <a class="btn btn-light" onclick="saveAndNext({{ $loop->index }})"
+                                                style="background-color: rgb(134, 212, 16);color:white;">Save &
+                                                Next</a>
+                                            <a class="btn btn-warning" style="color:white" onclick="goFullscreen()">Go
+                                                Fullscreen</a>
+                                        </div>
                                     @endforeach
                                 @endif
                             @endif
-
                         </form>
-
-
-                        <div class="text-center"></div>
-                        <button class="btn btn-dark">Back</button>
-                        <button class="btn btn-info" style="color: white">Skip</button>
-                        <button class="btn btn-danger" style="color: white">Clear</button>
-                        <button class="btn btn-success" style="color: white">Mark for Review</button>
-                        <button class="btn btn-light" style="background-color: rgb(134, 212, 16);color:white;">Save &
-                            Next</button>
-                        <button class="btn btn-warning" style="color:white" onclick="goFullscreen()">Go Fullscreen</button>
                     </div>
                 </div>
             </div>
@@ -172,27 +206,21 @@
     </div>
 
     <script>
-        // Trigger the fullscreen request when the page loads
+
         document.addEventListener('DOMContentLoaded', () => {
             const fullscreenButton = document.getElementById('fullscreenButton');
-
-            // Trigger a click on the invisible button
             fullscreenButton.click();
         });
 
-        // Function to go fullscreen
         function goFullscreen() {
             const element = document.documentElement;
             if (element.requestFullscreen) {
                 element.requestFullscreen();
             } else if (element.mozRequestFullScreen) {
-                /* Firefox */
                 element.mozRequestFullScreen();
             } else if (element.webkitRequestFullscreen) {
-                /* Chrome, Safari and Opera */
                 element.webkitRequestFullscreen();
             } else if (element.msRequestFullscreen) {
-                /* IE/Edge */
                 element.msRequestFullscreen();
             }
         }
@@ -208,7 +236,7 @@
             var time = @json($time);
             $('.time').text(time[0] + ':' + time[0] + ':00 ');
 
-            var seconds = 60;
+            var seconds = 00;
             var hours = parseInt(time[0]);
             var minutes = parseInt(time[1]);
             var timer = setInterval(() => {
@@ -255,6 +283,29 @@
                 }
             }
             return result;
+        }
+        //save answer
+
+        function saveAnswer(questionNumber) {
+            var answer = $('#ans_' + questionNumber).val();
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('saveAnswer') }}',
+                data: {
+                    questionNumber: questionNumber,
+                    answer: answer,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function(error) {
+                    // Handle error response
+                    console.log(error);
+                }
+            });
         }
     </script>
 

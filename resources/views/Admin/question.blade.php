@@ -147,7 +147,7 @@
                                 placeholder="Enter Question" required>
                         </div>
                     </div>
-                   
+
                     <div class="modal-footer">
                         <span style="color: rgb(122, 8, 8)" class="editerror"></span>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -284,7 +284,7 @@
                             data: formData,
                             success: function(data) {
                                 if (data.success == true) {
-                                    location.reload();
+
                                 } else {
                                     alert(data.msg);
                                 }
@@ -496,7 +496,7 @@
                             success: function(data) {
                                 console.log(data);
                                 if (data.success == true) {
-                                    location.reload();
+
 
                                 } else {
                                     alert(data.msg);
@@ -532,7 +532,7 @@
                     data: formData,
                     success: function(data) {
                         if (data.success == true) {
-                            location.reload();
+
                         }
                     }
                 });
@@ -562,7 +562,7 @@
                         contentType: false,
                         success: function(data) {
                             if (data.success == true) {
-                                location.reload();
+
                             }
                         }
                     });

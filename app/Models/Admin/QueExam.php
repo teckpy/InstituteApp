@@ -30,6 +30,5 @@ class QueExam extends Model
     {
         return $this->hasMany(Test::class,'id','exam_id');
     }
-    
+
 }
-    

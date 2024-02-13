@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @vite('resources/css/app.css')
+
     <title>@yield('title')</title>
     <link rel="icon" href="{{asset('Admin/dist/img/logo1.png')}}" type="image/icon type">
     <!-- Google Font: Source Sans Pro -->
@@ -37,7 +37,7 @@
     <script src="{{ asset('Admin/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('Admin/js/multiselect-dropdown.js') }}"></script>
      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-     
+
     <style>
         .multiselect-dropdown{
             width: 100% !important;
