@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\StudentsController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\ExamController;
 
@@ -61,6 +62,7 @@ Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verifi
     Route::get('/get-questions',[QuestionController::class,'getQuestion'])->name('getQuestion')->middleware('auth:admin');
     Route::POST('/add-qna',[QuestionController::class,'addQuestion'])->name('addQuestion')->middleware('auth:admin');
     Route::get('/show-questions',[QuestionController::class,'showQuestion'])->name('showQuestion')->middleware('auth:admin');
+    Route::get('/show-students',[StudentsController::class,'index'])->name('Students')->middleware('auth:admin');
 
 });
 
@@ -71,18 +73,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/get-next-question', [ExamController::class, 'getNextQuestion'])->name('getNextQuestion');
 
 
-    Route::post('/questions/next', [ExamController::class, 'getNextQuestion']);
+
 });
 
-Route::get('/register/students', [UserController::class, 'create'])->name('students.register');
-Route::get('/signup/students', [UserController::class, 'signUp'])->name('students.signup');
+Route::get('/examregistration/{id}', [TestController::class,'examregistration'])->name('examregistration');
 
 Route::get('/otp-verification', [UserController::class, 'Verification'])->name('Verification');
 
 
 
 
-Route::get('/examregistration/{id}', [TestController::class,'examregistration'])->name('examregistration');
+
 
 
 

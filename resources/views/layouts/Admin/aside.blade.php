@@ -1,36 +1,14 @@
-
-
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('dashboard') }}" class="brand-link">
-        <img src="{{ asset('Admin/dist/img/logo1.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ asset('Admin/dist/img/logo1.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
         <span class="brand-text font-weight-light">GSSSC</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div> --}}
 
-        <!-- SidebarSearch Form -->
-        {{-- <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -39,7 +17,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item menu-open">
-                    <a href="{{ route('dashboard') }}" class="nav-link active">
+                    <a href="{{ route('dashboard') }}" class="nav-link @if (Request::segment(2) == 'Dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -56,7 +34,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                            <a href="{{ route('Students') }}" class="nav-link @if (Request::segment(1) == 'show-students') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Students List</p>
                             </a>
@@ -72,26 +50,22 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Students</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('Test.index')}}" class="nav-link @if (Request::segment(1) == 'Test') active  @endif">
+                            <a href="{{ route('Test.index') }}"
+                                class="nav-link @if (Request::segment(1) == 'Test') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Test</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Subject.index')}}" class="nav-link">
+                            <a href="{{ route('Subject.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Subject</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Question.index')}}" class="nav-link">
+                            <a href="{{ route('Question.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Question</p>
                             </a>
@@ -102,18 +76,7 @@
                                 <p>Answer</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/projects.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Timing</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/project-add.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Schedule</p>
-                            </a>
-                        </li>
+
                         <li class="nav-item">
                             <a href="pages/examples/project-edit.html" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -128,31 +91,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fas fa-dollar-sign"></i>
-                        <p>
-                            Fee
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
 
-                        <li class="nav-item">
-                            <a href="pages/examples/lockscreen.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Class Fee</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Test Fee</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-header">   WEBSITE</li>
+                <li class="nav-header"> WEBSITE</li>
 
                 <li class="nav-item ">
                     <a href="#" class="nav-link {{ Route::is('HeaderShow') ? 'active' : '' }}">
@@ -164,7 +104,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ">
-                            <a href="{{route('HeaderShow')}}" class="nav-link {{ Route::is('HeaderShow') ? 'active' : '' }}">
+                            <a href="{{ route('HeaderShow') }}"
+                                class="nav-link {{ Route::is('HeaderShow') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Menu</p>
                             </a>
@@ -328,5 +269,3 @@
     </div>
     <!-- /.sidebar -->
 </aside>
-
-
