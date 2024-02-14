@@ -59,13 +59,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Subject.index') }}" class="nav-link">
+                            <a href="{{ route('Subject.index') }}" class="nav-link @if (Request::segment(1) == 'Subject') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Subject</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Question.index') }}" class="nav-link">
+                            <a href="{{ route('Question.index') }}" class="nav-link @if (Request::segment(1) == 'Question') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Question</p>
                             </a>
