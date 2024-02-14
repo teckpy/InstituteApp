@@ -75,25 +75,12 @@
                     </div>
                 </form>
 
-                {{-- <div class="social-auth-links text-center mt-2 mb-3">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
-                </div> --}}
-                <!-- /.social-auth-links -->
-
                 <p class="mb-1">
                     @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}">Forgotten
                             Password?</a>
                     @endif
                 </p>
-                <span><p class="mb-0">
-                    <a class="text-center" href="{{ route('register') }}">Create an account</a>
-                </p></span>
             </div>
             <!-- /.card-body -->
         </div>

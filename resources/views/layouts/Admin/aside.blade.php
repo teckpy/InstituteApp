@@ -73,13 +73,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/examples/invoice.html" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Students</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('Test.index')}}" class="nav-link">
+                            <a href="{{route('Test.index')}}" class="nav-link @if (Request::segment(1) == 'Test') active  @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Test</p>
                             </a>

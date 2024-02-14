@@ -27,7 +27,7 @@ class JetstreamServiceProvider extends ServiceProvider
         });
 
         Fortify::registerView(function () {
-            return view('Admin.register');
+            return view('User.register');
         });
 
         $this->configurePermissions();

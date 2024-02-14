@@ -54,7 +54,7 @@
             </li>
             <li class="nav-item">
                 <div class="brand-link" style="margin-left: auto; margin-right: 15px;">
-                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8;">
+                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8">
                 </div>
             </li>
         </ul>
@@ -65,7 +65,7 @@
         <!-- Brand Logo -->
         <div class="brand-link">
             <img style="margin-left: 45%;" src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle"
-                style="opacity: .8; height: 60px; width: 60px;">
+                style="opacity: .8">
             <br><br>
             <p class="text-center time"> {{ \Carbon\Carbon::parse($qnaExam[0]['time'])->format('h:i A') }}</p>
         </div>
@@ -76,6 +76,12 @@
                 <p class="text-center" style="color: white;">Max 55 Marks</p>
                 <div class="text-center d-flex justify-content-center">
                     <table class="table-responsive table-sm" style="margin-left: 20%;">
+                        @foreach ($qnas as $question)
+                            <tr>
+                                <td><a href="" data-id="{{ $question['question'][0]['id'] }}"><span
+                                            class="badge badge-light">{{ $qnas[$loop->index + 1] }}</span></a></td>
+                            </tr>
+                        @endforeach
 
                         <tr>
                             <td><span class="badge badge-light">1</span></td>
@@ -126,68 +132,69 @@
                         {{-- <h6>Subject:{{ $qnaExam->subject[0]['subject'] }}</h6> --}}
                         <hr>
                         <form action="{{ route('examSubmit') }}" method="POST" id="exam_form">
+                            @php $qcount = 1; @endphp
                             @csrf
                             @if ($success == true)
-                                @if (count($initialQuestion) > 0)
-                                    <div class="card">
-                                        <div class="card-body row">
-                                            <div class="col-9">
-                                                <table>
-                                                    <tr>
-                                                        <h5 class="card-title">
-                                                            Q.)
-                                                            &nbsp;</h5>
-                                                        <input type="hidden" name="exam_id" data-id="{{ $qnaExam[0]['id'] }}"
-                                                            value="{{ $qnaExam[0]['id'] }}">
-                                                        <input type="hidden" name="q[]"
-                                                            value="{{ $initialQuestion[0]['id'] }}">
-                                                        {{-- <input type="hidden" name="ans_{{ $randomExam[0]->id }}"
-                                            id="ans_{{ $randomExam[0]->id }}"> --}}
-                                                        <p class="text-justify">
-                                                            {{ $initialQuestion[0]['question'] }}
-                                                        </p>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="col-3 text-right">
-                                                <span class="">2 Marks</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card">
-                                        <div class="card-body row">
-                                            <div class="col" style="margin-left: 1%">
-                                                <table>
-                                                    <tr>
-                                                        @foreach ($randomExam->question[0]->answers->shuffle() as $answer)
-                                                            <input type="radio"
-                                                                name="radio_{{ $initialQuestion[0]['id'] }}"
-                                                                class="form-check-input select_ans"
-                                                                data-id="{{ $initialQuestion[0]['id'] }}"
-                                                                value="{{ $answer->id }}">
-                                                            <label for="">
-                                                                {{ $answer->answer }}
-                                                            </label><br>
-                                                        @endforeach
-
-                                                    </tr>
-                                                </table>
+                                @if (count($qnas) > 0)
+                                    @foreach ($qnas as $question)
+                                        <div class="card">
+                                            <div class="card-body row">
+                                                <div class="col-9">
+                                                    <table>
+                                                        <tr>
+                                                            <h5 class="card-title">
+                                                                Q.{{ ($qnas->currentPage() - 1) * $qnas->perPage() + $loop->index + 1 }})
+                                                                &nbsp;</h5>
+                                                            <input type="hidden" name="exam_id"
+                                                                value="{{ $qnaExam[0]['id'] }}">
+                                                            <input type="hidden" name="q[]"
+                                                                value="{{ $question['question'][0]['id'] }}">
+                                                            <input type="hidden" name="ans_{{ $qcount - 1 }}"
+                                                                id="ans_{{ $qcount - 1 }}">
+                                                            <p class="text-justify">
+                                                                {{ $question['question'][0]['question'] }}
+                                                            </p>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-3 text-right">
+                                                    <span class="">2 Marks</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="text-center">
-                                        <a class="btn btn-dark" onclick="goBack()">Back</a>
-                                        <a class="btn btn-info" onclick="skipQuestion()" style="color: white">Skip</a>
-                                        <a class="btn btn-danger" onclick="clearAnswer()" style="color: white">Clear</a>
-                                        <a class="btn btn-success" onclick="markForReview()" style="color: white">Mark for
-                                            Review</a>
-                                        <a class="btn btn-light" onclick="saveAndNext()"
-                                            style="background-color: rgb(134, 212, 16);color:white;">Save & Next</a>
-                                        <a class="btn btn-warning" style="color:white">Go
-                                            Fullscreen</a>
-                                    </div>
+                                        <div class="card">
+                                            <div class="card-body row">
+                                                <div class="col" style="margin-left: 1%">
+                                                    <table>
+                                                        <tr>
+                                                            @php $acount = 1; @endphp
+                                                            @foreach ($question['question'][0]['answers'] as $answer)
+                                                                <input type="radio" name="radio_{{ $qcount - 1 }}"
+                                                                    class="form-check-input select_ans"
+                                                                    data-id="{{ $qcount - 1 }}"
+                                                                    value="{{ $answer['id'] }}">
+                                                                <label for="">{{ $acount++ }}.
+                                                                    {{ $answer['answer'] }}</label><br>
+                                                            @endforeach
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <a class="btn btn-dark" onclick="goBack()">Back</a>
+                                            <a class="btn btn-info" onclick="skipQuestion()" style="color: white">Skip</a>
+                                            <a class="btn btn-danger" onclick="clearAnswer()" style="color: white">Clear</a>
+                                            <a class="btn btn-success" onclick="markForReview()" style="color: white">Mark
+                                                for
+                                                Review</a>
+                                            <a class="btn btn-light" onclick="saveAndNext({{ $loop->index }})"
+                                                style="background-color: rgb(134, 212, 16);color:white;">Save &
+                                                Next</a>
+                                            <a class="btn btn-warning" style="color:white" onclick="goFullscreen()">Go
+                                                Fullscreen</a>
+                                        </div>
+                                    @endforeach
                                 @endif
                             @endif
                         </form>
@@ -197,9 +204,13 @@
         </section>
     </div>
 
-
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', () => {
+            const fullscreenButton = document.getElementById('fullscreenButton');
+            fullscreenButton.click();
+        });
+
+        function goFullscreen() {
             const element = document.documentElement;
             if (element.requestFullscreen) {
                 element.requestFullscreen();
@@ -210,7 +221,10 @@
             } else if (element.msRequestFullscreen) {
                 element.msRequestFullscreen();
             }
-            $('.copied_text').remove();
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
 
             $('.select_ans').click(function() {
                 var no = $(this).attr('data-id');
@@ -250,44 +264,50 @@
                 seconds--;
             }, 1000);
 
-            ////////////////////////////////////////////
+        });
 
+        function isValid() {
+            var result = true;
+            var qlength = parseInt("{{ $qcount }}") - 1;
 
+            for (i = 0; i <= qlength; i++) {
+                if ($('#ans_' + i).val() == "") {
+                    result = false;
+                    $('#ans_' + i).parent().append(
+                        '<span style="color:red; class="error_msg">Please Select Answer !</span>');
+                    setTimeout(() => {
+                        $('.error_msg').remove();
+                    }, 5000);
+                }
+            }
+            return result;
+        }
+        //save answer
 
-                    // Function to get the next question and answer
-                    function getNextQuestion() {
-                        let examId = $(this).attr();
-                        $.ajax({
-                            url: '/get-next-question',
-                            type: 'POST',
-                            data: {
-                                _token: csrfToken,
-                                exam_id: examId,
-                            },
-                            success: function(response) {
-                                // Handle the response and update your UI
-                                // Display the question and answers
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            },
-                        });
-                    }
+        function saveAnswer(questionNumber) {
+            var answer = $('#ans_' + questionNumber).val();
 
-            // Call this function on button click or any other trigger
-            $('#nextButton').on('click', function() {
-                getNextQuestion();
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('saveAnswer') }}',
+                data: {
+                    questionNumber: questionNumber,
+                    answer: answer,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function(error) {
+                    // Handle error response
+                    console.log(error);
+                }
             });
+        }
+    </script>
 
-        });
-
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const fullscreenButton = document.getElementById('fullscreenButton');
-            fullscreenButton.click();
-        });
-
-
+    <script>
+        // Get the current date
     </script>
 @endsection

@@ -72,7 +72,9 @@
                                                     <td>{{ $item->time }}</td>
                                                     <td>{{ $item->attempt }}</td>
                                                     <td></td>
-                                                    <td><a href="" data-code="{{ $item->test_exam_id }}"
+                                                    <td class="text-center"><a onclick="openFullscreenWindow(event)"
+                                                            href="{{ route('loadExam', ['id' => $item->test_exam_id]) }}"
+                                                            target="_blank" data-code="{{ $item->test_exam_id }}"
                                                             class="copy"><i class="fa fa-copy"></i></a></td>
                                                 </tr>
                                             @endforeach
@@ -104,7 +106,7 @@
         $(document).ready(function() {
 
             $(".copy").click(function() {
-                $(this).parent().prepend('<span class="copied_test">Copied</span>');
+                // $(this).parent().prepend('<span class="copied_test">Copied</span>');
 
                 var code = $(this).attr('data-code');
                 var url = "{{ URL::to('/') }}/exam/" + code;
@@ -120,5 +122,19 @@
                 }, 1000);
             });
         });
+    </script>
+    <script>
+        function openFullscreenWindow() {
+            // Specify the URL you want to open in fullscreen mode
+            const url = "{{ route('loadExam', ['id' => $item->test_exam_id]) }}";
+
+            // Open a new window
+            const newWindow = window.open(url, '_blank', 'fullscreen=yes');
+
+            // For older browsers that don't support fullscreen, you can try maximizing the window
+            if (newWindow) {
+        newWindow.document.documentElement.requestFullscreen();
+    }
+        }
     </script>
 @endsection

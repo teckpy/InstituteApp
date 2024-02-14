@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 
 
 
+
 class ExamController extends Controller
 {
     /**
@@ -28,9 +29,14 @@ class ExamController extends Controller
 
                 if (count($qnaExam[0]['getQnaExams']) > 0) {
 
-                    $qnas =  QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->paginate(1);
+                    //$qnas =  QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->paginate(1);
+                    $randomExam = QueExam::inRandomOrder()->with('question', 'answers')->first();
+                     $initialQuestion = $randomExam->question->shuffle();
+                    // $initialAnswers = $randomExam->answers;
 
-                    return view('Exam.exam_dashboard', ['success' => true, 'qnas' => $qnas, 'qnaExam' => $qnaExam]);
+                    // Log::info("message: " . json_encode($randomExam));
+                    //return view('Exam.exam_dashboard', ['success' => true,  'qnaExam' => $qnaExam,'qnas' => $qnas]);
+                    return view('Exam.exam_dashboard', ['success' => true, 'initialQuestion' => $initialQuestion, 'randomExam' => $randomExam, 'qnaExam' => $qnaExam]);
                 } else {
                     return view('Exam.error', ['success' => false, 'msg' => 'This Exam is not available for now ! - ', 'qnaExam' => $qnaExam]);
                 }
@@ -72,4 +78,14 @@ class ExamController extends Controller
         return view('Exam.thanks');
     }
 
+    public function getNextQuestion(Request $request)
+    {
+
+        $examId = $request->input('exam_id');
+
+        $nextQuestionAndAnswer = QueExam::inRandomOrder()->with('question', 'answers')->first();
+        $initialQuestion = $nextQuestionAndAnswer->question->shuffle();
+
+        return response()->json($nextQuestionAndAnswer,$initialQuestion);
+    }
 }
