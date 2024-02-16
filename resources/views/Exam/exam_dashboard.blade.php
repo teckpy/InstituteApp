@@ -73,7 +73,18 @@
         <div class="sidebar">
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <p class="text-center" style="color: white;">Max 55 Marks</p>
+                <p class="text-center" style="color: white;">Exam Question Summary </p>
+                <ul>
+                    <span class="badge badge-success" style="width: 30px;"><i class="fas fa-check"></i></span><span
+                        style="color: white">&nbsp;&nbsp;2 Answered</span><br>
+                    <span class="badge badge-danger" style="width: 30px;"><i class="fa fa-times"></i></i></span><span
+                        style="color: white">&nbsp;&nbsp;0 Not Answered</span><br>
+                    <span class="badge badge-primary" style="width: 30px;"><i class="fa fa-eye"></i></i></span><span
+                        style="color: white">&nbsp;&nbsp;4 Marked For Review</span><br>
+                    <span class="badge badge-info" style="width: 30px;"><i class="fa fa-times"></i></i></span><span
+                        style="color: white">&nbsp;&nbsp;6 Not Visited</span><br>
+                </ul>
+                <hr color="white">
                 <div class="text-center d-flex justify-content-center">
                     <table class="table-responsive table-sm" style="margin-left: 20%;">
 
@@ -86,7 +97,7 @@
                         </tr>
                         <tr>
                             <td><span class="badge badge-warning">1</span></td>
-                            <td><span class="badge badge-light">2</span></td>
+                            <td><span class="badge badge-danger">2</span></td>
                             <td><span class="badge badge-light">3</span></td>
                             <td><span class="badge badge-light">4</span></td>
                             <td><span class="badge badge-light">4</span></td>
@@ -126,67 +137,75 @@
                         {{-- <h6>Subject:{{ $qnaExam->subject[0]['subject'] }}</h6> --}}
                         <hr>
                         <form action="{{ route('examSubmit') }}" method="POST" id="exam_form">
+                            @php $qcount = 1; @endphp
                             @csrf
                             @if ($success == true)
                                 @if (count($initialQuestion) > 0)
-                                    <div class="card">
-                                        <div class="card-body row">
-                                            <div class="col-9">
-                                                <table>
-                                                    <tr>
-                                                        <h5 class="card-title">
-                                                            Q.)
-                                                            &nbsp;</h5>
-                                                        <input type="hidden" name="exam_id" data-id="{{ $qnaExam[0]['id'] }}"
-                                                            value="{{ $qnaExam[0]['id'] }}">
-                                                        <input type="hidden" name="q[]"
-                                                            value="{{ $initialQuestion[0]['id'] }}">
-                                                        {{-- <input type="hidden" name="ans_{{ $randomExam[0]->id }}"
-                                            id="ans_{{ $randomExam[0]->id }}"> --}}
-                                                        <p class="text-justify">
-                                                            {{ $initialQuestion[0]['question'] }}
-                                                        </p>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="col-3 text-right">
-                                                <span class="">2 Marks</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card">
-                                        <div class="card-body row">
-                                            <div class="col" style="margin-left: 1%">
-                                                <table>
-                                                    <tr>
-                                                        @foreach ($randomExam->question[0]->answers->shuffle() as $answer)
-                                                            <input type="radio"
-                                                                name="radio_{{ $initialQuestion[0]['id'] }}"
-                                                                class="form-check-input select_ans"
-                                                                data-id="{{ $initialQuestion[0]['id'] }}"
-                                                                value="{{ $answer->id }}">
-                                                            <label for="">
-                                                                {{ $answer->answer }}
-                                                            </label><br>
-                                                        @endforeach
-
-                                                    </tr>
-                                                </table>
+                                    <div class="data-container">
+                                        <div class="card">
+                                            <div class="card-body row">
+                                                <div class="col-9">
+                                                    <table>
+                                                        <tr>
+                                                            <h5 class="card-title">
+                                                                Q.)
+                                                                &nbsp;</h5>
+                                                            <input type="hidden" name="exam_id"
+                                                                data-id="{{ $qnaExam[0]['id'] }}"
+                                                                value="{{ $qnaExam[0]['id'] }}">
+                                                            <input type="hidden" name="q[]"
+                                                                value="{{ $initialQuestion[0]['id'] }}">
+                                                            <input type="hidden" name="ans_{{ $qcount - 1 }}"
+                                                                id="ans_{{ $qcount - 1 }}">
+                                                            <p class="text-justify">
+                                                                {{ $initialQuestion[0]['question'] }}
+                                                            </p>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="col-3 text-right">
+                                                    <span class="">2 Marks</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="text-center">
-                                        <a class="btn btn-dark" onclick="goBack()">Back</a>
-                                        <a class="btn btn-info" onclick="skipQuestion()" style="color: white">Skip</a>
-                                        <a class="btn btn-danger" onclick="clearAnswer()" style="color: white">Clear</a>
-                                        <a class="btn btn-success" onclick="markForReview()" style="color: white">Mark for
-                                            Review</a>
-                                        <a class="btn btn-light" onclick="saveAndNext()"
-                                            style="background-color: rgb(134, 212, 16);color:white;">Save & Next</a>
-                                        <a class="btn btn-warning" style="color:white">Go
-                                            Fullscreen</a>
+                                        <div class="card">
+                                            <div class="card-body row">
+                                                <div class="col" style="margin-left: 1%">
+                                                    <table>
+                                                        <tr>
+                                                            @php $acount = 1; @endphp
+                                                            @foreach ($randomExam->question[0]->answers->shuffle() as $answer)
+                                                                <input type="radio" name="radio_{{ $qcount - 1 }}"
+                                                                    class="form-check-input select_ans"
+                                                                    data-id="{{ $qcount - 1 }}"
+                                                                    value="{{ $answer->id }}">
+                                                                <label for="">{{ $acount++ }}.
+                                                                    {{ $answer->answer }}
+                                                                </label><br>
+                                                            @endforeach
+
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <a class="btn btn-dark" onclick="goBack()">Back</a>
+                                            <a class="btn btn-info" onclick="skipQuestion()"
+                                                style="color: white">Skip</a>
+                                            <a class="btn btn-danger" onclick="clearAnswer()"
+                                                style="color: white">Clear</a>
+                                            <a class="btn btn-success" onclick="markForReview()"
+                                                style="color: white">Mark
+                                                for
+                                                Review</a>
+                                            <a class="btn btn-light" onclick="saveAndNext()"
+                                                style="background-color: rgb(134, 212, 16);color:white;">Save & Next</a>
+                                            <a class="btn btn-warning" style="color:white">Go
+                                                Fullscreen</a>
+                                        </div>
                                     </div>
                                 @endif
                             @endif
@@ -254,25 +273,25 @@
 
 
 
-                    // Function to get the next question and answer
-                    function getNextQuestion() {
-                        let examId = $(this).attr();
-                        $.ajax({
-                            url: '/get-next-question',
-                            type: 'POST',
-                            data: {
-                                _token: csrfToken,
-                                exam_id: examId,
-                            },
-                            success: function(response) {
-                                // Handle the response and update your UI
-                                // Display the question and answers
-                            },
-                            error: function(error) {
-                                console.error(error);
-                            },
-                        });
-                    }
+            // Function to get the next question and answer
+            function getNextQuestion() {
+                let examId = $(this).attr();
+                $.ajax({
+                    url: '/get-next-question',
+                    type: 'POST',
+                    data: {
+                        _token: csrfToken,
+                        exam_id: examId,
+                    },
+                    success: function(response) {
+                        // Handle the response and update your UI
+                        // Display the question and answers
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    },
+                });
+            }
 
             // Call this function on button click or any other trigger
             $('#nextButton').on('click', function() {
@@ -287,7 +306,5 @@
             const fullscreenButton = document.getElementById('fullscreenButton');
             fullscreenButton.click();
         });
-
-
     </script>
 @endsection

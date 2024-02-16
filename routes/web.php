@@ -34,58 +34,42 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('User.Dashboard');
     })->name('dashboard');
-
 });
 
-Route::middleware('admin:admin')->group(function(){
-    Route::get('admin/login',[AdminController::class,'loginForm']);
-    Route::POST('admin/login',[AdminController::class,'store'])->name('admin.login');
+Route::middleware('admin:admin')->group(function () {
+    Route::get('admin/login', [AdminController::class, 'loginForm']);
+    Route::POST('admin/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
 
-Route::middleware(['auth:sanctum,admin',config('jetstream.auth_session'),'verified',])->group(function () {
+Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/admin/Dashboard', function () {
         return view('Admin.Dashboard');
     })->name('dashboard')->middleware('auth:admin');
 
 
-    Route::get('/Header',[HeaderController::class, 'index'])->name('HeaderShow')->middleware('auth:admin');
+    Route::get('/Header', [HeaderController::class, 'index'])->name('HeaderShow')->middleware('auth:admin');
     Route::resource('Subject', SubjectController::class)->middleware('auth:admin');
-    Route::Post('/edit-subject',[SubjectController::class, 'update'])->name('editSubject')->middleware('auth:admin');
-    Route::Post('/delete-subject',[SubjectController::class, 'destroy'])->name('deleteSubject')->middleware('auth:admin');
+    Route::Post('/edit-subject', [SubjectController::class, 'update'])->name('editSubject')->middleware('auth:admin');
+    Route::Post('/delete-subject', [SubjectController::class, 'destroy'])->name('deleteSubject')->middleware('auth:admin');
     //test
     Route::resource('Test', TestController::class)->middleware('auth:admin');
     Route::resource('Question', QuestionController::class)->middleware('auth:admin');
-    Route::get('/delete-ans',[QuestionController::class,'removeAns'])->name('removeAns')->middleware('auth:admin');
-    Route::POST('/import-qna',[QuestionController::class,'import'])->name('import')->middleware('auth:admin');
+    Route::get('/delete-ans', [QuestionController::class, 'removeAns'])->name('removeAns')->middleware('auth:admin');
+    Route::POST('/import-qna', [QuestionController::class, 'import'])->name('import')->middleware('auth:admin');
 
-    Route::get('/get-questions',[QuestionController::class,'getQuestion'])->name('getQuestion')->middleware('auth:admin');
-    Route::POST('/add-qna',[QuestionController::class,'addQuestion'])->name('addQuestion')->middleware('auth:admin');
-    Route::get('/show-questions',[QuestionController::class,'showQuestion'])->name('showQuestion')->middleware('auth:admin');
-    Route::get('/show-students',[StudentsController::class,'index'])->name('Students')->middleware('auth:admin');
-
+    Route::get('/get-questions', [QuestionController::class, 'getQuestion'])->name('getQuestion')->middleware('auth:admin');
+    Route::POST('/add-qna', [QuestionController::class, 'addQuestion'])->name('addQuestion')->middleware('auth:admin');
+    Route::get('/show-questions', [QuestionController::class, 'showQuestion'])->name('showQuestion')->middleware('auth:admin');
+    Route::get('/show-students', [StudentsController::class, 'index'])->name('Students')->middleware('auth:admin');
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
-    Route::post('/get-next-question', [ExamController::class, 'getNextQuestion'])->name('getNextQuestion');
-
-
-
 });
 
-Route::get('/examregistration/{id}', [TestController::class,'examregistration'])->name('examregistration');
+Route::get('/examregistration/{id}', [TestController::class, 'examregistration'])->name('examregistration');
 
 Route::get('/otp-verification', [UserController::class, 'Verification'])->name('Verification');
-
-
-
-
-
-
-
-
-
-

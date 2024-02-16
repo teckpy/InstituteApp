@@ -54,7 +54,7 @@
             </li>
             <li class="nav-item">
                 <div class="brand-link" style="margin-left: auto; margin-right: 15px;">
-                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8">
+                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8;">
                 </div>
             </li>
         </ul>
@@ -65,7 +65,7 @@
         <!-- Brand Logo -->
         <div class="brand-link">
             <img style="margin-left: 45%;" src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle"
-                style="opacity: .8">
+                style="opacity: .8; height: 60px; width: 60px;">
             <br><br>
             <p class="text-center time"> {{ \Carbon\Carbon::parse($qnaExam[0]['time'])->format('h:i A') }}</p>
         </div>
@@ -76,7 +76,6 @@
                 <p class="text-center" style="color: white;">Max 55 Marks</p>
                 <div class="text-center d-flex justify-content-center">
                     <table class="table-responsive table-sm" style="margin-left: 20%;">
-
 
                         <tr>
                             <td><span class="badge badge-light">1</span></td>
@@ -138,12 +137,12 @@
                                                         <h5 class="card-title">
                                                             Q.)
                                                             &nbsp;</h5>
-                                                        <input type="hidden" name="exam_id"
+                                                        <input type="hidden" name="exam_id" data-id="{{ $qnaExam[0]['id'] }}"
                                                             value="{{ $qnaExam[0]['id'] }}">
                                                         <input type="hidden" name="q[]"
                                                             value="{{ $initialQuestion[0]['id'] }}">
                                                         {{-- <input type="hidden" name="ans_{{ $randomExam[0]->id }}"
-                                                            id="ans_{{ $randomExam[0]->id }}"> --}}
+                                            id="ans_{{ $randomExam[0]->id }}"> --}}
                                                         <p class="text-justify">
                                                             {{ $initialQuestion[0]['question'] }}
                                                         </p>
@@ -186,7 +185,7 @@
                                             Review</a>
                                         <a class="btn btn-light" onclick="saveAndNext()"
                                             style="background-color: rgb(134, 212, 16);color:white;">Save & Next</a>
-                                        <a class="btn btn-warning" style="color:white" onclick="goFullscreen()">Go
+                                        <a class="btn btn-warning" style="color:white">Go
                                             Fullscreen</a>
                                     </div>
                                 @endif
@@ -197,13 +196,10 @@
             </div>
         </section>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const fullscreenButton = document.getElementById('fullscreenButton');
-            fullscreenButton.click();
-        });
 
-        function goFullscreen() {
+
+    <script>
+        $(document).ready(function() {
             const element = document.documentElement;
             if (element.requestFullscreen) {
                 element.requestFullscreen();
@@ -214,10 +210,7 @@
             } else if (element.msRequestFullscreen) {
                 element.msRequestFullscreen();
             }
-        }
-    </script>
-    <script>
-        $(document).ready(function() {
+            $('.copied_text').remove();
 
             $('.select_ans').click(function() {
                 var no = $(this).attr('data-id');
@@ -257,32 +250,44 @@
                 seconds--;
             }, 1000);
 
+            ////////////////////////////////////////////
+
+
+
+                    // Function to get the next question and answer
+                    function getNextQuestion() {
+                        let examId = $(this).attr();
+                        $.ajax({
+                            url: '/get-next-question',
+                            type: 'POST',
+                            data: {
+                                _token: csrfToken,
+                                exam_id: examId,
+                            },
+                            success: function(response) {
+                                // Handle the response and update your UI
+                                // Display the question and answers
+                            },
+                            error: function(error) {
+                                console.error(error);
+                            },
+                        });
+                    }
+
+            // Call this function on button click or any other trigger
+            $('#nextButton').on('click', function() {
+                getNextQuestion();
+            });
+
         });
 
 
-        //save answer
 
-        function saveAnswer(questionNumber) {
-            var answer = $('#ans_' + questionNumber).val();
+        document.addEventListener('DOMContentLoaded', () => {
+            const fullscreenButton = document.getElementById('fullscreenButton');
+            fullscreenButton.click();
+        });
 
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('saveAnswer') }}',
-                data: {
-                    questionNumber: questionNumber,
-                    answer: answer,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    // Handle success response
-                    console.log(response);
-                },
-                error: function(error) {
-                    // Handle error response
-                    console.log(error);
-                }
-            });
-        }
+
     </script>
-
 @endsection

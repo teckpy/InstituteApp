@@ -8,7 +8,7 @@
         style="font-size: 50px"
       >
         <i class="flaticon-043-teddy-bear"></i>
-        <span class="text-primary">KidKinder</span>
+        <span class="text-primary"><img src="{{ asset('Website/img/logo.png') }}" width="100px" height="100px" alt="">GSSC</span>
       </a>
       <button
         type="button"
