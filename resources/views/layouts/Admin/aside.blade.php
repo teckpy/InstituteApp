@@ -116,33 +116,15 @@
                                 <p>Logo</p>
                             </a>
                         </li>
-
+                            <li class="nav-item">
+                                <a href="{{ route('Slider.index') }}" class="nav-link @if (Request::segment(1) == 'slider') active @endif">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Slider</p>
+                                </a>
+                            </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-sliders"></i>
-                        <p>
-                            Carousal
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/UI/general.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Image</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/UI/icons.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Description</p>
-                            </a>
-                        </li>
 
-                    </ul>
-                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-edit"></i>

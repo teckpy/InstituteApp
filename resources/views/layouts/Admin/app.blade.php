@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@yield('title')</title>
-    <link rel="icon" href="{{asset('Admin/dist/img/logo1.png')}}" type="image/icon type">
+    <link rel="icon" href="{{ asset('Admin/dist/img/logo1.png') }}" type="image/icon type">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -36,10 +36,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('Admin/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('Admin/js/multiselect-dropdown.js') }}"></script>
-     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
     <style>
-        .multiselect-dropdown{
+        .multiselect-dropdown {
             width: 100% !important;
         }
     </style>

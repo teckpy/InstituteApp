@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\StudentsController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\ExamController;
-
+use App\Http\Controllers\Website\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ Route::middleware([
         return view('User.Dashboard');
     })->name('dashboard');
 });
-
+////////////// Admin Route /////////////////
 Route::middleware('admin:admin')->group(function () {
     Route::get('admin/login', [AdminController::class, 'loginForm']);
     Route::POST('admin/login', [AdminController::class, 'store'])->name('admin.login');
@@ -63,7 +63,7 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
     Route::get('/show-questions', [QuestionController::class, 'showQuestion'])->name('showQuestion')->middleware('auth:admin');
     Route::get('/show-students', [StudentsController::class, 'index'])->name('Students')->middleware('auth:admin');
 });
-
+/////////////////// User Route ///////////////////////////
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
@@ -73,3 +73,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/examregistration/{id}', [TestController::class, 'examregistration'])->name('examregistration');
 
 Route::get('/otp-verification', [UserController::class, 'Verification'])->name('Verification');
+
+
+///////////////////// Website Route ////////////////////
+
+Route::resource('Slider', SliderController::class)->middleware('auth:admin');

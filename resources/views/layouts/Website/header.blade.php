@@ -1,7 +1,7 @@
 <div class="container-fluid px-0 px-md-5 mb-5">
     <div class="row align-items-center px-3">
         <div class="col-lg-12 text-center text-lg-center">
-            <div id="carouselExampleCaptions" class="carousel slide">
+            <div id="carouselExampleCaptions" class="carousel slide d-flex align-items-center justify-content-center custom-carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1"></button>
@@ -12,21 +12,21 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset('Website/img/class-1.jpg') }}" class="d-block w-100  " alt="...">
+                        <img id="slideImg" src="{{ asset('Website/img/class-1.jpg') }}" class="d-block w-100  " alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>First slide label</h5>
                             <p>Some representative placeholder content for the first slide.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('Website/img/class-2.jpg') }}" class="d-block w-100 h-60" alt="...">
+                        <img id="slideImg" src="{{ asset('Website/img/class-2.jpg') }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Second slide label</h5>
                             <p>Some representative placeholder content for the second slide.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('Website/img/class-3.jpg') }}" class="d-block w-100 h-60" alt="...">
+                        <img id="slideImg" src="{{ asset('Website/img/class-3.jpg') }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Third slide label</h5>
                             <p>Some representative placeholder content for the third slide.</p>
@@ -50,6 +50,10 @@
         </div>
     </div>
 </div>
-
+<style>
+#slideImg{
+    height: 450px;
+}
+</style>
 <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
