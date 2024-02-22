@@ -34,7 +34,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('Students') }}" class="nav-link @if (Request::segment(1) == 'show-students') active @endif">
+                            <a href="{{ route('Students') }}"
+                                class="nav-link @if (Request::segment(1) == 'show-students') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Students List</p>
                             </a>
@@ -59,13 +60,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Subject.index') }}" class="nav-link @if (Request::segment(1) == 'Subject') active @endif">
+                            <a href="{{ route('Subject.index') }}"
+                                class="nav-link @if (Request::segment(1) == 'Subject') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Subject</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Question.index') }}" class="nav-link @if (Request::segment(1) == 'Question') active @endif">
+                            <a href="{{ route('Question.index') }}"
+                                class="nav-link @if (Request::segment(1) == 'Question') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Question</p>
                             </a>
@@ -98,7 +101,7 @@
                     <a href="#" class="nav-link {{ Route::is('HeaderShow') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-header"></i>
                         <p>
-                            Website
+                            Navbar
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -116,18 +119,15 @@
                                 <p>Logo</p>
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a href="{{ route('image.index') }}" class="nav-link @if (Request::segment(1) == 'image') active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Slider</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('classes.index') }}" class="nav-link @if (Request::segment(1) == 'classes') active @endif">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Classes</p>
-                                </a>
-                            </li>
+                        <li class="nav-item">
+                            <a href="{{ route('image.index') }}"
+                                class="nav-link @if (Request::segment(1) == 'image') active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Slider</p>
+                            </a>
+                        </li>
+                       
+
                     </ul>
                 </li>
 
@@ -158,9 +158,10 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/tables/simple.html" class="nav-link">
+                            <a href="{{ route('classes.index') }}"
+                                class="nav-link @if (Request::segment(1) == 'classes') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Add</p>
+                                <p>Classes</p>
                             </a>
                         </li>
                     </ul>
@@ -182,40 +183,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon 	far fa-comment-alt"></i>
-                        <p>
-                            Blog
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/tables/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-user-circle"></i>
-                        <p>
-                            Quick Links
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/tables/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                
+              
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-address-book"></i>

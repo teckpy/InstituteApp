@@ -73,9 +73,9 @@
                                                     <td>{{ $item->created_at }}</td>
                                                     <td>{{ $item->updated_at }}</td>
                                                     <td class="text-center">
-                                                        <span class="badge badge-warning"><a href=""><i
+                                                        <span class="badge bg-warning"><a href=""><i
                                                                     class="fa fa-edit"></i></a></span>
-                                                        <span class="badge badge-danger"><a href=""
+                                                        <span class="badge bg-danger"><a href=""
                                                                 class="delete_class" data-id="{{ $item->id }}"
                                                                 data-toggle="modal" data-target="#modal-delete"><i
                                                                     class="fa fa-trash"></i></a></span>
