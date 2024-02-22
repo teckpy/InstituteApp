@@ -15,18 +15,33 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('Admin/dist/css/adminlte.min.css') }}">
     <script src="{{ asset('Admin/js/jquery-3.7.1.min.js') }}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
-<body class="hold-transition">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-@yield('nav')
+        @yield('nav')
         @yield('aside')
 
-        <!-- Content Wrapper. Contains page content -->
+
         @yield('content')
-        <!-- /.content-wrapper -->
+
+
 
     </div>
+
+    <footer class="main-footer" style="text-align: :center">
+        <strong>Copyright &copy; 2014-2024 <a
+                href="https://goswamisirclasses.in">GoswamiSirAndSahuSirClasses</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.2.0
+        </div>
+    </footer>
+    <aside class="control-sidebar control-sidebar-dark">
+
+    </aside>
     <!-- jQuery -->
     <script src="{{ asset('Admin/js/jquery-3.7.1.min.js') }}"></script>
     <!-- Bootstrap 4 -->

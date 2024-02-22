@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\StudentsController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\ExamController;
 use App\Http\Controllers\Website\SliderController;
+use App\Http\Controllers\Website\ClassController;
+use App\Http\Controllers\Website\WebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,7 @@ use App\Http\Controllers\Website\SliderController;
 |
 */
 
-Route::get('/', [SliderController::class, 'display']);
+Route::get('/', [WebsiteController::class, 'index']);
 
 Route::middleware([
     'auth:sanctum',
@@ -76,8 +78,7 @@ Route::get('/otp-verification', [UserController::class, 'Verification'])->name('
 ///////////////////// Website Route ////////////////////
 
 Route::resource('image', SliderController::class)->middleware('auth:admin');
+Route::resource('classes', ClassController::class)->middleware('auth:admin');
 
-Route::GET('image/publish/{id}',[SliderController::class,'publish'])->name('publish');
-Route::GET('image/unpublish/{id}',[SliderController::class,'unpublish'])->name('unpublish');
-
-
+Route::GET('image/publish/{id}', [SliderController::class, 'publish'])->name('publish');
+Route::GET('image/unpublish/{id}', [SliderController::class, 'unpublish'])->name('unpublish');

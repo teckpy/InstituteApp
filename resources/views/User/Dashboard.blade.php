@@ -65,13 +65,15 @@
                                             @php $count = 1; @endphp
                                             @foreach ($data as $item)
                                                 <tr>
+                                                    
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->subjects[0]['subject'] }}</td>
                                                     <td>{{ $item->date }}</td>
                                                     <td>{{ $item->time }}</td>
                                                     <td>{{ $item->attempt }}</td>
-                                                    <td></td>
+                                                    <td>{{ $item->attempt_counter }}</td>
+                                                    
                                                     <td class="text-center"><a onclick="openFullscreenWindow(event)"
                                                             href="{{ route('loadExam', ['id' => $item->test_exam_id]) }}"
                                                             target="_blank" data-code="{{ $item->test_exam_id }}"
@@ -95,20 +97,16 @@
                     </section>
                     <section class="col-lg-5 connectedSortable">
                     </section>
-                    <!-- right col -->
                 </div>
-                <!-- /.row (main row) -->
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
-        <!-- /.content -->
     </div>
     <script>
         $(document).ready(function() {
 
             $(".copy").click(function() {
-                // $(this).parent().prepend('<span class="copied_test">Copied</span>');
 
-                var code = $(this).attr('data-code');
+                var code = {{ $item->test_exam_id }};
                 var url = "{{ URL::to('/') }}/exam/" + code;
 
                 var $temp = $("<input>");
@@ -123,18 +121,5 @@
             });
         });
     </script>
-    <script>
-        function openFullscreenWindow() {
-            // Specify the URL you want to open in fullscreen mode
-            const url = "{{ route('loadExam', ['id' => $item->test_exam_id]) }}";
 
-            // Open a new window
-            const newWindow = window.open(url, '_blank', 'fullscreen=yes');
-
-            // For older browsers that don't support fullscreen, you can try maximizing the window
-            if (newWindow) {
-        newWindow.document.documentElement.requestFullscreen();
-    }
-        }
-    </script>
 @endsection

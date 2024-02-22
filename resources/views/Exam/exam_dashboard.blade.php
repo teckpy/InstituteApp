@@ -4,18 +4,7 @@
         {{ auth()->user()->name }}
     @endif | Dashboard
 @endsection
-<style>
-    body {
-        margin: 0;
-        overflow: hidden;
-    }
 
-    #fullscreenButton {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-</style>
 @section('aside')
     <style>
         .navbar {
@@ -35,7 +24,8 @@
             /* Set your desired margin-top */
         }
     </style>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top">
 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -128,7 +118,7 @@
         </section>
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid"><br>
                 <div class="row">
                     <div class="col-10 mx-auto">
                         <!-- Default box -->
@@ -140,76 +130,41 @@
                             @php $qcount = 1; @endphp
                             @csrf
                             @if ($success == true)
-                                @if (count($initialQuestion) > 0)
-                                    <div class="data-container">
-                                        <div class="card">
-                                            <div class="card-body row">
-                                                <div class="col-9">
-                                                    <table>
-                                                        <tr>
-                                                            <h5 class="card-title">
-                                                                Q.)
-                                                                &nbsp;</h5>
-                                                            <input type="hidden" name="exam_id"
-                                                                data-id="{{ $qnaExam[0]['id'] }}"
-                                                                value="{{ $qnaExam[0]['id'] }}">
-                                                            <input type="hidden" name="q[]"
-                                                                value="{{ $initialQuestion[0]['id'] }}">
-                                                            <input type="hidden" name="ans_{{ $qcount - 1 }}"
-                                                                id="ans_{{ $qcount - 1 }}">
-                                                            <p class="text-justify">
-                                                                {{ $initialQuestion[0]['question'] }}
-                                                            </p>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="col-3 text-right">
-                                                    <span class="">2 Marks</span>
-                                                </div>
+                                @php
+                                    $Qcount = 1;
+                                @endphp
+
+                                <div class="singleRecord">
+                                    <div class="card">
+                                        <div class="card-body row">
+                                            <div class="col">
+                                                <h4>Q) <b>{{ $Qcount++ }}.</b>&nbsp;
+                                                    {{ $Exam['question'][0]['question'] }}</h4>
+                                                <input type="hidden" name="Q[]"
+                                                    data-question-id="{{ $Exam['question'][0]['id'] }}"
+                                                    value="{{ $Exam['question'][0]['id'] }}">
+                                                <input type="hidden" name="ans_{{ $Qcount - 1 }}">
+                                                <input type="hidden" name="exam_id"
+                                                    data-exam-id="{{ $qnaExam[0]['test_exam_id'] }}"
+                                                    value="{{ $qnaExam[0]['test_exam_id'] }}">
+                                                @php
+                                                    $Acount = 1;
+                                                @endphp
+                                                @foreach ($Exam['question'][0]['answers'] as $Answer)
+                                                    <p><input type="radio" class="select_ans"
+                                                            data-id="{{ $Qcount - 1 }}" name="radio_{{ $Qcount - 1 }}"
+                                                            value="{{ $Answer->id }}">&nbsp;&nbsp;<b>{{ $Acount++ }}.&nbsp;&nbsp;</b>{{ $Answer->answer }}
+                                                    </p>
+                                                @endforeach
                                             </div>
-                                        </div>
-
-                                        <div class="card">
-                                            <div class="card-body row">
-                                                <div class="col" style="margin-left: 1%">
-                                                    <table>
-                                                        <tr>
-                                                            @php $acount = 1; @endphp
-                                                            @foreach ($randomExam->question[0]->answers->shuffle() as $answer)
-                                                                <input type="radio" name="radio_{{ $qcount - 1 }}"
-                                                                    class="form-check-input select_ans"
-                                                                    data-id="{{ $qcount - 1 }}"
-                                                                    value="{{ $answer->id }}">
-                                                                <label for="">{{ $acount++ }}.
-                                                                    {{ $answer->answer }}
-                                                                </label><br>
-                                                            @endforeach
-
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-center">
-                                            <a class="btn btn-dark" onclick="goBack()">Back</a>
-                                            <a class="btn btn-info" onclick="skipQuestion()"
-                                                style="color: white">Skip</a>
-                                            <a class="btn btn-danger" onclick="clearAnswer()"
-                                                style="color: white">Clear</a>
-                                            <a class="btn btn-success" onclick="markForReview()"
-                                                style="color: white">Mark
-                                                for
-                                                Review</a>
-                                            <a class="btn btn-light" onclick="saveAndNext()"
-                                                style="background-color: rgb(134, 212, 16);color:white;">Save & Next</a>
-                                            <a class="btn btn-warning" style="color:white">Go
-                                                Fullscreen</a>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
                             @endif
+
                         </form>
+                        <button class="btn btn-dark prevBtn">Previous</button>
+                        <button class="btn btn-success nextBtn">Next</button>
                     </div>
                 </div>
             </div>
@@ -269,42 +224,38 @@
                 seconds--;
             }, 1000);
 
-            ////////////////////////////////////////////
 
 
 
-            // Function to get the next question and answer
-            function getNextQuestion() {
-                let examId = $(this).attr();
+
+            $('.nextBtn').on('click', function() {
+                // Get the QuestionID from the hidden input field
+                let QuestionID = $("input[name='Q[]']").attr('data-question-id');
+                let ExamID = $("input[name='exam_id']").attr('data-exam-id');
+
+                console.log('Button clicked');
+                //QuestionID + 1;
                 $.ajax({
-                    url: '/get-next-question',
-                    type: 'POST',
+                    url: "/getSingleRecord/" + ExamID,
+                    type: 'GET',
                     data: {
-                        _token: csrfToken,
-                        exam_id: examId,
+                        QuestionID: QuestionID
                     },
-                    success: function(response) {
-                        // Handle the response and update your UI
-                        // Display the question and answers
+                    success: function(data) {
+                        console.log(data);
+                        // Update the content with the new question
+                        $('.singleRecord').html(data);
                     },
                     error: function(error) {
-                        console.error(error);
-                    },
+                        console.log(error);
+                    }
                 });
-            }
-
-            // Call this function on button click or any other trigger
-            $('#nextButton').on('click', function() {
-                getNextQuestion();
             });
 
-        });
 
 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const fullscreenButton = document.getElementById('fullscreenButton');
-            fullscreenButton.click();
         });
     </script>
+
 @endsection

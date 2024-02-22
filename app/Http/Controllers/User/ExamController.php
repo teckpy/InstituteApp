@@ -29,14 +29,16 @@ class ExamController extends Controller
 
                 if (count($qnaExam[0]['getQnaExams']) > 0) {
 
-                    //$qnas =  QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->paginate(1);
-                    $randomExam = QueExam::inRandomOrder()->with('question', 'answers')->first();
-                     $initialQuestion = $randomExam->question->shuffle();
-                    // $initialAnswers = $randomExam->answers;
 
-                    // Log::info("message: " . json_encode($randomExam));
-                    //return view('Exam.exam_dashboard', ['success' => true,  'qnaExam' => $qnaExam,'qnas' => $qnas]);
-                    return view('Exam.exam_dashboard', ['success' => true, 'initialQuestion' => $initialQuestion, 'randomExam' => $randomExam, 'qnaExam' => $qnaExam]);
+
+                    $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->first();
+
+
+
+
+
+
+                    return view('Exam.exam_dashboard', ['success' => true,  'Exam' => $Exam, 'qnaExam' => $qnaExam]);
                 } else {
                     return view('Exam.error', ['success' => false, 'msg' => 'This Exam is not available for now ! - ', 'qnaExam' => $qnaExam]);
                 }
@@ -61,7 +63,7 @@ class ExamController extends Controller
             'student_id' => Auth::user()->id
         ]);
 
-        $qcount = count($request->q);
+        $qcount = count($request->Q);
 
         if ($qcount > 0) {
             for ($i = 0; $i < $qcount; $i++) {
@@ -78,14 +80,29 @@ class ExamController extends Controller
         return view('Exam.thanks');
     }
 
-    public function getNextQuestion(Request $request)
+    public function getSingleRecord(Request $request,$id)
     {
 
-        $examId = $request->input('exam_id');
+        log::info('Received request:', ['id' => $id, 'QuestionID' => $request->input('QuestionID')]);
 
-        $nextQuestionAndAnswer = QueExam::inRandomOrder()->with('question', 'answers')->first();
-        $initialQuestion = $nextQuestionAndAnswer->question->shuffle();
+        
+        $qnaExam = Test::where('test_exam_id', $id)->with('getQnaExams', 'subjects')->get();
+        if ($qnaExam[0]['date'] == date('Y-m-d')) {
 
-        return response()->json($nextQuestionAndAnswer,$initialQuestion);
+            if (count($qnaExam[0]['getQnaExams']) > 0) {
+
+                $QuestionID = $request->QuestionID;
+
+                $QuestionID++;
+
+                $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->where('question_id','>', $QuestionID)->orderBy('question_id')->with('question', 'answers')->inRandomOrder()->get();
+                log::info('id'.$Exam);
+                if (!$Exam) {
+                    return response()->json(['error' => 'Record not found'], 404);
+                }
+            
+                return response()->json($Exam);
+            }
+        }
     }
 }
