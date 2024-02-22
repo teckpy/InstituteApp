@@ -117,7 +117,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="{{ route('Slider.index') }}" class="nav-link @if (Request::segment(1) == 'slider') active @endif">
+                                <a href="{{ route('image.index') }}" class="nav-link @if (Request::segment(1) == 'image') active @endif">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Slider</p>
                                 </a>

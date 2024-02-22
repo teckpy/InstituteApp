@@ -22,9 +22,7 @@ use App\Http\Controllers\Website\SliderController;
 |
 */
 
-Route::get('/', function () {
-    return view('Website.index');
-});
+Route::get('/', [SliderController::class, 'display']);
 
 Route::middleware([
     'auth:sanctum',
@@ -77,4 +75,9 @@ Route::get('/otp-verification', [UserController::class, 'Verification'])->name('
 
 ///////////////////// Website Route ////////////////////
 
-Route::resource('Slider', SliderController::class)->middleware('auth:admin');
+Route::resource('image', SliderController::class)->middleware('auth:admin');
+
+Route::GET('image/publish/{id}',[SliderController::class,'publish'])->name('publish');
+Route::GET('image/unpublish/{id}',[SliderController::class,'unpublish'])->name('unpublish');
+
+

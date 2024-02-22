@@ -1,6 +1,6 @@
 @extends('layouts.Admin.app')
 @section('title')
-    Admin | Dashboard
+   Create Slider Image
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -29,7 +29,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#modal-slider">
+                                        data-target="#modal-image">
                                         New
                                     </button>
                                 </h3>
@@ -38,7 +38,7 @@
 
                                 <table class="table table-bordered table-fit">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th style="width: 10px">S.N</th>
                                             <th>Title</th>
                                             <th>Image</th>
@@ -51,7 +51,7 @@
                                     <tbody>
                                         @if (count($slider) > 0)
                                             @foreach ($slider as $item)
-                                                <tr>
+                                                <tr class="text-center">
                                                     <td> {{ $item->id }}</td>
                                                     <td> {{ $item->title }}</td>
                                                     <td class="text-center">
@@ -62,24 +62,27 @@
                                                     <td> {{ $item->updated_at }}</td>
                                                     <td class="text-center">
                                                         @if ($item->status == 0)
-                                                            <span class="badge badge-danger"><i
-                                                                    class="fa fa-close"></i></span>
+                                                            <span class="badge badge-danger"><a href="{{ route('publish', $item->id) }}"
+                                                                    data-id="{{ $item->id }}" class="text-white publish"><i
+                                                                        class="fa fa-close"></i></a></span>
                                                         @else
-                                                            <span class="badge badge-success"><i
-                                                                    class="fa fa-check"></i></span>
+                                                            <span class="badge badge-success"><a
+                                                                    data-id="{{ $item->id }}" href="{{ route('unpublish', $item->id) }}"
+                                                                    class="text-white unpublish"><i class="fa fa-check"></i></a></span>
                                                         @endif
                                                     </td>
-                                                    <td class="text-center">
-                                                        <a href="" data-id="{{ $item->id }}"> <span
-                                                                class="badge badge-info"><i
-                                                                    class="fa fa-newspaper"></i></span></a>
-                                                        <a href="" data-id="{{ $item->id }}"> <span
-                                                                class="badge badge-warning"><i
-                                                                    class="fa fa-edit"></i></span></a>
-                                                        <a href="" id="removeslider" data-id="{{ $item->id }}"
-                                                            data-toggle="modal" data-target="#modal-delete"> <span
-                                                                class="badge badge-danger"><i
-                                                                    class="fa fa-trash"></i></span></a>
+                                                    <td><span class="badge bg-warning">
+                                                            <a class="editSlide" href="javascript:void(0);"
+                                                                data-toggle="modal" data-target="#modal-editSlide"
+                                                                data-id="{{ $item->id }}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a></span>
+                                                        <span class="badge bg-danger"> <a class="image_delete"
+                                                                data-toggle="modal" data-target="#modal-delete"
+                                                                data-id="{{ $item->id }}" href="javascript:void(0);"> <i
+                                                                    class="fas fa-trash-alt"></i></a></span>
+
+
                                                     </td>
 
                                                 </tr>
@@ -94,9 +97,9 @@
             </div>
         </section>
     </div>
-    <div class="modal fade" id="modal-slider">
+    <div class="modal fade" id="modal-image">
         <div class="modal-dialog">
-            <form id="NewSlider" action="{{ route('Slider.store') }}" method="POST">
+            <form id="addimage" action="{{ route('image.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -107,8 +110,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="" name="title"
-                                placeholder="Enter Slider Title" required>
+                            <input type="text" class="form-control" name="title" placeholder="Enter Slider Title"
+                                required>
                         </div>
                         <div class="form-group">
                             <input type="file" name="image" class="form-control">
@@ -132,12 +135,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="DeleteSliderSubmit" method="POST">
+                <form id="deleteimage" enctype="multipart/form-data">
                     @csrf
+                    @method('DELETE')
                     <div class="modal-body">
                         <div class="form-group">
                             <p>Are you sure you want to delete this Record !</p>
-                            <input type="hidden" name="id" id="delete_slider_id">
+                            <input type="hidden" name="id" id="delete_image_id">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -146,47 +150,67 @@
                     </div>
                 </form>
             </div>
-
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
     <script>
         $(document).ready(function() {
 
-            $("#NewSlider").submit(function(e) {
+            $("#addimage").submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "{{ route('image.store') }}",
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false, // Set cache to false for file uploads
+                    success: function(data) {
+                        location.reload(true);
+                        $("#modal-image").modal("hide");
+                        setTimeout(function() {
+                            // Your additional logic after success
+                        }, 1000);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+
+            });
+
+            $('.image_delete').click(function() {
+
+                var id = $(this).data('id');
+                $('#delete_image_id').val(id);
+            });
+
+            $('#deleteimage').submit(function(e) {
                 e.preventDefault();
 
-                $.ajax({
-                    url: "{{ route('Slider.store') }}",
-                    method: "POST",
-                    data: $(this).serialize(),
-                    success: function(data) {
+                var formData = $(this).serialize();
+                var id = $("#delete_image_id").val();
+                var url = '{{ url('image') }}/' + id;
 
-                        $("#modal-slider").modal("hide");
-                        setTimeout(function() {}, 1000);
+                $.ajax({
+                    url: url,
+                    type: "DELETE",
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.success == true) {
+                            console.log('Slide deleted successfully:', data);
+                            location.reload(true);
+                            $("#modal-delete").modal("hide");
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
                     }
                 });
             });
-
-            // delete slider
-            $("#removeslider").click(function(e) {
-                e.preventDefault();
-
-                var Slider_id = $(this).attr("data-id");
-                $("#delete_slider_id").val(Slider_id);
-
-                console.log(Slider_id);
-                var id = $("#delete_slider_id").val();
-                var = url.replace('id', id);
-                url = '{{ route('Slider.destroy', 'id') }}';
-                console.log(url);
-
-            });
-
         });
     </script>
 @endsection

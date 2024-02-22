@@ -34,12 +34,10 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('Admin/plugins/summernote/summernote-bs4.min.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ asset('Admin/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('Admin/js/multiselect-dropdown.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
         .multiselect-dropdown {

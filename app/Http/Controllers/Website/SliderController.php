@@ -21,9 +21,10 @@ class SliderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function display()
     {
-        //
+        $data = Slider::all();
+        return view('Website.index',compact('data'));
     }
 
     /**
@@ -31,11 +32,15 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
+        log::info($request->all());
+        log::info($request->file('image'));
+
         try {
             $request->validate([
                 'title' => 'required|string|max:255',
                 'image' => 'required|image:jpeg,jpg|max:6144'
             ]);
+
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('Website/images/slider'), $imageName);
@@ -81,7 +86,7 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        Log::info("message".$id);
+        Log::info("message" . $id);
         try {
 
             Slider::where('id', $id)->delete();
@@ -89,5 +94,37 @@ class SliderController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
+    }
+
+    public function publish($id)
+    {
+        $slider = Slider::find($id);
+
+        if (!$slider) {
+            // Handle the case where the Slider is not found
+            return response()->json( 404);
+        }
+
+        $slider->status = 1;
+
+        // Save the changes to the database
+        $slider->save();
+        return redirect()->back();
+    }
+
+    public function unpublish($id)
+    {
+        $slider = Slider::find($id);
+
+        if (!$slider) {
+            // Handle the case where the Slider is not found
+            return response()->json( 404);
+        }
+
+        $slider->status = 0;
+
+        // Save the changes to the database
+        $slider->save();
+        return redirect()->back();
     }
 }
