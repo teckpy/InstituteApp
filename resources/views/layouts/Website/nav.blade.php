@@ -13,7 +13,7 @@
                     <a href="#" class="d-flex align-items-center justify-content-center"><span
                             class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
                     <a href="#" class="d-flex align-items-center justify-content-center"><span
-                            class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                            class="fa fa-youtube-play"><i class="sr-only">Dribbble</i></span></a>
                 </p>
             </div>
         </div>
@@ -26,13 +26,7 @@
             aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="fa fa-bars"></span> Menu
         </button>
-        <form action="#" class="searchform order-lg-last">
-            <div class="form-group d-flex">
-                <input type="text" class="form-control pl-3" placeholder="Search">
-                <button type="submit" placeholder="" class="form-control search"><span
-                        class="fa fa-search"></span></button>
-            </div>
-        </form>
+        
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>

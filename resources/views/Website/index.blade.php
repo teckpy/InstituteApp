@@ -1,6 +1,6 @@
 @extends('layouts.Website.app')
 @section('title')
-    Website title
+    GOSWAMI SIR SAHU SIR CLASSES
 @endsection
 @section('content')
     <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
@@ -446,7 +446,7 @@
                     <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
                         style="width: 38px; height: 38px;" href="#"><i class="fa fa-facebook-f"></i></a>
                     <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fa fa-linkedin-in"></i></a>
+                        style="width: 38px; height: 38px;" href="#"><i class="fa fa-youtube-play"></i></a>
                     <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
                         style="width: 38px; height: 38px;" href="#"><i class="fa fa-instagram"></i></a>
                 </div>
