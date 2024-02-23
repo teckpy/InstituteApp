@@ -13,16 +13,6 @@ use App\Http\Controllers\Website\SliderController;
 use App\Http\Controllers\Website\ClassController;
 use App\Http\Controllers\Website\WebsiteController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', [WebsiteController::class, 'index']);
 
@@ -74,6 +64,7 @@ Route::get('/examregistration/{id}', [TestController::class, 'examregistration']
 
 Route::get('/otp-verification', [UserController::class, 'Verification'])->name('Verification');
 
+Route::get('user/register',[UserController::class,'create'])->name('user.regiter');
 
 ///////////////////// Website Route ////////////////////
 

@@ -65,7 +65,7 @@
                                             @php $count = 1; @endphp
                                             @foreach ($data as $item)
                                                 <tr>
-                                                    
+
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->subjects[0]['subject'] }}</td>
@@ -73,7 +73,7 @@
                                                     <td>{{ $item->time }}</td>
                                                     <td>{{ $item->attempt }}</td>
                                                     <td>{{ $item->attempt_counter }}</td>
-                                                    
+
                                                     <td class="text-center"><a onclick="openFullscreenWindow(event)"
                                                             href="{{ route('loadExam', ['id' => $item->test_exam_id]) }}"
                                                             target="_blank" data-code="{{ $item->test_exam_id }}"
@@ -106,7 +106,7 @@
 
             $(".copy").click(function() {
 
-                var code = {{ $item->test_exam_id }};
+
                 var url = "{{ URL::to('/') }}/exam/" + code;
 
                 var $temp = $("<input>");
