@@ -32,8 +32,7 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        log::info($request->all());
-        log::info($request->file('image'));
+
 
         try {
             $request->validate([

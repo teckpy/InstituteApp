@@ -74,5 +74,10 @@ Route::get('contact',[WebsiteController::class,'contact'])->name('contact');
 Route::get('contact/{id}',[WebsiteController::class,'contactEdit'])->name('contactedit');
 Route::post('contact/update/{id}',[WebsiteController::class,'contactUpdate'])->name('contactupdate');
 
+Route::get('link',[WebsiteController::class,'Link'])->name('link');
+Route::post('link/save',[WebsiteController::class,'LinkStore'])->name('linkstore');
+Route::get('link/{id}',[WebsiteController::class,'LinkEdit'])->name('linkedit');
+Route::post('link/update/{id}',[WebsiteController::class,'LinkUpdate'])->name('linkupdate');
+
 Route::GET('image/publish/{id}', [SliderController::class, 'publish'])->name('publish');
 Route::GET('image/unpublish/{id}', [SliderController::class, 'unpublish'])->name('unpublish');

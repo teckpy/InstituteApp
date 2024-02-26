@@ -7,6 +7,7 @@ use App\Models\Webiste\Slider;
 use App\Models\Website\Classes;
 use App\Models\Website\Contactus;
 use App\Models\Website\Slide;
+use App\Models\Website\Sociallink;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -19,7 +20,8 @@ class WebsiteController extends Controller
         $slidedata = Slider::all();
         $classdata = Classes::all();
         $contact = Contactus::all();
-        return view('Website.index', compact('slidedata', 'classdata','contact'));
+        $link = Sociallink::all();
+        return view('Website.index', compact('slidedata', 'classdata','contact','link'));
     }
 
     /**
@@ -47,17 +49,28 @@ class WebsiteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function LinkStore(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'link' => 'required|string'
+        ]);
+
+        Sociallink::create([
+            'name' => $request->name,
+            'link' => $request->link
+        ]);
+
+        return redirect()->back()->with(['success' => true, 'message' => 'created successfully']);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function Link()
     {
-        //
+        $link = Sociallink::all();
+        return view('Admin.sociallinks',compact('link'));
     }
 
     /**
@@ -73,7 +86,7 @@ class WebsiteController extends Controller
             $test->address = $request->address;
             $test->save();
 
-            return response()->json(['success' => true, 'msg' => 'Updated Successfully']);
+            return response()->json(['Updated Successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
