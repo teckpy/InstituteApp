@@ -126,7 +126,7 @@
                                 <p>Slider</p>
                             </a>
                         </li>
-                       
+
 
                     </ul>
                 </li>
@@ -183,10 +183,10 @@
                         </li>
                     </ul>
                 </li>
-                
-              
+
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="nav-icon far fa-address-book"></i>
                         <p>
                             Contact
@@ -195,7 +195,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/tables/simple.html" class="nav-link">
+                            <a href="{{ route('contact') }}"
+                            class="nav-link @if (Request::segment(1) == 'contact') active @endif">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add</p>
                             </a>

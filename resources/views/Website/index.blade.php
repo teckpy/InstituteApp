@@ -60,40 +60,39 @@
                 <h1 class="mb-4">Classes for Your Kids</h1>
             </div>
             <div class="row">
-               @if (count($classdata) > 0)
-                   @foreach ($classdata as $item)
-                   <div class="col-lg-4 mb-5">
-                    <div class="card border-0 bg-light shadow-sm pb-2">
-                        <img class="card-img-top mb-2" src="{{ $item->image }}" alt="">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">{{ $item->name }}</h4>
-                            <p class="card-text">{{$item->description}}</p>
+                @if (count($classdata) > 0)
+                    @foreach ($classdata as $item)
+                        <div class="col-lg-4 mb-5">
+                            <div class="card border-0 bg-light shadow-sm pb-2">
+                                <img class="card-img-top mb-2" src="{{ $item->image }}" alt="">
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">{{ $item->name }}</h4>
+                                    <p class="card-text">{{ $item->description }}</p>
+                                </div>
+                                <div class="card-footer bg-transparent py-4 px-5">
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
+                                        <div class="col-6 py-1">{{ $item->students_age }}</div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
+                                        <div class="col-6 py-1">{{ $item->total_seat }} Seats</div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
+                                        <div class="col-6 py-1">{{ $item->class_time }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Tution Fee</strong></div>
+                                        <div class="col-6 py-1">${{ $item->tution_fee }} / Month</div>
+                                    </div>
+                                </div>
+                                <a href="" class="btn btn-primary px-4 mx-auto mb-4">Join Now</a>
+                            </div>
                         </div>
-                        <div class="card-footer bg-transparent py-4 px-5">
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                                <div class="col-6 py-1">{{ $item->students_age }}</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                                <div class="col-6 py-1">{{ $item->total_seat }} Seats</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                                <div class="col-6 py-1">{{ $item->class_time }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 py-1 text-right border-right"><strong>Tution Fee</strong></div>
-                                <div class="col-6 py-1">${{ $item->tution_fee }} / Month</div>
-                            </div>
-                        </div>
-                        <a href="" class="btn btn-primary px-4 mx-auto mb-4">Join Now</a>
-                    </div>
-                </div>   
-                   @endforeach
-               @else
-                   
-               @endif            
+                    @endforeach
+                @else
+                @endif
             </div>
         </div>
     </div>
@@ -189,31 +188,18 @@
                 <div class="col-lg-5">
                     <div class="card border-0">
                         <div class="card-header bg-secondary text-center p-4">
-                            <h1 class="text-white m-0">Book A Seat</h1>
+                            <h1 class="text-white m-0">New Notifications</h1>
                         </div>
-                        <div class="card-body rounded-bottom bg-primary p-5">
-                            <form>
-                                <div class="form-group">
-                                    <input type="text" class="form-control border-0 p-4" placeholder="Your Name"
-                                        required="required" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control border-0 p-4" placeholder="Your Email"
-                                        required="required" />
-                                </div>
-                                <div class="form-group">
-                                    <select class="custom-select border-0 px-4" style="height: 47px;">
-                                        <option selected>Select A Class</option>
-                                        <option value="1">Class 1</option>
-                                        <option value="2">Class 1</option>
-                                        <option value="3">Class 1</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Book
-                                        Now</button>
-                                </div>
-                            </form>
+                        <div class="card-body rounded-bottom bg-primary">
+                            <marquee direction="up"onmouseover="this.stop();" onmouseout="this.start();"> <span
+                                    class="badge bg-danger">New</span>
+                                    <p style="text-align: justify"><a href="" class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing
+                                            elit. Similique suscipit voluptatem sed pariatur expedita debitis quam repellendus?
+                                            Obcaecati similique consectetur praesentium. Aperiam voluptatum vel enim, commodi
+                                            dolorum amet! Ipsa, blanditiis.</a></p>
+                                <hr class="bg-danger">
+                            </marquee>
+
                         </div>
                     </div>
                 </div>
@@ -228,72 +214,74 @@
                 <p class="section-title px-5"><span class="px-2">Our Teachers</span></p>
                 <h1 class="mb-4">Meet Our Teachers</h1>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-linkedin-in"></i></a>
+            <marquee>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 text-center team mb-5">
+                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
+                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
+                            <div
+                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
                         </div>
+                        <h4>Julia Smith</h4>
+                        <i>Music Teacher</i>
                     </div>
-                    <h4>Julia Smith</h4>
-                    <i>Music Teacher</i>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="col-md-6 col-lg-3 text-center team mb-5">
+                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
+                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
+                            <div
+                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
                         </div>
+                        <h4>Jhon Doe</h4>
+                        <i>Language Teacher</i>
                     </div>
-                    <h4>Jhon Doe</h4>
-                    <i>Language Teacher</i>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="col-md-6 col-lg-3 text-center team mb-5">
+                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
+                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
+                            <div
+                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
                         </div>
+                        <h4>Mollie Ross</h4>
+                        <i>Dance Teacher</i>
                     </div>
-                    <h4>Mollie Ross</h4>
-                    <i>Dance Teacher</i>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center team mb-5">
-                    <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                        <img class="img-fluid w-100" src="img/team-4.jpg" alt="">
-                        <div
-                            class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <div class="col-md-6 col-lg-3 text-center team mb-5">
+                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
+                            <img class="img-fluid w-100" src="img/team-4.jpg" alt="">
+                            <div
+                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
+                                    href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
                         </div>
+                        <h4>Donald John</h4>
+                        <i>Art Teacher</i>
                     </div>
-                    <h4>Donald John</h4>
-                    <i>Art Teacher</i>
                 </div>
-            </div>
+            </marquee>
         </div>
     </div>
     <!-- Team End -->
@@ -453,27 +441,31 @@
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
                 <h3 class="text-primary mb-4">Get In Touch</h3>
+                @foreach ($contact as $item)
+
+
                 <div class="d-flex">
                     <h4 class="fa fa-map text-primary"></h4>
                     <div class="pl-3">
                         <h5 class="text-white">Address</h5>
-                        <p>123 Street, New York, USA</p>
+                        <p>{{ $item->address }}</p>
                     </div>
                 </div>
                 <div class="d-flex">
                     <h4 class="fa fa-envelope text-primary"></h4>
                     <div class="pl-3">
                         <h5 class="text-white">Email</h5>
-                        <p>info@example.com</p>
+                        <p>{{ $item->email }}</p>
                     </div>
                 </div>
                 <div class="d-flex">
                     <h4 class="fa fa-phone text-primary"></h4>
                     <div class="pl-3">
                         <h5 class="text-white">Phone</h5>
-                        <p>+012 345 67890</p>
+                        <p>+91 {{ $item->mobile }}</p>
                     </div>
                 </div>
+                @endforeach
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
                 <h3 class="text-primary mb-4">Quick Links</h3>

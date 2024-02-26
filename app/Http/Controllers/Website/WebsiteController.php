@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Webiste\Slider;
 use App\Models\Website\Classes;
+use App\Models\Website\Contactus;
 use App\Models\Website\Slide;
 use Illuminate\Http\Request;
 
@@ -17,23 +18,30 @@ class WebsiteController extends Controller
     {
         $slidedata = Slider::all();
         $classdata = Classes::all();
-        return view('Website.index',compact('slidedata','classdata'));
+        $contact = Contactus::all();
+        return view('Website.index', compact('slidedata', 'classdata','contact'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function contact()
     {
-        //
+        $contact = Contactus::all();
+        return view('Admin.contactus', compact('contact'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function contactEdit($id)
     {
-        //
+        try {
+            $contact = Contactus::where('id', $id)->get();
+            return response()->json(['success' => true, 'data' => $contact]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -55,9 +63,20 @@ class WebsiteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function contactUpdate(Request $request, string $id)
     {
-        //
+        try {
+
+            $test = Contactus::find($id);
+            $test->email = $request->email;
+            $test->mobile = $request->mobile;
+            $test->address = $request->address;
+            $test->save();
+
+            return response()->json(['success' => true, 'msg' => 'Updated Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**

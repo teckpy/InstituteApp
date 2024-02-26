@@ -70,6 +70,9 @@ Route::get('user/register',[UserController::class,'create'])->name('user.regiter
 
 Route::resource('image', SliderController::class)->middleware('auth:admin');
 Route::resource('classes', ClassController::class)->middleware('auth:admin');
+Route::get('contact',[WebsiteController::class,'contact'])->name('contact');
+Route::get('contact/{id}',[WebsiteController::class,'contactEdit'])->name('contactedit');
+Route::post('contact/update/{id}',[WebsiteController::class,'contactUpdate'])->name('contactupdate');
 
 Route::GET('image/publish/{id}', [SliderController::class, 'publish'])->name('publish');
 Route::GET('image/unpublish/{id}', [SliderController::class, 'unpublish'])->name('unpublish');
