@@ -177,9 +177,9 @@
                             <thead>
                                 <th>#</th>
                                 <th>Answer</th>
-                                <th>Is Correct</th>
+                                <th style="width: 100px">Is Correct</th>
                             </thead>
-                            <tbody class="showanswers">
+                            <tbody class="showanswers text-justify">
 
                             </tbody>
                         </table>
@@ -323,7 +323,7 @@
                                         placeholder="Enter Answer" required>
                                 </div>
                             </div>
-                           <button class="btn btn-outline-danger btn-sm removeButton"> <i class="fas fa-trash-alt"></i></button>
+                           <a href="" class="removeButton"> <span class="badge bg-danger"><i class="fas fa-trash-alt"></i></span></a>
                         </div>
                 `;
                     $(".modalanswer").append(html);
@@ -355,7 +355,7 @@
                     <tr>
                         <td>` + (j + 1) + `</td>
                         <td>` + questions[i]['answers'][j]['answer'] + `</td>
-                        <td><span class="` + badgeClass + `">` + (is_correct ? 'Yes' : 'No') + `</span></td>
+                        <td class="text-center"><span class="` + badgeClass + `">` + (is_correct ? 'Yes' : 'No') + `</span></td>
                     </tr>
                 `;
                         }
@@ -387,7 +387,7 @@
                                         placeholder="Enter Answer" required>
                                 </div>
                             </div>
-                           <button class="btn btn-outline-danger btm-sm removeButton removeans"> <i class="fas fa-trash-alt"></i></button>
+                           <a href="" class="removeButton removeans"><span class="badge bg-danger"> <i class="fas fa-trash-alt"></i></span></a>
                         </div>
                 `;
                     $(".editmodalanswer").append(html);
@@ -431,16 +431,17 @@
                                                             placeholder="Enter Answer" value="${qna['answers'][i]['answer']}" required>
                                                     </div>
                                                 </div>
-                                            <button class="btn btn-outline-danger btn-sm  removeButton removeans" data-id="` +
+                                            <a href="" class="removeButton removeans" data-id="` +
                                 qna[
                                     'answers'][i][
                                     'id'
-                                ] + `"> <i class="fas fa-trash-alt"></i></button>
+                                ] + `"><span class="badge bg-danger"> <i class="fas fa-trash-alt"></i></span></a>
                                                 </div>
                                             `;
 
                         }
                         $(".editmodalanswer").append(html);
+                        
 
                     }
 

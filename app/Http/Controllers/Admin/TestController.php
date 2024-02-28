@@ -104,6 +104,6 @@ class TestController extends Controller
 
     public function examregistration()
     {
-        return view('User.signup');
+        return view('User.register');
     }
 }
