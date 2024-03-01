@@ -12,7 +12,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "php-flasher/flasher-toastr-laravel": "^1.15",
-        "razorpay/razorpay": "^2.9",
+        "razorpay/razorpay": "*",
         "twilio/sdk": "^7.15"
     },
     "require-dev": {
