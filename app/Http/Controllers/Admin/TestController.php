@@ -33,7 +33,7 @@ class TestController extends Controller
     public function store(Request $request)
     {
         $test_exam_id = uniqid('TE');
-        
+
 
         $test = Test::insert([
             'name' => $request->name,
@@ -102,8 +102,14 @@ class TestController extends Controller
         }
     }
 
-    public function examregistration()
+    public function examregistrationshow()
     {
+        return view('User.register');
+    }
+
+    public function examregistrationstore()
+    {
+
         return view('User.register');
     }
 }

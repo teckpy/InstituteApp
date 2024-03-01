@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\RazorpayController;
 use App\Http\Controllers\Admin\StudentsController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\ExamController;
@@ -60,7 +61,16 @@ Route::middleware(['auth'])->group(function () {
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
 });
 
-Route::get('/examregistration/{id}', [TestController::class, 'examregistration'])->name('examregistration');
+Route::get('/examregistration/{id}', [TestController::class, 'examregistrationshow'])->name('examregistration');
+Route::POST('/registration/{id}',[TestController::class,'examregistrationstore'])->name('test.register');
+
+Route::name('razorpay.')
+    ->controller(RazorpayController::class)
+    ->prefix('razorpay')
+    ->group(function () {
+        Route::view('payment', 'razorpay.index')->name('create.payment');
+        Route::post('handle-payment', 'handlePayment')->name('make.payment');
+    });
 
 Route::get('/otp-verification', [UserController::class, 'Verification'])->name('Verification');
 
