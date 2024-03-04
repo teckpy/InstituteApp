@@ -31,9 +31,9 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
                                         data-target="#modal-add">
-                                        New
+                                        <i class="fas fa-plus">&nbsp;New
                                     </button>
                                 </h3>
                             </div>
@@ -69,7 +69,7 @@
                                                     <td>
                                                         <img width="50" height="40" src="{{ $item->image }}"
                                                             alt="">
-                                                    </td>                                                   
+                                                    </td>
                                                     <td>{{ $item->created_at }}</td>
                                                     <td>{{ $item->updated_at }}</td>
                                                     <td class="text-center">
@@ -206,7 +206,7 @@
                 });
             });
             //delete
-           
+
 
             $(".delete_class").click(function() {
                 var id = $(this).data('id');

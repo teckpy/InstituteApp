@@ -29,15 +29,15 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
                                         data-target="#modal-test">
-                                        New
+                                        <i class="fas fa-plus">&nbsp;</i>New
                                     </button>
                                 </h3>
                             </div>
                             <div class="card-body">
 
-                                <table class="table table-bordered table-fit">
+                                <table class="table table-bordered table-fit table-hover">
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">S.N</th>
@@ -46,8 +46,8 @@
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Attempt</th>
-                                            <th>Add Question</th>
-                                            <th>Show Question</th>
+                                            <th>Add</th>
+                                            <th>Show</th>
                                             <th>Registration Link</th>
                                             <th>Action</th>
                                         </tr>

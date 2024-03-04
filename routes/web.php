@@ -6,8 +6,8 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\RazorpayController;
 use App\Http\Controllers\Admin\StudentsController;
+use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\ExamController;
 use App\Http\Controllers\Website\SliderController;
@@ -64,13 +64,10 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/examregistration/{id}', [TestController::class, 'examregistrationshow'])->name('examregistration');
 Route::POST('/registration/{id}',[TestController::class,'examregistrationstore'])->name('test.register');
 
-Route::name('razorpay.')
-    ->controller(RazorpayController::class)
-    ->prefix('razorpay')
-    ->group(function () {
-        Route::view('payment', 'razorpay.index')->name('create.payment');
-        Route::post('handle-payment', 'handlePayment')->name('make.payment');
-    });
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe', 'stripe')->name('payement');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
 
 Route::get('/otp-verification', [UserController::class, 'Verification'])->name('Verification');
 

@@ -74,15 +74,15 @@
                         <!-- /.col -->
                     </div>
                 </form>
-
-                <p class="mb-1">
-                    @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">Forgotten
-                            Password?</a>
-                    @endif
-                </p>
             </div>
-            <!-- /.card-body -->
+        </div>
+        <div class="form-group">
+            <p class="">
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}">Forgotten
+                        Password?</a>
+                @endif
+            </p>
         </div>
         <!-- /.card -->
     </div>

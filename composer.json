@@ -6,13 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "harishdurga/laravel-quiz": "^1.2",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.2",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "php-flasher/flasher-toastr-laravel": "^1.15",
-        "razorpay/razorpay": "*",
+        "stripe/stripe-php": "^13.13",
         "twilio/sdk": "^7.15"
     },
     "require-dev": {

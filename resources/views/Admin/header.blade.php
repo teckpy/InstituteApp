@@ -1,5 +1,7 @@
 @extends('Admin.Dashboard')
-@section('title')Add Header Content
+@section('title')
+
+@endsection
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -28,7 +30,7 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Add Menus</h3>
+                                <i class="fa fa-plus"></i><h3 class="card-title">Add Menus</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->

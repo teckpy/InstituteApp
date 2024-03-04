@@ -28,9 +28,9 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
                                         data-target="#modal-linkadd">
-                                        New
+                                        <i class="fas fa-plus">&nbsp; New
                                     </button>
                                 </h3>
                             </div>
