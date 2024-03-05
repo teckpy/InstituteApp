@@ -258,8 +258,8 @@
     <div class="container-fluid services py-5 mb-5">
         <div class="container">
             <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                <h5 class="text-primary">Our Services</h5>
-                <h1>Services Built Specifically For Your Business</h1>
+                <h5 class="text-primary">Our Classes</h5>
+                <h1>Classes For Your Children</h1>
             </div>
             <div class="row g-5 services-inner">
                 <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
@@ -357,7 +357,7 @@
     <div class="container-fluid project py-5 mb-5">
         <div class="container">
             <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                <h5 class="text-primary">Our Project</h5>
+                <h5 class="text-primary">Our Facility</h5>
                 <h1>Our Recently Completed Projects</h1>
             </div>
             <div class="row g-5">
@@ -583,7 +583,7 @@
     <div class="container-fluid py-5 mb-5 team">
         <div class="container">
             <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
-                <h5 class="text-primary">Our Team</h5>
+                <h5 class="text-primary">Our Teachers</h5>
                 <h1>Meet our expert Team</h1>
             </div>
             <div class="owl-carousel team-carousel wow fadeIn" data-wow-delay=".5s">
@@ -689,7 +689,7 @@
         <div class="container">
             <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
                 <h5 class="text-primary">Our Testimonial</h5>
-                <h1>Our Client Saying!</h1>
+                <h1>Our Student Saying!</h1>
             </div>
             <div class="owl-carousel testimonial-carousel wow fadeIn" data-wow-delay=".5s">
                 <div class="testimonial-item border p-4">
@@ -797,10 +797,7 @@
             <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
                 <h5 class="text-primary">Get In Touch</h5>
                 <h1 class="mb-3">Contact for any query</h1>
-                <p class="mb-2">The contact form is currently inactive. Get a functional and working contact form
-                    with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done.
-                    <a href="https://htmlcodex.com/contact-form">Download Now</a>.
-                </p>
+
             </div>
             <div class="contact-detail position-relative p-5">
                 <div class="row g-5 mb-5 justify-content-center">
@@ -812,8 +809,10 @@
                             </div>
                             <div class="ms-3">
                                 <h4 class="text-primary">Address</h4>
-                                <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" class="h5">23
-                                    rank Str, NY</a>
+                                @foreach ($contact as $item)
+                                    <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank"
+                                        class="text-dark">{{ $item->address }}</a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -825,7 +824,10 @@
                             </div>
                             <div class="ms-3">
                                 <h4 class="text-primary">Call Us</h4>
-                                <a class="h5" href="tel:+0123456789" target="_blank">+012 3456 7890</a>
+                                @foreach ($contact as $item)
+                                    <a class="text-dark" href="tel:+0123456789" target="_blank">+091
+                                        {{ $item->mobile }}</a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -837,7 +839,10 @@
                             </div>
                             <div class="ms-3">
                                 <h4 class="text-primary">Email Us</h4>
-                                <a class="h5" href="mailto:info@example.com" target="_blank">info@example.com</a>
+                                @foreach ($contact as $item)
+                                    <a class="text-dark" href="mailto:info@example.com"
+                                        target="_blank">{{ $item->email }}</a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -884,7 +889,8 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <a href="index.html">
-                        <img src="{{ asset('Admin/dist/img/logo1.png') }}" width="100px" height="100px" class="rounded-circle" alt="">
+                        <img src="{{ asset('Admin/dist/img/logo1.png') }}" width="100px" height="100px"
+                            class="rounded-circle" alt="">
                         {{-- <h1 class="text-white fw-bold d-block">High<span class="text-secondary">Tech</span> </h1> --}}
                     </a>
                     <p class="mt-4 text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta facere
@@ -893,7 +899,7 @@
                         <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
                                 class="fab fa-facebook-f text-primary"></i></a>
                         <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
-                                class="fab fa-twitter text-primary"></i></a>
+                                class="fa-brands fa-x-twitter"></i></a>
                         <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
                                 class="fab fa-instagram text-primary"></i></a>
                         <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-0"><i
@@ -934,11 +940,22 @@
                     <a href="#" class="h3 text-secondary">Contact Us</a>
                     <div class="text-white mt-4 d-flex flex-column contact-link">
                         <a href="#" class="pb-3 text-light border-bottom border-primary"><i
-                                class="fas fa-map-marker-alt text-secondary me-2"></i> 123 Street, New York, USA</a>
+                                class="fas fa-map-marker-alt text-secondary me-2"></i>
+                            @foreach ($contact as $item)
+                                {{ $item->address }}
+                            @endforeach
+                        </a>
                         <a href="#" class="py-3 text-light border-bottom border-primary"><i
-                                class="fas fa-phone-alt text-secondary me-2"></i> +123 456 7890</a>
+                                class="fas fa-phone-alt text-secondary me-2"></i> +91 @foreach ($contact as $item)
+                                {{ $item->mobile }}
+                            @endforeach
+                        </a>
                         <a href="#" class="py-3 text-light border-bottom border-primary"><i
-                                class="fas fa-envelope text-secondary me-2"></i> info@exmple.con</a>
+                                class="fas fa-envelope text-secondary me-2"></i>
+                            @foreach ($contact as $item)
+                                {{ $item->email }}
+                            @endforeach
+                        </a>
                     </div>
                 </div>
             </div>
@@ -946,7 +963,7 @@
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
                     <span class="text-light"><a href="#" class="text-secondary"><i
-                                class="fas fa-copyright text-secondary me-2"></i>Your Site Name</a>, All right
+                                class="fas fa-copyright text-secondary me-2"></i>GOSWAMI SIR CLASSES</a>, All right
                         reserved.</span>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
