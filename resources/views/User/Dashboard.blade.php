@@ -11,12 +11,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <span class="badge badge-warning">
-                            <h1 class="m-0">Welcome -@if (auth()->check())
-                                    {{ auth()->user()->name }}
-                                @endif
-                            </h1>
-                        </span>
+
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

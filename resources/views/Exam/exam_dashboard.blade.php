@@ -24,17 +24,23 @@
             /* Set your desired margin-top */
         }
     </style>
-
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light fixed-top">
-
-        <ul class="navbar-nav mr-auto">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light bg-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
+            <li class="nav-item d-none d-sm-inline-block">
+
+            </li>
+            <li class="nav-item d-none d-sm-inline-block text-right">
+
+            </li>
         </ul>
 
-        <!-- Move the brand logo to the right end -->
-        <ul class="navbar-nav">
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+
             <li class="nav-item name">
                 <a class="nav-link text-uppercase">
                     @if (auth()->check())
@@ -43,8 +49,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <div class="brand-link" style="margin-left: auto; margin-right: 15px;">
-                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8;">
+                <div class="">
+                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" width="30" height="30" class="brand-image img-circle mt-2" style="opacity: .8;">
                 </div>
             </li>
         </ul>
