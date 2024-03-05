@@ -57,7 +57,8 @@
             <img style="margin-left: 45%;" src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle"
                 style="opacity: .8; height: 60px; width: 60px;">
             <br><br>
-            <p class="text-center time"> {{ \Carbon\Carbon::parse($qnaExam[0]['time'])->format('h:i A') }}</p>
+            <p class="alert alert-info text-center time"> {{ \Carbon\Carbon::parse($qnaExam[0]['time'])->format('h:i A') }}
+            </p>
         </div>
         <!-- Sidebar -->
         <div class="sidebar">
@@ -164,7 +165,7 @@
 
                         </form>
                         <button class="btn btn-dark prevBtn">Previous</button>
-                        <button class="btn btn-success nextBtn">Next</button>
+                        <button class="btn btn-warning nextBtn">Next</button>
                     </div>
                 </div>
             </div>
@@ -202,10 +203,9 @@
                 console.log(hours + ':' + minutes + ':' + seconds);
                 if (hours == 0 && minutes == 0 && seconds == 0) {
 
-                    console.log('Submitting form...');
                     clearInterval(timer);
                     $("#exam_form").submit();
-                    console.log('After form submission...');
+
 
                 }
                 if (seconds <= 0) {
