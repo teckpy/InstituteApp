@@ -24,7 +24,7 @@
             /* Set your desired margin-top */
         }
     </style>
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light bg-light">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light bg-light fixed-top">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -50,7 +50,8 @@
             </li>
             <li class="nav-item">
                 <div class="">
-                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" width="30" height="30" class="brand-image img-circle mt-2" style="opacity: .8;">
+                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" width="30" height="30"
+                        class="brand-image img-circle mt-2" style="opacity: .8;">
                 </div>
             </li>
         </ul>
@@ -127,12 +128,13 @@
         <section class="content">
             <div class="container-fluid"><br>
                 <div class="row">
+
                     <div class="col-10 mx-auto">
-                        <!-- Default box -->
-                        <h6 class="font-weight-bold text-uppercase">Exam : {{ $qnaExam[0]['name'] }} </h6>
-                        <h6 class="font-weight-bold text-uppercase">Test Id :{{ $qnaExam[0]['test_exam_id'] }}</h6>
-                        {{-- <h6>Subject:{{ $qnaExam->subject[0]['subject'] }}</h6> --}}
-                        <hr>
+                        <div style="">
+                            <h6 class="font-weight-bold text-uppercase">Exam : {{ $qnaExam[0]['name'] }} </h6>
+                            <h6 class="font-weight-bold text-uppercase">Test Id :{{ $qnaExam[0]['test_exam_id'] }}</h6>
+                            <hr>
+                        </div>
                         <form action="{{ route('examSubmit') }}" method="POST" id="exam_form">
                             @php $qcount = 1; @endphp
                             @csrf
@@ -141,43 +143,46 @@
                                     $Qcount = 1;
                                 @endphp
 
-                                <div class="singleRecord">
-                                    <div class="card">
-                                        <div class="card-body row">
-                                            <div class="col">
-                                                <h4>Q) <b>{{ $Qcount++ }}.</b>&nbsp;
-                                                    {{ $Exam['question'][0]['question'] }}</h4>
-                                                <input type="hidden" name="Q[]"
-                                                    data-question-id="{{ $Exam['question'][0]['id'] }}"
-                                                    value="{{ $Exam['question'][0]['id'] }}">
-                                                <input type="hidden" name="ans_{{ $Qcount - 1 }}">
-                                                <input type="hidden" name="exam_id"
-                                                    data-exam-id="{{ $qnaExam[0]['test_exam_id'] }}"
-                                                    value="{{ $qnaExam[0]['test_exam_id'] }}">
-                                                @php
-                                                    $Acount = 1;
-                                                @endphp
-                                                @foreach ($Exam['question'][0]['answers'] as $Answer)
-                                                    <p><input type="radio" class="select_ans"
-                                                            data-id="{{ $Qcount - 1 }}" name="radio_{{ $Qcount - 1 }}"
-                                                            value="{{ $Answer->id }}">&nbsp;&nbsp;<b>{{ $Acount++ }}.&nbsp;&nbsp;</b>{{ $Answer->answer }}
-                                                    </p>
-                                                @endforeach
+                                @foreach ($Exam as $data)
+                                    @foreach ($data->question as $Question)
+                                        <div class="card">
+                                            <div class="card-body row">
+                                                <div class="col">
+                                                    <h4>Q) <b>{{ $Qcount++ }}.</b>&nbsp;
+                                                        {{ $Question->question }}</h4>
+                                                    <input type="hidden" name="Q[]"
+                                                        data-question-id="{{ $Question->id }}"
+                                                        value="{{ $Question->id }}">
+                                                    <input type="hidden" name="ans_{{ $Qcount - 1 }}">
+                                                    <input type="hidden" name="exam_id"
+                                                        data-exam-id="{{ $qnaExam[0]['test_exam_id'] }}"
+                                                        value="{{ $qnaExam[0]['test_exam_id'] }}">
+                                                    @php
+                                                        $Acount = 1;
+                                                    @endphp
+                                                    @foreach ($Question->answers as $Answer)
+                                                        <p><input type="radio" class="select_ans"
+                                                                data-id="{{ $Qcount - 1 }}"
+                                                                name="radio_{{ $Qcount - 1 }}"
+                                                                value="{{ $Answer->id }}">&nbsp;&nbsp;<b>{{ $Acount++ }}.&nbsp;&nbsp;</b>{{ $Answer->answer }}
+                                                        </p>
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    @endforeach
+                                @endforeach
                             @endif
-
                         </form>
-                        <button class="btn btn-dark prevBtn">Previous</button>
-                        <button class="btn btn-warning nextBtn">Next</button>
+                        <div class="text-center">
+                            <button class="btn btn-info" type="button">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        <br>
     </div>
-
 
     <script>
         $(document).ready(function() {
@@ -229,40 +234,6 @@
                 $('.time').text(temphours + ':' + tempminutes + ':' + tempseconds + ' ');
                 seconds--;
             }, 1000);
-
-
-
-
-
-            $('.nextBtn').on('click', function() {
-                // Get the QuestionID from the hidden input field
-                let QuestionID = $("input[name='Q[]']").attr('data-question-id');
-                let ExamID = $("input[name='exam_id']").attr('data-exam-id');
-
-                console.log('current id '+QuestionID);
-
-                QuestionID++;
-
-                console.log('after id '+QuestionID);
-                $.ajax({
-                    url: "/getSingleRecord/" + ExamID,
-                    type: 'GET',
-                    data: {
-                        QuestionID: QuestionID
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        // Update the content with the new question
-                        $('.singleRecord').html(data);
-                    },
-                    error: function(error) {
-                        console.log(error);
-                    }
-                });
-            });
-
-
-
 
         });
     </script>

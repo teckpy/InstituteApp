@@ -27,7 +27,9 @@ class ExamController extends Controller
 
                 if (count($qnaExam[0]['getQnaExams']) > 0) {
 
-                    $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->first();
+                    $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->get();
+
+                    Log::info($Exam);
 
                     return view('Exam.exam_dashboard', ['success' => true,  'Exam' => $Exam, 'qnaExam' => $qnaExam]);
                 } else {
