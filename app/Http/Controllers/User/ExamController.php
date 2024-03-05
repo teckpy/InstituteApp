@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 
-
-
 class ExamController extends Controller
 {
     /**
@@ -29,14 +27,7 @@ class ExamController extends Controller
 
                 if (count($qnaExam[0]['getQnaExams']) > 0) {
 
-
-
                     $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->first();
-
-
-
-
-
 
                     return view('Exam.exam_dashboard', ['success' => true,  'Exam' => $Exam, 'qnaExam' => $qnaExam]);
                 } else {
@@ -80,27 +71,21 @@ class ExamController extends Controller
         return view('Exam.thanks');
     }
 
-    public function getSingleRecord(Request $request,$id)
+    public function getSingleRecord(Request $request, $ExamID)
     {
-
-        log::info('Received request:', ['id' => $id, 'QuestionID' => $request->input('QuestionID')]);
-
-        
-        $qnaExam = Test::where('test_exam_id', $id)->with('getQnaExams', 'subjects')->get();
+        $qnaExam = Test::where('test_exam_id', $ExamID)->with('getQnaExams', 'subjects')->get();
         if ($qnaExam[0]['date'] == date('Y-m-d')) {
 
             if (count($qnaExam[0]['getQnaExams']) > 0) {
 
                 $QuestionID = $request->QuestionID;
 
-                $QuestionID++;
+                $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->where('question_id', '>', $QuestionID)->orderBy('question_id')->with('question', 'answers')->inRandomOrder()->get();
 
-                $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->where('question_id','>', $QuestionID)->orderBy('question_id')->with('question', 'answers')->inRandomOrder()->get();
-                log::info('id'.$Exam);
                 if (!$Exam) {
                     return response()->json(['error' => 'Record not found'], 404);
                 }
-            
+
                 return response()->json($Exam);
             }
         }

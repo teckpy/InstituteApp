@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
+    Route::get('/getSingleRecord/{ExamID}',[ExamController::class,'getSingleRecord']);
 });
 
 Route::get('/examregistration/{id}', [TestController::class, 'examregistrationshow'])->name('examregistration');

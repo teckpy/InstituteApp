@@ -239,8 +239,11 @@
                 let QuestionID = $("input[name='Q[]']").attr('data-question-id');
                 let ExamID = $("input[name='exam_id']").attr('data-exam-id');
 
-                console.log('Button clicked');
-                //QuestionID + 1;
+                console.log('current id '+QuestionID);
+
+                QuestionID++;
+
+                console.log('after id '+QuestionID);
                 $.ajax({
                     url: "/getSingleRecord/" + ExamID,
                     type: 'GET',
