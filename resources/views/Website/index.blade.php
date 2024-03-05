@@ -1,415 +1,575 @@
-@extends('layouts.Website.app')
-@section('title')
-    GOSWAMI SIR SAHU SIR CLASSES
-@endsection
-@section('content')
-    <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
-        <!--Indicators-->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-2" data-slide-to="1"></li>
-            <li data-target="#carousel-example-2" data-slide-to="2"></li>
-        </ol>
-        <!--/.Indicators-->
-        <!--Slides-->
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <div class="view">
-                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).webp"
-                        alt="First slide">
-                    <div class="mask rgba-black-light"></div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>HighTech - IT Solutions Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('Website/lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('Website/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('Website/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('Website/css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark py-2 d-none d-md-flex">
+        <div class="container">
+            @foreach ($contact as $item)
+                <div class="d-flex justify-content-between topbar">
+                    <div class="top-info">
+                        <small class="me-3 text-white-50"><a href="#"><i
+                                    class="fas fa-map-marker-alt me-2 text-secondary"></i></a>{{ $item->address }}</small><br>
+                        <small class="me-3 text-white-50"><a href="#"><i
+                                    class="fas fa-envelope me-2 text-secondary"></i></a>{{ $item->email }}</small>
+                    </div>
+                    <div id="note" class="text-secondary d-none d-xl-flex"><small>Note : We help you to Grow your
+                            Business</small></div>
+                    <div class="top-link">
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i
+                                class="fab fa-facebook-f text-primary"></i></a>
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i
+                                class="fab fa-twitter text-primary"></i></a>
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i
+                                class="fab fa-instagram text-primary"></i></a>
+                        <a href="" class="bg-light nav-fill btn btn-sm-square rounded-circle me-0"><i
+                                class="fab fa-linkedin-in text-primary"></i></a>
+                    </div>
                 </div>
-                <div class="carousel-caption">
-                    <h3 class="h3-responsive"></h3>
-                    <p>First text</p>
-                </div>
-            </div>
-            @if (count($slidedata) > 0)
-                @foreach ($slidedata as $item)
-                    <div class="carousel-item">
-                        <div class="view">
-                            <img class="d-block w-100" src="{{ $item->image }}" alt="First slide">
-                            <div class="mask rgba-black-light"></div>
+            @endforeach
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid bg-primary">
+        <div class="container">
+            <nav class="navbar navbar-dark navbar-expand-lg py-0">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="text-white fw-bold d-block">GSS<span class="text-secondary">CLASSES</span> </h1>
+                </a>
+                <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-transparent" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto mx-xl-auto p-0">
+                        <a href="index.html" class="nav-item nav-link active text-secondary">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="service.html" class="nav-item nav-link">Services</a>
+                        <a href="project.html" class="nav-item nav-link">Projects</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu rounded">
+                                <a href="blog.html" class="dropdown-item">Our Blog</a>
+                                <a href="team.html" class="dropdown-item">Our Team</a>
+                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                <a href="404.html" class="dropdown-item">404 Page</a>
+                            </div>
                         </div>
-                        <div class="carousel-caption">
-                            <h3 class="h3-responsive">{{ $item->title }}</h3>
-                            <p>First text</p>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+                <div class="d-none d-xl-flex flex-shirink-0">
+                    <div id="phone-tada" class="d-flex align-items-center justify-content-center me-4">
+                        <a href="" class="position-relative animated tada infinite">
+                            <i class="fa fa-phone-alt text-white fa-2x"></i>
+                            <div class="position-absolute" style="top: -7px; left: 20px;">
+                                <span><i class="fa fa-comment-dots text-secondary"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="d-flex flex-column pe-4 border-end">
+                        <span class="text-white-50">Have any questions?</span>
+                        @foreach ($contact as $item)
+                            <span class="text-secondary">Call: + {{ $item->mobile }}</span>
+                        @endforeach
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center ms-4 ">
+                        <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Carousel Start -->
+    <div class="container-fluid px-0">
+        <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="First slide"></li>
+                <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                    <img src="{{ asset('Website/img/carousel-1.jpg') }}" class="img-fluid" alt="First slide">
+                    <div class="carousel-caption">
+                        <div class="container carousel-content">
+                            <h6 class="text-secondary h4 animated fadeInUp">Best IT Solutions</h6>
+                            <h1 class="text-white display-1 mb-4 animated fadeInRight">An Innovative IT Solutions
+                                Agency</h1>
+                            <p class="mb-4 text-white fs-5 animated fadeInDown">Lorem ipsum dolor sit amet elit. Sed
+                                efficitur quis purus ut interdum. Pellentesque aliquam dolor eget urna ultricies
+                                tincidunt.</p>
+                            <a href="" class="me-2"><button type="button"
+                                    class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft">Read
+                                    More</button></a>
+                            <a href="" class="ms-2"><button type="button"
+                                    class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn2 animated fadeInRight">Contact
+                                    Us</button></a>
                         </div>
                     </div>
-                @endforeach
-            @else
-            @endif
-        </div>
-        <!--/.Slides-->
-        <!--Controls-->
-        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-        <!--/.Controls-->
-    </div>
-
-    <div class="container-fluid pt-5">
-        <div class="container">
-            <div class="text-center pb-2">
-                <p class="section-title px-5"><span class="px-2">Popular Classes</span></p>
-                <h1 class="mb-4">Classes for Your Kids</h1>
-            </div>
-            <div class="row">
-                @if (count($classdata) > 0)
-                    @foreach ($classdata as $item)
-                        <div class="col-lg-4 mb-5">
-                            <div class="card border-0 bg-light shadow-sm pb-2">
-                                <img class="card-img-top mb-2" src="{{ $item->image }}" alt="">
-                                <div class="card-body text-center">
-                                    <h4 class="card-title">{{ $item->name }}</h4>
-                                    <p class="card-text">{{ $item->description }}</p>
+                </div>
+                @if (count($slidedata) > 0)
+                    @foreach ($slidedata as $item)
+                        <div class="carousel-item">
+                            <img src="{{ $item->image }}" class="img-fluid" alt="Second slide">
+                            <div class="carousel-caption">
+                                <div class="container carousel-content">
+                                    <h6 class="text-secondary h4 animated fadeInUp">Best IT Solutions</h6>
+                                    <h1 class="text-white display-1 mb-4 animated fadeInLeft">Quality Digital Services
+                                        You
+                                        Really Need!</h1>
+                                    <p class="mb-4 text-white fs-5 animated fadeInDown">Lorem ipsum dolor sit amet
+                                        elit. Sed
+                                        efficitur quis purus ut interdum. Pellentesque aliquam dolor eget urna ultricies
+                                        tincidunt.</p>
+                                    <a href="" class="me-2"><button type="button"
+                                            class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft">Read
+                                            More</button></a>
+                                    <a href="" class="ms-2"><button type="button"
+                                            class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn2 animated fadeInRight">Contact
+                                            Us</button></a>
                                 </div>
-                                <div class="card-footer bg-transparent py-4 px-5">
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                                        <div class="col-6 py-1">{{ $item->students_age }}</div>
-                                    </div>
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                                        <div class="col-6 py-1">{{ $item->total_seat }} Seats</div>
-                                    </div>
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                                        <div class="col-6 py-1">{{ $item->class_time }}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Tution Fee</strong></div>
-                                        <div class="col-6 py-1">${{ $item->tution_fee }} / Month</div>
-                                    </div>
-                                </div>
-                                <a href="" class="btn btn-primary px-4 mx-auto mb-4">Join Now</a>
                             </div>
                         </div>
                     @endforeach
                 @else
                 @endif
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
-    <div class="container-fluid pt-5">
-        <div class="container pb-3">
-            <div class="text-center pb-2">
-                <p class="section-title px-5"><span class="px-2">Facilities </span></p>
-                <h1 class="mb-4">Classes for Your Kids</h1>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-050-fence h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Play Ground</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet
-                                elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-022-drum h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Music and Dance</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet
-                                elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-030-crayons h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Arts and Crafts</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet
-                                elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-017-toy-car h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Safe Transportation</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet
-                                elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-025-sandwich h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Healthy food</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet
-                                elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 pb-1">
-                    <div class="d-flex bg-light shadow-sm border-top rounded mb-4" style="padding: 30px;">
-                        <i class="flaticon-047-backpack h1 font-weight-normal text-primary mb-3"></i>
-                        <div class="pl-4">
-                            <h4>Educational Tour</h4>
-                            <p class="m-0">Kasd labore kasd et dolor est rebum dolor ut, clita dolor vero lorem amet
-                                elitr vero...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Registration Start -->
-    <div class="container-fluid py-5">
+    <!-- Carousel End -->
+
+
+    <!-- Fact Start -->
+    <div class="container-fluid bg-secondary py-5">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7 mb-5 mb-lg-0">
-                    <p class="section-title pr-5"><span class="pr-2">Book A Seat</span></p>
-                    <h1 class="mb-4">Book A Seat For Your Kid</h1>
-                    <p>Invidunt lorem justo sanctus clita. Erat lorem labore ea, justo dolor lorem ipsum ut sed eos,
-                        ipsum et dolor kasd sit ea justo. Erat justo sed sed diam. Ea et erat ut sed diam sea ipsum est
-                        dolor</p>
-                    <ul class="list-inline m-0">
-                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Labore eos amet dolor amet diam
-                        </li>
-                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Etsea et sit dolor amet ipsum</li>
-                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Diam dolor diam elitripsum vero.
-                        </li>
-                    </ul>
-                    <a href="" class="btn btn-primary mt-4 py-2 px-4">Book Now</a>
+            <div class="row">
+                <div class="col-lg-3 wow fadeIn" data-wow-delay=".1s">
+                    <div class="d-flex counter">
+                        <h1 class="me-3 text-primary counter-value">99</h1>
+                        <h5 class="text-white mt-1">Success in getting happy customer</h5>
+                    </div>
                 </div>
-                <div class="col-lg-5">
-                    <div class="card border-0">
-                        <div class="card-header bg-secondary text-center p-4">
-                            <h1 class="text-white m-0">New Notifications</h1>
+                <div class="col-lg-3 wow fadeIn" data-wow-delay=".3s">
+                    <div class="d-flex counter">
+                        <h1 class="me-3 text-primary counter-value">25</h1>
+                        <h5 class="text-white mt-1">Thousands of successful business</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 wow fadeIn" data-wow-delay=".5s">
+                    <div class="d-flex counter">
+                        <h1 class="me-3 text-primary counter-value">120</h1>
+                        <h5 class="text-white mt-1">Total clients who love HighTech</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 wow fadeIn" data-wow-delay=".7s">
+                    <div class="d-flex counter">
+                        <h1 class="me-3 text-primary counter-value">5</h1>
+                        <h5 class="text-white mt-1">Stars reviews given by satisfied clients</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fact End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5 my-5">
+        <div class="container pt-5">
+            <div class="row g-5">
+                <div class="col-lg-5 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".3s">
+                    <div class="h-100 position-relative">
+                        <img src="img/about-1.jpg" class="img-fluid w-75 rounded" alt=""
+                            style="margin-bottom: 25%;">
+                        <div class="position-absolute w-75" style="top: 25%; left: 25%;">
+                            <img src="img/about-2.jpg" class="img-fluid w-100 rounded" alt="">
                         </div>
-                        <div class="card-body rounded-bottom bg-primary">
-                            <marquee direction="up"onmouseover="this.stop();" onmouseout="this.start();"> <span
-                                    class="badge bg-danger">New</span>
-                                    <p style="text-align: justify"><a href="" class="text-dark">Lorem ipsum dolor sit amet consectetur adipisicing
-                                            elit. Similique suscipit voluptatem sed pariatur expedita debitis quam repellendus?
-                                            Obcaecati similique consectetur praesentium. Aperiam voluptatum vel enim, commodi
-                                            dolorum amet! Ipsa, blanditiis.</a></p>
-                                <hr class="bg-danger">
-                            </marquee>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".5s">
+                    <h5 class="text-primary">About Us</h5>
+                    <h1 class="mb-4">About HighTech Agency And It's Innovative IT Solutions</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur quis purus ut interdum.
+                        Pellentesque aliquam dolor eget urna ultricies tincidunt. Nam volutpat libero sit amet leo
+                        cursus, ac viverra eros tristique. Morbi quis quam mi. Cras vel gravida eros. Proin scelerisque
+                        quam nec elementum viverra. Suspendisse viverra hendrerit diam in tempus. Etiam gravida justo
+                        nec erat vestibulum, et malesuada augue laoreet.</p>
+                    <p class="mb-4">Pellentesque aliquam dolor eget urna ultricies tincidunt. Nam volutpat libero sit
+                        amet leo cursus, ac viverra eros tristique. Morbi quis quam mi. Cras vel gravida eros. Proin
+                        scelerisque quam nec elementum viverra. Suspendisse viverra hendrerit diam in tempus.</p>
+                    <a href="" class="btn btn-secondary rounded-pill px-5 py-3 text-white">More Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Services Start -->
+    <div class="container-fluid services py-5 mb-5">
+        <div class="container">
+            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                <h5 class="text-primary">Our Services</h5>
+                <h1>Services Built Specifically For Your Business</h1>
+            </div>
+            <div class="row g-5 services-inner">
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+                    <div class="services-item bg-light">
+                        <div class="p-4 text-center services-content">
+                            <div class="services-content-icon">
+                                <i class="fa fa-code fa-7x mb-4 text-primary"></i>
+                                <h4 class="mb-3">Web Design</h4>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut
+                                    interdum. Aliquam dolor eget urna ultricies tincidunt.</p>
+                                <a href="" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                    <div class="services-item bg-light">
+                        <div class="p-4 text-center services-content">
+                            <div class="services-content-icon">
+                                <i class="fa fa-file-code fa-7x mb-4 text-primary"></i>
+                                <h4 class="mb-3">Web Development</h4>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut
+                                    interdum. Aliquam dolor eget urna ultricies tincidunt.</p>
+                                <a href="" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".7s">
+                    <div class="services-item bg-light">
+                        <div class="p-4 text-center services-content">
+                            <div class="services-content-icon">
+                                <i class="fa fa-external-link-alt fa-7x mb-4 text-primary"></i>
+                                <h4 class="mb-3">UI/UX Design</h4>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut
+                                    interdum. Aliquam dolor eget urna ultricies tincidunt.</p>
+                                <a href="" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+                    <div class="services-item bg-light">
+                        <div class="p-4 text-center services-content">
+                            <div class="services-content-icon">
+                                <i class="fas fa-user-secret fa-7x mb-4 text-primary"></i>
+                                <h4 class="mb-3">Web Cecurity</h4>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut
+                                    interdum. Aliquam dolor eget urna ultricies tincidunt.</p>
+                                <a href="" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read
+                                    More</a>
+                            </div>
 
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                    <div class="services-item bg-light">
+                        <div class="p-4 text-center services-content">
+                            <div class="services-content-icon">
+                                <i class="fa fa-envelope-open fa-7x mb-4 text-primary"></i>
+                                <h4 class="mb-3">Digital Marketing</h4>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut
+                                    interdum. Aliquam dolor eget urna ultricies tincidunt.</p>
+                                <a href="" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".7s">
+                    <div class="services-item bg-light">
+                        <div class="p-4 text-center services-content">
+                            <div class="services-content-icon">
+                                <i class="fas fa-laptop fa-7x mb-4 text-primary"></i>
+                                <h4 class="mb-3">Programming</h4>
+                                <p class="mb-4">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut
+                                    interdum. Aliquam dolor eget urna ultricies tincidunt.</p>
+                                <a href="" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read
+                                    More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Registration End -->
-    <!-- Team Start -->
-    <div class="container-fluid pt-5">
+    <!-- Services End -->
+
+
+    <!-- Project Start -->
+    <div class="container-fluid project py-5 mb-5">
         <div class="container">
-            <div class="text-center pb-2">
-                <p class="section-title px-5"><span class="px-2">Our Teachers</span></p>
-                <h1 class="mb-4">Meet Our Teachers</h1>
+            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                <h5 class="text-primary">Our Project</h5>
+                <h1>Our Recently Completed Projects</h1>
             </div>
-            <marquee>
-                <div class="row">
-                    <div class="col-md-6 col-lg-3 text-center team mb-5">
-                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
-                            <div
-                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-linkedin-in"></i></a>
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="img/project-1.jpg" class="img-fluid w-100 rounded" alt="">
+                            <div class="project-content">
+                                <a href="#" class="text-center">
+                                    <h4 class="text-secondary">Web design</h4>
+                                    <p class="m-0 text-white">Web Analysis</p>
+                                </a>
                             </div>
-                        </div>
-                        <h4>Julia Smith</h4>
-                        <i>Music Teacher</i>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center team mb-5">
-                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
-                            <div
-                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                        <h4>Jhon Doe</h4>
-                        <i>Language Teacher</i>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center team mb-5">
-                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
-                            <div
-                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                        <h4>Mollie Ross</h4>
-                        <i>Dance Teacher</i>
-                    </div>
-                    <div class="col-md-6 col-lg-3 text-center team mb-5">
-                        <div class="position-relative overflow-hidden mb-4" style="border-radius: 100%;">
-                            <img class="img-fluid w-100" src="img/team-4.jpg" alt="">
-                            <div
-                                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute">
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-light text-center mr-2 px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-light text-center px-0" style="width: 38px; height: 38px;"
-                                    href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                        <h4>Donald John</h4>
-                        <i>Art Teacher</i>
-                    </div>
-                </div>
-            </marquee>
-        </div>
-    </div>
-    <!-- Team End -->
-    <!-- Testimonial Start -->
-    <div class="container-fluid py-5">
-        <div class="container p-0">
-            <div class="text-center pb-2">
-                <p class="section-title px-5"><span class="px-2">Testimonial</span></p>
-                <h1 class="mb-4">What Parents Say!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel">
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor
-                        ipsum clita
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="img/testimonial-1.jpg" style="width: 70px; height: 70px;"
-                            alt="Image">
-                        <div class="pl-3">
-                            <h5>Parent Name</h5>
-                            <i>Profession</i>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor
-                        ipsum clita
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="img/testimonial-2.jpg" style="width: 70px; height: 70px;"
-                            alt="Image">
-                        <div class="pl-3">
-                            <h5>Parent Name</h5>
-                            <i>Profession</i>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="img/project-2.jpg" class="img-fluid w-100 rounded" alt="">
+                            <div class="project-content">
+                                <a href="#" class="text-center">
+                                    <h4 class="text-secondary">Cyber Security</h4>
+                                    <p class="m-0 text-white">Cyber Security Core</p>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor
-                        ipsum clita
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="img/testimonial-3.jpg" style="width: 70px; height: 70px;"
-                            alt="Image">
-                        <div class="pl-3">
-                            <h5>Parent Name</h5>
-                            <i>Profession</i>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".7s">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="img/project-3.jpg" class="img-fluid w-100 rounded" alt="">
+                            <div class="project-content">
+                                <a href="#" class="text-center">
+                                    <h4 class="text-secondary">Mobile Info</h4>
+                                    <p class="m-0 text-white">Upcomming Phone</p>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-item px-3">
-                    <div class="bg-light shadow-sm rounded mb-4 p-4">
-                        <h3 class="fas fa-quote-left text-primary mr-3"></h3>
-                        Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr eirmod clita lorem. Dolor tempor
-                        ipsum clita
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="img/project-4.jpg" class="img-fluid w-100 rounded" alt="">
+                            <div class="project-content">
+                                <a href="#" class="text-center">
+                                    <h4 class="text-secondary">Web Development</h4>
+                                    <p class="m-0 text-white">Web Analysis</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="img/testimonial-4.jpg" style="width: 70px; height: 70px;"
-                            alt="Image">
-                        <div class="pl-3">
-                            <h5>Parent Name</h5>
-                            <i>Profession</i>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="img/project-5.jpg" class="img-fluid w-100 rounded" alt="">
+                            <div class="project-content">
+                                <a href="#" class="text-center">
+                                    <h4 class="text-secondary">Digital Marketing</h4>
+                                    <p class="m-0 text-white">Marketing Analysis</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".7s">
+                    <div class="project-item">
+                        <div class="project-img">
+                            <img src="img/project-6.jpg" class="img-fluid w-100 rounded" alt="">
+                            <div class="project-content">
+                                <a href="#" class="text-center">
+                                    <h4 class="text-secondary">keyword Research</h4>
+                                    <p class="m-0 text-white">keyword Analysis</p>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Testimonial End -->
+    <!-- Project End -->
+
+
     <!-- Blog Start -->
-    <div class="container-fluid pt-5">
+    <div class="container-fluid blog py-5 mb-5">
         <div class="container">
-            <div class="text-center pb-2">
-                <p class="section-title px-5"><span class="px-2">Latest Blog</span></p>
-                <h1 class="mb-4">Latest Articles From Blog</h1>
+            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                <h5 class="text-primary">Our Blog</h5>
+                <h1>Latest Blog & News</h1>
             </div>
-            <div class="row pb-3">
-                <div class="col-lg-4 mb-4">
-                    <div class="card border-0 shadow-sm mb-2">
-                        <img class="card-img-top mb-2" src="img/blog-1.jpg" alt="">
-                        <div class="card-body bg-light text-center p-4">
-                            <h4 class="">Diam amet eos at no eos</h4>
-                            <div class="d-flex justify-content-center mb-3">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
-                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
-                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
+            <div class="row g-5 justify-content-center">
+                <div class="col-lg-6 col-xl-4 wow fadeIn" data-wow-delay=".3s">
+                    <div class="blog-item position-relative bg-light rounded">
+                        <img src="img/blog-1.jpg" class="img-fluid w-100 rounded-top" alt="">
+                        <span class="position-absolute px-4 py-3 bg-primary text-white rounded"
+                            style="top: -28px; right: 20px;">Web Design</span>
+                        <div class="blog-btn d-flex justify-content-between position-relative px-3"
+                            style="margin-top: -75px;">
+                            <div class="blog-icon btn btn-secondary px-3 rounded-pill my-auto">
+                                <a href="" class="btn text-white">Read More</a>
                             </div>
-                            <p>Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam eirmod, duo et sed sit eirmod kasd
-                                clita tempor dolor stet lorem. Tempor ipsum justo amet stet...</p>
-                            <a href="" class="btn btn-primary px-4 mx-auto my-2">Read More</a>
+                            <div class="blog-btn-icon btn btn-secondary px-4 py-3 rounded-pill ">
+                                <div class="blog-icon-1">
+                                    <p class="text-white px-2">Share<i class="fa fa-arrow-right ms-3"></i></p>
+                                </div>
+                                <div class="blog-icon-2">
+                                    <a href="" class="btn me-1"><i
+                                            class="fab fa-facebook-f text-white"></i></a>
+                                    <a href="" class="btn me-1"><i class="fab fa-twitter text-white"></i></a>
+                                    <a href="" class="btn me-1"><i
+                                            class="fab fa-instagram text-white"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-content text-center position-relative px-3" style="margin-top: -25px;">
+                            <img src="img/admin.jpg"
+                                class="img-fluid rounded-circle border border-4 border-white mb-3" alt="">
+                            <h5 class="">By Daniel Martin</h5>
+                            <span class="text-secondary">24 March 2023</span>
+                            <p class="py-2">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum.
+                                Aliquam dolor eget urna ultricies tincidunt libero sit amet</p>
+                        </div>
+                        <div
+                            class="blog-coment d-flex justify-content-between px-4 py-2 border bg-primary rounded-bottom">
+                            <a href="" class="text-white"><small><i
+                                        class="fas fa-share me-2 text-secondary"></i>5324 Share</small></a>
+                            <a href="" class="text-white"><small><i
+                                        class="fa fa-comments me-2 text-secondary"></i>5 Comments</small></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card border-0 shadow-sm mb-2">
-                        <img class="card-img-top mb-2" src="img/blog-2.jpg" alt="">
-                        <div class="card-body bg-light text-center p-4">
-                            <h4 class="">Diam amet eos at no eos</h4>
-                            <div class="d-flex justify-content-center mb-3">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
-                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
-                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
+                <div class="col-lg-6 col-xl-4 wow fadeIn" data-wow-delay=".5s">
+                    <div class="blog-item position-relative bg-light rounded">
+                        <img src="img/blog-2.jpg" class="img-fluid w-100 rounded-top" alt="">
+                        <span class="position-absolute px-4 py-3 bg-primary text-white rounded"
+                            style="top: -28px; right: 20px;">Development</span>
+                        <div class="blog-btn d-flex justify-content-between position-relative px-3"
+                            style="margin-top: -75px;">
+                            <div class="blog-icon btn btn-secondary px-3 rounded-pill my-auto">
+                                <a href="" class="btn text-white ">Read More</a>
                             </div>
-                            <p>Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam eirmod, duo et sed sit eirmod kasd
-                                clita tempor dolor stet lorem. Tempor ipsum justo amet stet...</p>
-                            <a href="" class="btn btn-primary px-4 mx-auto my-2">Read More</a>
+                            <div class="blog-btn-icon btn btn-secondary px-4 py-3 rounded-pill ">
+                                <div class="blog-icon-1">
+                                    <p class="text-white px-2">Share<i class="fa fa-arrow-right ms-3"></i></p>
+                                </div>
+                                <div class="blog-icon-2">
+                                    <a href="" class="btn me-1"><i
+                                            class="fab fa-facebook-f text-white"></i></a>
+                                    <a href="" class="btn me-1"><i class="fab fa-twitter text-white"></i></a>
+                                    <a href="" class="btn me-1"><i
+                                            class="fab fa-instagram text-white"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-content text-center position-relative px-3" style="margin-top: -25px;">
+                            <img src="img/admin.jpg"
+                                class="img-fluid rounded-circle border border-4 border-white mb-3" alt="">
+                            <h5 class="">By Daniel Martin</h5>
+                            <span class="text-secondary">23 April 2023</span>
+                            <p class="py-2">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum.
+                                Aliquam dolor eget urna ultricies tincidunt libero sit amet</p>
+                        </div>
+                        <div
+                            class="blog-coment d-flex justify-content-between px-4 py-2 border bg-primary rounded-bottom">
+                            <a href="" class="text-white"><small><i
+                                        class="fas fa-share me-2 text-secondary"></i>5324 Share</small></a>
+                            <a href="" class="text-white"><small><i
+                                        class="fa fa-comments me-2 text-secondary"></i>5 Comments</small></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card border-0 shadow-sm mb-2">
-                        <img class="card-img-top mb-2" src="img/blog-3.jpg" alt="">
-                        <div class="card-body bg-light text-center p-4">
-                            <h4 class="">Diam amet eos at no eos</h4>
-                            <div class="d-flex justify-content-center mb-3">
-                                <small class="mr-3"><i class="fa fa-user text-primary"></i> Admin</small>
-                                <small class="mr-3"><i class="fa fa-folder text-primary"></i> Web Design</small>
-                                <small class="mr-3"><i class="fa fa-comments text-primary"></i> 15</small>
+                <div class="col-lg-6 col-xl-4 wow fadeIn" data-wow-delay=".7s">
+                    <div class="blog-item position-relative bg-light rounded">
+                        <img src="img/blog-3.jpg" class="img-fluid w-100 rounded-top" alt="">
+                        <span class="position-absolute px-4 py-3 bg-primary text-white rounded"
+                            style="top: -28px; right: 20px;">Mobile App</span>
+                        <div class="blog-btn d-flex justify-content-between position-relative px-3"
+                            style="margin-top: -75px;">
+                            <div class="blog-icon btn btn-secondary px-3 rounded-pill my-auto">
+                                <a href="" class="btn text-white ">Read More</a>
                             </div>
-                            <p>Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam eirmod, duo et sed sit eirmod kasd
-                                clita tempor dolor stet lorem. Tempor ipsum justo amet stet...</p>
-                            <a href="" class="btn btn-primary px-4 mx-auto my-2">Read More</a>
+                            <div class="blog-btn-icon btn btn-secondary px-4 py-3 rounded-pill ">
+                                <div class="blog-icon-1">
+                                    <p class="text-white px-2">Share<i class="fa fa-arrow-right ms-3"></i></p>
+                                </div>
+                                <div class="blog-icon-2">
+                                    <a href="" class="btn me-1"><i
+                                            class="fab fa-facebook-f text-white"></i></a>
+                                    <a href="" class="btn me-1"><i class="fab fa-twitter text-white"></i></a>
+                                    <a href="" class="btn me-1"><i
+                                            class="fab fa-instagram text-white"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-content text-center position-relative px-3" style="margin-top: -25px;">
+                            <img src="img/admin.jpg"
+                                class="img-fluid rounded-circle border border-4 border-white mb-3" alt="">
+                            <h5 class="">By Daniel Martin</h5>
+                            <span class="text-secondary">30 jan 2023</span>
+                            <p class="py-2">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum.
+                                Aliquam dolor eget urna ultricies tincidunt libero sit amet</p>
+                        </div>
+                        <div
+                            class="blog-coments d-flex justify-content-between px-4 py-2 border bg-primary rounded-bottom">
+                            <a href="" class="text-white"><small><i
+                                        class="fas fa-share me-2 text-secondary"></i>5324 Share</small></a>
+                            <a href="" class="text-white"><small><i
+                                        class="fa fa-comments me-2 text-secondary"></i>5 Comments</small></a>
                         </div>
                     </div>
                 </div>
@@ -417,92 +577,404 @@
         </div>
     </div>
     <!-- Blog End -->
-    <!-- Footer Start -->
-    <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
-        <div class="row pt-5">
-            <div class="col-lg-3 col-md-6 mb-5">
-                <a href="" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0"
-                    style="font-size: 40px; line-height: 40px;">
-                    <i class="flaticon-043-teddy-bear"></i>
-                    <span class="text-white">KidKinder</span>
-                </a>
-                <p>Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea dolor et magna dolor, elitr rebum duo
-                    est sed diam elitr. Stet elitr stet diam duo eos rebum ipsum diam ipsum elitr.</p>
-                <div class="d-flex justify-content-start mt-4">
-                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fa fa-twitter"></i></a>
-                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fa fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fa fa-youtube-play"></i></a>
-                    <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0"
-                        style="width: 38px; height: 38px;" href="#"><i class="fa fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h3 class="text-primary mb-4">Get In Touch</h3>
-                @foreach ($contact as $item)
 
 
-                <div class="d-flex">
-                    <h4 class="fa fa-map text-primary"></h4>
-                    <div class="pl-3">
-                        <h5 class="text-white">Address</h5>
-                        <p>{{ $item->address }}</p>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <h4 class="fa fa-envelope text-primary"></h4>
-                    <div class="pl-3">
-                        <h5 class="text-white">Email</h5>
-                        <p>{{ $item->email }}</p>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <h4 class="fa fa-phone text-primary"></h4>
-                    <div class="pl-3">
-                        <h5 class="text-white">Phone</h5>
-                        <p>+91 {{ $item->mobile }}</p>
-                    </div>
-                </div>
-                @endforeach
+    <!-- Team Start -->
+    <div class="container-fluid py-5 mb-5 team">
+        <div class="container">
+            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                <h5 class="text-primary">Our Team</h5>
+                <h1>Meet our expert Team</h1>
             </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h3 class="text-primary mb-4">Quick Links</h3>
-                <div class="d-flex flex-column justify-content-start">
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About Us</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Classes</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Teachers</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Blog</a>
-                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+            <div class="owl-carousel team-carousel wow fadeIn" data-wow-delay=".5s">
+                <div class="rounded team-item">
+                    <div class="team-content">
+                        <div class="team-img-icon">
+                            <div class="team-img rounded-circle">
+                                <img src="img/team-1.jpg" class="img-fluid w-100 rounded-circle" alt="">
+                            </div>
+                            <div class="team-name text-center py-3">
+                                <h4 class="">Full Name</h4>
+                                <p class="m-0">Designation</p>
+                            </div>
+                            <div class="team-icon d-flex justify-content-center pb-4">
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h3 class="text-primary mb-4">Newsletter</h3>
-                <form action="">
-                    <div class="form-group">
-                        <input type="text" class="form-control border-0 py-4" placeholder="Your Name"
-                            required="required" />
+                <div class="rounded team-item">
+                    <div class="team-content">
+                        <div class="team-img-icon">
+                            <div class="team-img rounded-circle">
+                                <img src="img/team-2.jpg" class="img-fluid w-100 rounded-circle" alt="">
+                            </div>
+                            <div class="team-name text-center py-3">
+                                <h4 class="">Full Name</h4>
+                                <p class="m-0">Designation</p>
+                            </div>
+                            <div class="team-icon d-flex justify-content-center pb-4">
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
-                            required="required" />
+                </div>
+                <div class="rounded team-item">
+                    <div class="team-content">
+                        <div class="team-img-icon">
+                            <div class="team-img rounded-circle">
+                                <img src="img/team-3.jpg" class="img-fluid w-100 rounded-circle" alt="">
+                            </div>
+                            <div class="team-name text-center py-3">
+                                <h4 class="">Full Name</h4>
+                                <p class="m-0">Designation</p>
+                            </div>
+                            <div class="team-icon d-flex justify-content-center pb-4">
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <button class="btn btn-primary btn-block border-0 py-3" type="submit">Submit Now</button>
+                </div>
+                <div class="rounded team-item">
+                    <div class="team-content">
+                        <div class="team-img-icon">
+                            <div class="team-img rounded-circle">
+                                <img src="img/team-4.jpg" class="img-fluid w-100 rounded-circle" alt="">
+                            </div>
+                            <div class="team-name text-center py-3">
+                                <h4 class="">Full Name</h4>
+                                <p class="m-0">Designation</p>
+                            </div>
+                            <div class="team-icon d-flex justify-content-center pb-4">
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-secondary text-white rounded-circle m-1"
+                                    href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-        <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, .2);;">
-            <p class="m-0 text-center text-white">
-                &copy; <a class="text-primary font-weight-bold" href="#">Your Site Name</a>. All Rights Reserved.
-                Designed
-                by
-                <a class="text-primary font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
-            </p>
+    </div>
+    <!-- Team End -->
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid testimonial py-5 mb-5">
+        <div class="container">
+            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                <h5 class="text-primary">Our Testimonial</h5>
+                <h1>Our Client Saying!</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeIn" data-wow-delay=".5s">
+                <div class="testimonial-item border p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="">
+                            <img src="img/testimonial-1.jpg" alt="">
+                        </div>
+                        <div class="ms-4">
+                            <h4 class="text-secondary">Client Name</h4>
+                            <p class="m-0 pb-3">Profession</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top mt-4 pt-3">
+                        <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam
+                            dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam
+                            mi.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item border p-4">
+                    <div class=" d-flex align-items-center">
+                        <div class="">
+                            <img src="img/testimonial-2.jpg" alt="">
+                        </div>
+                        <div class="ms-4">
+                            <h4 class="text-secondary">Client Name</h4>
+                            <p class="m-0 pb-3">Profession</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top mt-4 pt-3">
+                        <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam
+                            dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam
+                            mi.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item border p-4">
+                    <div class=" d-flex align-items-center">
+                        <div class="">
+                            <img src="img/testimonial-3.jpg" alt="">
+                        </div>
+                        <div class="ms-4">
+                            <h4 class="text-secondary">Client Name</h4>
+                            <p class="m-0 pb-3">Profession</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top mt-4 pt-3">
+                        <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam
+                            dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam
+                            mi.</p>
+                    </div>
+                </div>
+                <div class="testimonial-item border p-4">
+                    <div class=" d-flex align-items-center">
+                        <div class="">
+                            <img src="img/testimonial-4.jpg" alt="">
+                        </div>
+                        <div class="ms-4">
+                            <h4 class="text-secondary">Client Name</h4>
+                            <p class="m-0 pb-3">Profession</p>
+                            <div class="d-flex pe-5">
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                                <i class="fas fa-star me-1 text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top mt-4 pt-3">
+                        <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam
+                            dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam
+                            mi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid py-5 mb-5">
+        <div class="container">
+            <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+                <h5 class="text-primary">Get In Touch</h5>
+                <h1 class="mb-3">Contact for any query</h1>
+                <p class="mb-2">The contact form is currently inactive. Get a functional and working contact form
+                    with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done.
+                    <a href="https://htmlcodex.com/contact-form">Download Now</a>.
+                </p>
+            </div>
+            <div class="contact-detail position-relative p-5">
+                <div class="row g-5 mb-5 justify-content-center">
+                    <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".3s">
+                        <div class="d-flex bg-light p-3 rounded">
+                            <div class="flex-shrink-0 btn-square bg-secondary rounded-circle"
+                                style="width: 64px; height: 64px;">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h4 class="text-primary">Address</h4>
+                                <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" class="h5">23
+                                    rank Str, NY</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".5s">
+                        <div class="d-flex bg-light p-3 rounded">
+                            <div class="flex-shrink-0 btn-square bg-secondary rounded-circle"
+                                style="width: 64px; height: 64px;">
+                                <i class="fa fa-phone text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h4 class="text-primary">Call Us</h4>
+                                <a class="h5" href="tel:+0123456789" target="_blank">+012 3456 7890</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 wow fadeIn" data-wow-delay=".7s">
+                        <div class="d-flex bg-light p-3 rounded">
+                            <div class="flex-shrink-0 btn-square bg-secondary rounded-circle"
+                                style="width: 64px; height: 64px;">
+                                <i class="fa fa-envelope text-white"></i>
+                            </div>
+                            <div class="ms-3">
+                                <h4 class="text-primary">Email Us</h4>
+                                <a class="h5" href="mailto:info@example.com" target="_blank">info@example.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-5">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay=".3s">
+                        <div class="p-5 h-100 rounded contact-map">
+                            <iframe class="rounded w-100 h-100"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3025.4710403339755!2d-73.82241512404069!3d40.685622471397615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c26749046ee14f%3A0xea672968476d962c!2s123rd%20St%2C%20Queens%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1686493221834!5m2!1sen!2sbd"
+                                style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay=".5s">
+                        <div class="p-5 rounded contact-form">
+                            <div class="mb-4">
+                                <input type="text" class="form-control border-0 py-3" placeholder="Your Name">
+                            </div>
+                            <div class="mb-4">
+                                <input type="email" class="form-control border-0 py-3" placeholder="Your Email">
+                            </div>
+                            <div class="mb-4">
+                                <input type="text" class="form-control border-0 py-3" placeholder="Project">
+                            </div>
+                            <div class="mb-4">
+                                <textarea class="w-100 form-control border-0 py-3" rows="6" cols="10" placeholder="Message"></textarea>
+                            </div>
+                            <div class="text-start">
+                                <button class="btn bg-primary text-white py-3 px-5" type="button">Send
+                                    Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer bg-dark wow fadeIn" data-wow-delay=".3s">
+        <div class="container pt-5 pb-4">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <a href="index.html">
+                        <img src="{{ asset('Admin/dist/img/logo1.png') }}" width="100px" height="100px" class="rounded-circle" alt="">
+                        {{-- <h1 class="text-white fw-bold d-block">High<span class="text-secondary">Tech</span> </h1> --}}
+                    </a>
+                    <p class="mt-4 text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta facere
+                        delectus qui placeat inventore consectetur repellendus optio debitis.</p>
+                    <div class="d-flex hightech-link">
+                        <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
+                                class="fab fa-facebook-f text-primary"></i></a>
+                        <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
+                                class="fab fa-twitter text-primary"></i></a>
+                        <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
+                                class="fab fa-instagram text-primary"></i></a>
+                        <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-0"><i
+                                class="fab fa-youtube text-primary"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="#" class="h3 text-secondary">Short Link</a>
+                    <div class="mt-4 d-flex flex-column short-link">
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>About us</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Contact us</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Our Services</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Our Projects</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Latest Blog</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="#" class="h3 text-secondary">Help Link</a>
+                    <div class="mt-4 d-flex flex-column help-link">
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Terms Of use</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Privacy Policy</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Helps</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>FQAs</a>
+                        <a href="" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <a href="#" class="h3 text-secondary">Contact Us</a>
+                    <div class="text-white mt-4 d-flex flex-column contact-link">
+                        <a href="#" class="pb-3 text-light border-bottom border-primary"><i
+                                class="fas fa-map-marker-alt text-secondary me-2"></i> 123 Street, New York, USA</a>
+                        <a href="#" class="py-3 text-light border-bottom border-primary"><i
+                                class="fas fa-phone-alt text-secondary me-2"></i> +123 456 7890</a>
+                        <a href="#" class="py-3 text-light border-bottom border-primary"><i
+                                class="fas fa-envelope text-secondary me-2"></i> info@exmple.con</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="text-light mt-5 mb-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <span class="text-light"><a href="#" class="text-secondary"><i
+                                class="fas fa-copyright text-secondary me-2"></i>Your Site Name</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    <span class="text-light">Designed By<a href="https://htmlcodex.com" class="text-secondary">HTML
+                            Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a></span>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Footer End -->
-@endsection
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-square rounded-circle back-to-top"><i
+            class="fa fa-arrow-up text-white"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('Website/lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('Website/lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('Website/lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('Website/lib/wow/wow.min.js') }}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ asset('Website/js/main.js') }}"></script>
+</body>
+
+</html>
