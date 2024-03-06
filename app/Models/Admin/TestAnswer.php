@@ -22,7 +22,7 @@ class TestAnswer extends Model
         return $this->hasOne(Question::class, 'id', 'question_id');
     }
 
-    public function answer()
+    public function answers()
     {
         return $this->hasOne(Answer::class, 'id', 'answer_id');
     }

@@ -75,7 +75,7 @@ class ExamController extends Controller
         return view('Exam.thanks');
     }
 
-    public function getSingleRecord(Request $request, $ExamID)
+  
     public function getSingleRecord(Request $request,$ExamID)
     {
         $qnaExam = Test::where('test_exam_id', $ExamID)->with('getQnaExams', 'subjects')->get();
