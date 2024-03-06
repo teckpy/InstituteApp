@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Test;
 use App\Models\Admin\QueExam;
 use App\Models\Admin\Exam_attempt;
-use App\Models\Admin\Exam_qna;
+use App\Models\Admin\TestAnswer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -63,9 +63,9 @@ class ExamController extends Controller
         if ($qcount > 0) {
             for ($i = 0; $i < $qcount; $i++) {
                 if (!empty($request->input('ans_' . ($i + 1)))) {
-                    Exam_qna::insert([
-                        'attempts_id' => $attempt_id,
-                        'question_id' => $request->q[$i],
+                    TestAnswer::insert([
+                        'attempt_id' => $attempt_id,
+                        'question_id' => $request->Q[$i],
                         'answer_id' =>  request()->input('ans_' . $i + 1)
                     ]);
                 }
@@ -76,6 +76,7 @@ class ExamController extends Controller
     }
 
     public function getSingleRecord(Request $request, $ExamID)
+    public function getSingleRecord(Request $request,$ExamID)
     {
         $qnaExam = Test::where('test_exam_id', $ExamID)->with('getQnaExams', 'subjects')->get();
         if ($qnaExam[0]['date'] == date('Y-m-d')) {
