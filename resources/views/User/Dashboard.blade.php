@@ -44,22 +44,22 @@
 
                                 <table class="table table-bordered">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th style="width: 10px">S.N</th>
                                             <th>Test Name</th>
                                             <th>Subject Name</th>
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Total Attempt</th>
-                                            <th>Available Attempt</th>
-                                            <th>Copy Link</th>
+                                            <th>Attempt</th>
+                                            <th>Link</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if ($data && count($data) > 0)
                                             @php $count = 1; @endphp
                                             @foreach ($data as $item)
-                                                <tr>
+                                                <tr class="text-center">
                                                     <td style="display: none">{{ $item->id }}</td>
                                                     <td>{{ $count++ }}</td>
                                                     <td>{{ $item->name }}</td>
@@ -72,7 +72,7 @@
                                                     <td class="text-center"><a onclick="openFullscreenWindow(event)"
                                                             href="{{ route('loadExam', ['id' => $item->test_exam_id]) }}"
                                                             target="_blank" data-code="{{ $item->test_exam_id }}"
-                                                            class="copy"><i class="fa fa-copy"></i></a></td>
+                                                            class="copy"><span class="badge bg-danger"><i class="fa fa-copy"></i></span></a></td>
                                                 </tr>
                                             @endforeach
                                         @else

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Exam_attempt;
 use Illuminate\Http\Request;
 use App\Models\Admin\Subject;
 use App\Models\Admin\Test;
+use App\Models\Admin\TestAnswer;
+use Illuminate\Support\Facades\Log;
+use PhpParser\Node\Stmt\TryCatch;
 
 class TestController extends Controller
 {
@@ -16,7 +20,7 @@ class TestController extends Controller
     {
         $subjects = Subject::get();
         $tests = Test::with('subjects')->get();
-        return view('Admin.test', compact('subjects','tests'));
+        return view('Admin.test', compact('subjects', 'tests'));
     }
 
     /**
@@ -42,7 +46,7 @@ class TestController extends Controller
             'time' => $request->time,
             'attempt' => $request->attempt,
             'test_exam_id' => $test_exam_id,
-            'registration_link' =>$test_exam_id
+            'registration_link' => $test_exam_id
         ]);
         return response()->json($test);
     }
@@ -61,7 +65,7 @@ class TestController extends Controller
     public function edit(string $id)
     {
         try {
-            $test = Test::where('id',$id)->get();
+            $test = Test::where('id', $id)->get();
             return response()->json(['success' => true, 'data' => $test]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
@@ -71,7 +75,7 @@ class TestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         try {
 
@@ -95,7 +99,7 @@ class TestController extends Controller
     public function destroy(string $id)
     {
         try {
-            Test::where('id',$id)->delete();
+            Test::where('id', $id)->delete();
             return response()->json(['success' => true, 'msg' => 'Subject Delete Successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
@@ -111,5 +115,41 @@ class TestController extends Controller
     {
 
         return view('User.register');
+    }
+
+    public function marks()
+    {
+        $marks = Test::with('getQnaExams')->get();
+        return view('Admin.marks', compact('marks'));
+    }
+
+    public function marksUpdate(Request $request)
+    {
+        Log::info('id' . $request->exam_id);
+        try {
+            Test::where('id', $request->exam_id)->update([
+                'marks' => $request->marks
+            ]);
+            return response()->json(['success' => true, 'msg' => 'Marks update successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
+    }
+
+    public function reviewTest()
+    {
+        $attemps =  Exam_attempt::with(['user', 'test'])->orderBy('id')->get();
+
+        return view('Admin.testReview', compact('attemps'));
+    }
+
+    public function reviewQNA(Request $request)
+    {
+        try {
+            $attemptData = TestAnswer::where('attempt_id', $request->attempt_id)->with(['question', 'answer'])->get();
+            return response()->json(['success' => true, 'data' => $attemptData]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => true, 'msg' => $e->getMessage()]);
+        }
     }
 }

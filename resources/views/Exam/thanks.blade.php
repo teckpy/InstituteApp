@@ -39,7 +39,7 @@
                             !</h4>
                     </div>
                     <div class="text-center">
-                        <h5><u>Your test exam is under review</u></h5>
+                       <p>we will review your test, and update you soon !</p>
                     </div>
                     <div class="form-group text-center">
                         <a class="btn btn-info" href="{{ route('dashboard') }}">Home</a>

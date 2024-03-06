@@ -14,4 +14,6 @@ class Answer extends Model
         'answer',
         'is_correct'
     ];
+
+
 }

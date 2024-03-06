@@ -53,6 +53,12 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
     Route::POST('/add-qna', [QuestionController::class, 'addQuestion'])->name('addQuestion')->middleware('auth:admin');
     Route::get('/show-questions', [QuestionController::class, 'showQuestion'])->name('showQuestion')->middleware('auth:admin');
     Route::get('/show-students', [StudentsController::class, 'index'])->name('Students')->middleware('auth:admin');
+
+    Route::get('/marks', [TestController::class, 'marks'])->name('marks')->middleware('auth:admin');
+    Route::POST('/update/marks', [TestController::class, 'marksUpdate'])->name('updateMarks')->middleware('auth:admin');
+
+    Route::get('/admin/review-test', [TestController::class, 'reviewTest'])->name('reviewTest')->middleware('auth:admin');
+    Route::get('/admin/reviewQnA', [TestController::class, 'reviewQNA'])->name('reviewQNA')->middleware('auth:admin');
 });
 /////////////////// User Route ///////////////////////////
 Route::middleware(['auth'])->group(function () {

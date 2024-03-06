@@ -73,16 +73,16 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/examples/e-commerce.html" class="nav-link">
+                            <a href="{{ route('marks') }}" class="nav-link">
                                 <i class="fa fa-chevron-right nav-icon"></i>
-                                <p>Answer</p>
+                                <p>Marks</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="pages/examples/project-edit.html" class="nav-link">
+                            <a href="{{ route('reviewTest') }}" class="nav-link">
                                 <i class="fa fa-chevron-right nav-icon"></i>
-                                <p>Admit Card</p>
+                                <p>Review</p>
                             </a>
                         </li>
                         <li class="nav-item">
