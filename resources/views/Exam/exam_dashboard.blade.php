@@ -173,10 +173,10 @@
                                     @endforeach
                                 @endforeach
                             @endif
+                            <div class="text-center">
+                                <button class="btn btn-info" type="submit">Submit</button>
+                            </div>
                         </form>
-                        <div class="text-center">
-                            <button class="btn btn-info" type="button">Submit</button>
-                        </div>
                     </div>
                 </div>
             </div>
