@@ -155,8 +155,8 @@
                                                         value="{{ $Question->id }}">
                                                     <input type="hidden" name="ans_{{ $Qcount - 1 }}">
                                                     <input type="hidden" name="exam_id"
-                                                        data-exam-id="{{ $qnaExam[0]['test_exam_id'] }}"
-                                                        value="{{ $qnaExam[0]['test_exam_id'] }}">
+                                                        data-exam-id="{{ $qnaExam[0]['id'] }}"
+                                                        value="{{ $qnaExam[0]['id'] }}">
                                                     @php
                                                         $Acount = 1;
                                                     @endphp

@@ -31,12 +31,12 @@ class Test extends Model
         return $this->hasMany(QueExam::class, 'exam_id', 'id');
     }
 
-    public function getAttemptCounterAttributes()
+    public function getAttemptCounterAttribute()
     {
         return $this->count;
     }
 
-    public function getIdAttributes($value)
+    public function getIdAttribute($value)
     {
 
         $AttemptCount = Exam_attempt::where(['exam_id' => $value, 'student_id' => auth()->user()->id])->count();

@@ -60,8 +60,8 @@
                                             @php $count = 1; @endphp
                                             @foreach ($data as $item)
                                                 <tr>
-
-                                                    <td>{{ $item->id }}</td>
+                                                    <td style="display: none">{{ $item->id }}</td>
+                                                    <td>{{ $count++ }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->subjects[0]['subject'] }}</td>
                                                     <td>{{ $item->date }}</td>
@@ -101,6 +101,7 @@
 
             $(".copy").click(function() {
 
+                var code = $(this).attr('data-code');
 
                 var url = "{{ URL::to('/') }}/exam/" + code;
 

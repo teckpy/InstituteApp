@@ -22,8 +22,10 @@ class ExamController extends Controller
         $qnaExam = Test::where('test_exam_id', $id)->with('getQnaExams', 'subjects')->get();
 
         if (count($qnaExam) > 0) {
-
-            if ($qnaExam[0]['date'] == date('Y-m-d')) {
+            $AttemptCount = Exam_attempt::where(['exam_id' => $qnaExam[0]['id'], 'student_id' => auth()->user()->id])->count();
+            if ($AttemptCount >= $qnaExam[0]['attempt']) {
+                return view('Exam.error', ['success' => false, 'msg' => 'Your Test attempt has been completed !', 'qnaExam' => $qnaExam]);
+            } else if ($qnaExam[0]['date'] == date('Y-m-d')) {
 
                 if (count($qnaExam[0]['getQnaExams']) > 0) {
 
