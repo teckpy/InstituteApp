@@ -31,8 +31,6 @@ class ExamController extends Controller
 
                     $Exam = QueExam::where('exam_id', $qnaExam[0]['id'])->with('question', 'answers')->inRandomOrder()->get();
 
-                    Log::info($Exam);
-
                     return view('Exam.exam_dashboard', ['success' => true,  'Exam' => $Exam, 'qnaExam' => $qnaExam]);
                 } else {
                     return view('Exam.error', ['success' => false, 'msg' => 'This Exam is not available for now ! - ', 'qnaExam' => $qnaExam]);
@@ -63,6 +61,7 @@ class ExamController extends Controller
         if ($qcount > 0) {
             for ($i = 0; $i < $qcount; $i++) {
                 if (!empty($request->input('ans_' . ($i + 1)))) {
+
                     TestAnswer::insert([
                         'attempt_id' => $attempt_id,
                         'question_id' => $request->q[$i],
