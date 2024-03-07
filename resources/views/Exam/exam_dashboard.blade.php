@@ -2,7 +2,7 @@
 @section('title')
     @if (auth()->check())
         {{ auth()->user()->name }}
-    @endif | Dashboard
+    @endif | Exam Dashboard
 @endsection
 
 @section('aside')
@@ -30,32 +30,27 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-
-            </li>
-            <li class="nav-item d-none d-sm-inline-block text-right">
-
-            </li>
         </ul>
-
         <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto mr-0">
-            <li class="nav-item name">
-                <a class="nav-link text-uppercase">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="dropdown">
+
                     @if (auth()->check())
                         {{ auth()->user()->name }}
                     @endif
                 </a>
             </li>
-            <li class="nav-item ml-auto">
-                <div class="brand-link">
-                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8;">
-                </div>
+            <li class="nav-item dropdown">
+                <a class="nav-link">
+                    <div class="brand-image" style="height: 40px;margin-top:0%">
+                        <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" width="30px"
+                            height="30px" style="opacity: .8;">
+                    </div>
+                </a>
             </li>
         </ul>
     </nav>
-
-
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <div class="brand-link">

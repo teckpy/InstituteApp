@@ -1,6 +1,6 @@
 @extends('layouts.Exam.app')
 @section('title')
-    Thanks
+Thanks for submit your test exam
 @endsection
 
 @section('content')
