@@ -49,9 +49,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <div class="">
-                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" width="30" height="30"
-                        class="brand-image img-circle mt-2" style="opacity: .8;">
+                <div class="brand-link">
+                    <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8;">
                 </div>
             </li>
         </ul>
@@ -153,7 +152,8 @@
                                                     <input type="hidden" name="Q[]"
                                                         data-question-id="{{ $Question->id }}"
                                                         value="{{ $Question->id }}">
-                                                    <input type="hidden" name="ans_{{ $Qcount - 1 }}">
+                                                    <input type="hidden" name="ans_{{ $Qcount - 1 }}"
+                                                        id="ans_{{ $Qcount - 1 }}">
                                                     <input type="hidden" name="exam_id"
                                                         data-exam-id="{{ $qnaExam[0]['id'] }}"
                                                         value="{{ $qnaExam[0]['id'] }}">
@@ -173,10 +173,11 @@
                                     @endforeach
                                 @endforeach
                             @endif
-                            <div class="text-center">
-                                <button class="btn btn-info" type="submit">Submit</button>
-                            </div>
+
                         </form>
+                        <div class="text-center">
+                            <button class="btn btn-info" type="button">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>

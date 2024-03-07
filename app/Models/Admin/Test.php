@@ -19,6 +19,7 @@ class Test extends Model
     ];
 
     protected $appends = ['attempt_counter'];
+    
     public $count = 0;
 
     public function subjects()

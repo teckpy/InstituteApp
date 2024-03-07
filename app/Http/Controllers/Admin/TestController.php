@@ -146,7 +146,7 @@ class TestController extends Controller
     public function reviewQNA(Request $request)
     {
         try {
-            $attemptData = TestAnswer::where('attempt_id', $request->attempt_id)->with(['question', 'answer'])->get();
+            $attemptData = TestAnswer::where('attempt_id', $request->attempt_id)->with(['question', 'answers'])->get();
             return response()->json(['success' => true, 'data' => $attemptData]);
         } catch (\Exception $e) {
             return response()->json(['success' => true, 'msg' => $e->getMessage()]);

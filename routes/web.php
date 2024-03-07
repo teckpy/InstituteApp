@@ -26,12 +26,13 @@ Route::middleware([
         return view('User.Dashboard');
     })->name('dashboard');
 });
-////////////// Admin Route /////////////////
+////////////// Admin login Route /////////////////
 Route::middleware('admin:admin')->group(function () {
     Route::get('admin/login', [AdminController::class, 'loginForm']);
     Route::POST('admin/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
+////////////// Admin dashboard Route /////////////////
 
 Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/admin/Dashboard', function () {
@@ -40,25 +41,27 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
 
 
     Route::get('/Header', [HeaderController::class, 'index'])->name('HeaderShow')->middleware('auth:admin');
+    ////////////// Admin  subject Route /////////////////
     Route::resource('Subject', SubjectController::class)->middleware('auth:admin');
     Route::Post('/edit-subject', [SubjectController::class, 'update'])->name('editSubject')->middleware('auth:admin');
     Route::Post('/delete-subject', [SubjectController::class, 'destroy'])->name('deleteSubject')->middleware('auth:admin');
-    //test
+   ////////////// Admin  test Route /////////////////
     Route::resource('Test', TestController::class)->middleware('auth:admin');
+    Route::get('/marks', [TestController::class, 'marks'])->name('marks')->middleware('auth:admin');
+    Route::POST('/update/marks', [TestController::class, 'marksUpdate'])->name('updateMarks')->middleware('auth:admin');
+    Route::get('/admin/review-test', [TestController::class, 'reviewTest'])->name('reviewTest')->middleware('auth:admin');
+    Route::get('/admin/reviewQnA', [TestController::class, 'reviewQNA'])->name('reviewQNA')->middleware('auth:admin');
+////////////// Admin question Route /////////////////
     Route::resource('Question', QuestionController::class)->middleware('auth:admin');
     Route::get('/delete-ans', [QuestionController::class, 'removeAns'])->name('removeAns')->middleware('auth:admin');
     Route::POST('/import-qna', [QuestionController::class, 'import'])->name('import')->middleware('auth:admin');
-
     Route::get('/get-questions', [QuestionController::class, 'getQuestion'])->name('getQuestion')->middleware('auth:admin');
     Route::POST('/add-qna', [QuestionController::class, 'addQuestion'])->name('addQuestion')->middleware('auth:admin');
     Route::get('/show-questions', [QuestionController::class, 'showQuestion'])->name('showQuestion')->middleware('auth:admin');
+
     Route::get('/show-students', [StudentsController::class, 'index'])->name('Students')->middleware('auth:admin');
 
-    Route::get('/marks', [TestController::class, 'marks'])->name('marks')->middleware('auth:admin');
-    Route::POST('/update/marks', [TestController::class, 'marksUpdate'])->name('updateMarks')->middleware('auth:admin');
-
-    Route::get('/admin/review-test', [TestController::class, 'reviewTest'])->name('reviewTest')->middleware('auth:admin');
-    Route::get('/admin/reviewQnA', [TestController::class, 'reviewQNA'])->name('reviewQNA')->middleware('auth:admin');
+    
 });
 /////////////////// User Route ///////////////////////////
 Route::middleware(['auth'])->group(function () {
@@ -67,17 +70,16 @@ Route::middleware(['auth'])->group(function () {
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
     Route::get('/getSingleRecord/{ExamID}',[ExamController::class,'getSingleRecord']);
 });
-
+/////////////////// User registration Route ///////////////////////////
 Route::get('/examregistration/{id}', [TestController::class, 'examregistrationshow'])->name('examregistration');
 Route::POST('/registration/{id}',[TestController::class,'examregistrationstore'])->name('test.register');
-
+/////////////////// User payement Route ///////////////////////////
 Route::controller(StripePaymentController::class)->group(function(){
     Route::get('stripe', 'stripe')->name('payement');
     Route::post('stripe', 'stripePost')->name('stripe.post');
 });
 
 Route::get('/otp-verification', [UserController::class, 'Verification'])->name('Verification');
-
 Route::get('user/register',[UserController::class,'create'])->name('user.regiter');
 
 ///////////////////// Website Route ////////////////////

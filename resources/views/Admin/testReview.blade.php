@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-outline-info">Approve</button>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
             $('.reviewTest').click(function() {
 
                 var id = $(this).attr('data-id');
-                console.log('click');
+                var html = ``;
                 $.ajax({
                     url: "{{ route('reviewQNA') }}",
                     type: "GET",
@@ -133,16 +133,32 @@
                     },
                     success: function(data) {
                         if (data.success == true) {
-
+                            console.log(data);
                             var data = data.data;
-                            if (data.length > 0) {
 
+                            if (data.length > 0) {
+                                for (let i = 0; i < data.length; i++) {
+                                    let isCorrect =
+                                        `<span class="badge bg-danger"><i class="fa fa-close"></i></span>`;
+                                    if (data[i]['answers']['is_correct'] == 1) {
+                                        isCorrect =
+                                            `<span class="badge bg-success"><i class="fa fa-check"></i></span>`;
+                                    }
+                                    let answer = data[i]['answers']['answer'];
+
+                                    html += ` <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h6>Q(` + (i + 1) + `).` + data[i]['question']['question'] + `</h6>
+                                                    <p>Ans:-` + answer + `&nbsp;&nbsp;` + isCorrect + `</p>
+                                                </div>
+                                            </div>`;
+                                }
                             } else {
                                 html += `<h6>Students not attempt any question !</h6>
-                                <p>if you approve this exam student will fail </p>`
+                                <p>if you approve this exam student will fail </p>`;
                             }
                         } else {
-                            html += `<p>Having some server issue !</p>`
+                            html += `<p>Having some server issue !</p>`;
                         }
 
                         $('.review-test').html(html);
@@ -151,4 +167,5 @@
             });
         });
     </script>
+
 @endsection
