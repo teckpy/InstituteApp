@@ -14,7 +14,7 @@ class ClassController extends Controller
      */
     public function index()
     {
-        $data = Classes::all();
+        $data = Classes::paginate(2);
         return view('Admin.class', compact('data'));
     }
 

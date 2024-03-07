@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exam_attempts', function (Blueprint $table) {
+        Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->integer('exam_id');
-            $table->integer('student_id');
-            $table->integer('marks')->default('0');
-            $table->integer('status')->default('0');
-
+            $table->foreignId('user_id')->index();
+            $table->string('name');
+            $table->boolean('personal_team');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exam_attempts');
+        Schema::dropIfExists('teams');
     }
 };

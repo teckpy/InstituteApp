@@ -33,7 +33,7 @@ class ExamController extends Controller
 
                     return view('Exam.exam_dashboard', ['success' => true,  'Exam' => $Exam, 'qnaExam' => $qnaExam]);
                 } else {
-                    return view('Exam.error', ['success' => false, 'msg' => 'This Exam is not available for now ! - ', 'qnaExam' => $qnaExam]);
+                    return view('Exam.error', ['success' => false, 'msg' => 'This Exam is not available for now !  ', 'qnaExam' => $qnaExam]);
                 }
             } else if ($qnaExam[0]['date'] > date('Y-m-d')) {
 

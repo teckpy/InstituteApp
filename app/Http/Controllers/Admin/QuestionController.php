@@ -215,8 +215,8 @@ class QuestionController extends Controller
                     ]);
                 }
             }
-
-            return response()->json(['success' => true, 'msg' => 'Question not found']);
+            flash()->addInfo('Question add to test successfully.');
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }

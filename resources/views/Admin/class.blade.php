@@ -86,16 +86,10 @@
                                         @endif
                                     </tbody>
                                 </table>
+                                {{ $data->links() }}
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <section class="col-lg-7 connectedSortable">
-                    </section>
-                    <section class="col-lg-5 connectedSortable">
-                    </section>
-                    <!-- right col -->
                 </div>
                 <!-- /.row (main row) -->
             </div><!-- /.container-fluid -->

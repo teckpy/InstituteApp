@@ -39,8 +39,7 @@
         </ul>
 
         <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-
+        <ul class="navbar-nav ml-auto mr-0">
             <li class="nav-item name">
                 <a class="nav-link text-uppercase">
                     @if (auth()->check())
@@ -48,7 +47,7 @@
                     @endif
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item ml-auto">
                 <div class="brand-link">
                     <img src="{{ asset('Admin/dist/img/logo1.png') }}" class="brand-image img-circle" style="opacity: .8;">
                 </div>
@@ -173,11 +172,11 @@
                                     @endforeach
                                 @endforeach
                             @endif
-
+                            <div class="text-center">
+                                <button class="btn btn-info" type="submit">Submit</button>
+                            </div>
                         </form>
-                        <div class="text-center">
-                            <button class="btn btn-info" type="button">Submit</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
