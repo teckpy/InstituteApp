@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
             $table->string('name',55);
-            $table->string('date');
-            $table->string('test_exam_id');
-            $table->string('time');
+            $table->string('date',55);
+            $table->string('test_exam_id',15)->default(null);
+            $table->string('time')->default('0');
             $table->integer('attempt');
             $table->integer('subject_id');
             $table->timestamps();

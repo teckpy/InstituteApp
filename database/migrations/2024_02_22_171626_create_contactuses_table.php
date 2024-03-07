@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('contactuses', function (Blueprint $table) {
             $table->id();
-            $table->string('address');
+            $table->string('address',255);
             $table->string('email');
-            $table->string('mobile');
+            $table->string('mobile',11);
             $table->string('noname');
             $table->string('noname1');
             $table->string('noname2');

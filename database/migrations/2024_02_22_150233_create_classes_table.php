@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name',55);
+            $table->string('students_age',11);
+            $table->string('total_seat',11)->default('0');
+            $table->string('class_time',11)->default('09:00');
+            $table->string('tution_fee',55)->default('1000');
             $table->string('description');
-            $table->string('students_age');
-            $table->string('total_seat');
-            $table->string('class_time');
-            $table->string('tution_fee');
             $table->string('image');
             $table->timestamps();
         });

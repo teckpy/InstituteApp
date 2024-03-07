@@ -64,7 +64,7 @@ class ExamController extends Controller
 
                     TestAnswer::insert([
                         'attempt_id' => $attempt_id,
-                        'question_id' => $request->q[$i],
+                        'question_id' => $request->Q[$i],
                         'answer_id' =>  request()->input('ans_' . $i + 1)
                     ]);
                 }

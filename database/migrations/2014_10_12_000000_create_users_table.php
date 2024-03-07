@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name',55);
-            $table->string('otp');
+            $table->string('otp',55)->default('0');
             $table->boolean('status')->default('0');
             $table->string('mobile',22);
             $table->string('email')->unique();
