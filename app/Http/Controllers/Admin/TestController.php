@@ -9,7 +9,7 @@ use App\Models\Admin\Subject;
 use App\Models\Admin\Test;
 use App\Models\Admin\TestAnswer;
 use Illuminate\Support\Facades\Log;
-use PhpParser\Node\Stmt\TryCatch;
+
 
 class TestController extends Controller
 {
@@ -18,9 +18,13 @@ class TestController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::get();
-        $tests = Test::with('subjects')->get();
-        return view('Admin.test', compact('subjects', 'tests'));
+        try {
+            $subjects = Subject::get();
+            $tests = Test::with('subjects')->get();
+            return view('Admin.test', compact('subjects', 'tests'));
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -36,19 +40,24 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        $test_exam_id = uniqid('TE');
 
+        try {
+            $test_exam_id = uniqid('TE');
 
-        $test = Test::insert([
-            'name' => $request->name,
-            'subject_id' => $request->subject_id,
-            'date' => $request->date,
-            'time' => $request->time,
-            'attempt' => $request->attempt,
-            'test_exam_id' => $test_exam_id,
-            'registration_link' => $test_exam_id
-        ]);
-        return response()->json($test);
+            $test = Test::insert([
+                'name' => $request->name,
+                'subject_id' => $request->subject_id,
+                'date' => $request->date,
+                'time' => $request->time,
+                'attempt' => $request->attempt,
+                'test_exam_id' => $test_exam_id,
+
+            ]);
+            flash()->addSuccess('Test added successfully.');
+            return response()->json($test);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -86,7 +95,7 @@ class TestController extends Controller
             $test->time = $request->time;
             $test->attempt = $request->attempt;
             $test->save();
-
+            flash()->addSuccess('Test updated successfully.');
             return response()->json(['success' => true, 'msg' => 'Test Updated Successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
@@ -100,6 +109,7 @@ class TestController extends Controller
     {
         try {
             Test::where('id', $id)->delete();
+            flash()->addError('Test delete successfully.');
             return response()->json(['success' => true, 'msg' => 'Subject Delete Successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
@@ -119,18 +129,23 @@ class TestController extends Controller
 
     public function marks()
     {
-        $marks = Test::with('getQnaExams')->get();
-        return view('Admin.marks', compact('marks'));
+        try {
+            $marks = Test::with('getQnaExams')->get();
+            return view('Admin.marks', compact('marks'));
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     public function marksUpdate(Request $request)
     {
-        Log::info('id' . $request->exam_id);
+
         try {
             Test::where('id', $request->exam_id)->update([
                 'marks' => $request->marks
             ]);
-            return response()->json(['success' => true, 'msg' => 'Marks update successfully']);
+            flash()->addSuccess('Marks updated successfully.');
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }

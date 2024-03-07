@@ -113,7 +113,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="fa fa-chevron-right nav-icon"></i>
                                 <p>Logo</p>
                             </a>

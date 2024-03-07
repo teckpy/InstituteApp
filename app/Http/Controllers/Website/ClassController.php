@@ -43,7 +43,7 @@ class ClassController extends Controller
         ]);
 
         $image = $request->file('image');
-        Log::info("message".$request->file('image'));
+
         $imagename = time() . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('Website/images/class'), $imagename);
         $imagepath = 'Website/images/class/' . $imagename;
@@ -59,7 +59,7 @@ class ClassController extends Controller
         ]);
 
 
-        return redirect()->back()->with(['success', 'Slide Create successfully !']);
+        return redirect()->back()->with(['success' => 'Class Create successfully !']);
     }
 
     /**
@@ -92,6 +92,6 @@ class ClassController extends Controller
     public function destroy(string $id)
     {
         $data = Classes::where('id', $id)->delete();
-        return redirect()->back();
+        return redirect()->back()->with(['danger' => 'Data Delete Successfully!']);
     }
 }

@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
+
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -28,17 +28,16 @@
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-primary card-outline">
+                        <div class="card card-info card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <button type="button" class="btn btn-info" data-toggle="modal"
                                         data-target="#modal-add">
-                                        <i class="fas fa-plus">&nbsp;New
+                                        New
                                     </button>
                                 </h3>
                             </div>
                             <div class="card-body">
-
                                 <table class="table table-bordered table-fit">
                                     <thead class="text-center">
                                         <tr>
@@ -75,9 +74,9 @@
                                                     <td class="text-center">
                                                         <span class="badge bg-warning"><a href=""><i
                                                                     class="fa fa-edit"></i></a></span>
-                                                        <span class="badge bg-danger"><a href=""
-                                                                class="delete_class" data-id="{{ $item->id }}"
-                                                                data-toggle="modal" data-target="#modal-delete"><i
+                                                        <span class="badge bg-danger"><a href="" class="delete_class"
+                                                                data-id="{{ $item->id }}" data-toggle="modal"
+                                                                data-target="#modal-delete"><i
                                                                     class="fa fa-trash"></i></a></span>
                                                     </td>
                                                 </tr>
@@ -128,16 +127,14 @@
                                 required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="total_seat" placeholder="Total Seat"
-                                required>
+                            <input type="text" class="form-control" name="total_seat" placeholder="Total Seat" required>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" name="class_time" placeholder="Enter Class Timing"
                                 required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="tution_fee" placeholder="Tution Fee"
-                                required>
+                            <input type="text" class="form-control" name="tution_fee" placeholder="Tution Fee" required>
                         </div>
                         <div class="form-group">
                             <input type="file" name="image">

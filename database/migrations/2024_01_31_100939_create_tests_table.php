@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('test_exam_id',15)->default(null);
             $table->string('time')->default('0');
             $table->integer('attempt');
+            $table->string('marks');
             $table->integer('subject_id');
             $table->timestamps();
         });

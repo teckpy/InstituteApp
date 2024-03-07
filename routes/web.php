@@ -54,14 +54,14 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
 ////////////// Admin question Route /////////////////
     Route::resource('Question', QuestionController::class)->middleware('auth:admin');
     Route::get('/delete-ans', [QuestionController::class, 'removeAns'])->name('removeAns')->middleware('auth:admin');
-    Route::POST('/import-qna', [QuestionController::class, 'import'])->name('import')->middleware('auth:admin');
+    Route::POST('/import-qna', [QuestionController::class, 'importQna'])->name('import')->middleware('auth:admin');
     Route::get('/get-questions', [QuestionController::class, 'getQuestion'])->name('getQuestion')->middleware('auth:admin');
     Route::POST('/add-qna', [QuestionController::class, 'addQuestion'])->name('addQuestion')->middleware('auth:admin');
     Route::get('/show-questions', [QuestionController::class, 'showQuestion'])->name('showQuestion')->middleware('auth:admin');
 
     Route::get('/show-students', [StudentsController::class, 'index'])->name('Students')->middleware('auth:admin');
 
-    
+
 });
 /////////////////// User Route ///////////////////////////
 Route::middleware(['auth'])->group(function () {

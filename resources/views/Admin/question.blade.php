@@ -41,7 +41,7 @@
                             </div>
                             <div class="card-body">
 
-                                <table class="table table-bordered table-fit">
+                                <table class="table table-bordered table-fit table-hover">
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">S.N</th>
@@ -78,7 +78,7 @@
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="3">Questions 7 Answer Not Found !</td>
+                                                <td colspan="5">Questions 7 Answer Not Found !</td>
                                             </tr>
                                         @endif
                                     </tbody>
@@ -225,7 +225,7 @@
     </div>
     <div class="modal fade" id="modal-import">
         <div class="modal-dialog">
-            <form id="import" enctype="multipart/form-data">
+            <form id="importQna" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="modal-content">
@@ -238,7 +238,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="file" id="file" name="file"required
+                            <input type="file" id="fileUpload" name="file"required
                                 accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms.excel">
                         </div>
                     </div>
@@ -544,38 +544,37 @@
 
 
             /////// Import  question answer /////
-            $("#import").submit(function(e) {
+            $("#importQna").submit(function(e) {
                 e.preventDefault();
 
                 let formData = new FormData();
-                let fileInput = $("#file");
+                formData.append('file', fileUpload.files[0]);
 
-                if (fileInput[0].files.length > 0) {
-                    formData.append('file', fileInput[0].files[0]);
 
-                    $.ajaxSetup({
-                        headers: {
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('import') }}",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.success == true) {
+                            location.reload(true);
+                            $("#modal-import").modal("hide");
                         }
-                    });
-                    $.ajax({
-                        url: "{{ route('import') }}",
-                        type: "POST",
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function(data) {
-                            if (data.success == true) {
-                                location.reload(true);
-                                $("#modal-import").modal("hide");
-                            }
+                        else{
+                            console.log(data.msg);
                         }
-                    });
+                    }
+                });
 
-                } else {
 
-                    console.error("Please select a file");
-                }
             });
         });
     </script>

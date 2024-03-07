@@ -26,7 +26,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-primary card-outline">
+                        <div class="card card-info card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <button type="button" class="btn btn-info" data-toggle="modal"
@@ -78,7 +78,8 @@
                                                                 <i class="fas fa-eye"></i>
                                                             </a></span>
                                                     </td>
-                                                    <td class="text-center"><a href="{{ route('examregistration', ['id' => $test->test_exam_id]) }}"
+                                                    <td class="text-center"><a
+                                                            href="{{ route('examregistration', ['id' => $test->test_exam_id]) }}"
                                                             target="_blank"><span class="badge badge-info"><i
                                                                     class="fas fa-hand-pointer"></i></span></a></td>
 
@@ -98,7 +99,7 @@
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td colspan="4"> Test Data Not Found !</td>
+                                                <td colspan="10" class="">Record not found !</td>
                                             </tr>
                                         @endif
                                     </tbody>

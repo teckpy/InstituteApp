@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\QnaImport;
 use Illuminate\Http\Request;
 use App\Models\Admin\Subject;
 use App\Models\Admin\Test;
 use App\Models\Admin\Answer;
 use App\Models\Admin\Question;
 use App\Models\Admin\QueExam;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuestionController extends Controller
 {
@@ -56,6 +55,7 @@ class QuestionController extends Controller
                     'is_correct' => $is_correct
                 ]);
             }
+            flash()->addSuccess('Question Answer Added Successfully');
             return response()->json(['success' => true, 'msg' => 'Question Answer Added Successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
@@ -141,6 +141,7 @@ class QuestionController extends Controller
                     ]);
                 }
             }
+            flash()->addInfo('Question and answer updated successfully.');
             return response()->json(['success' => true, 'msg' => 'Question & Answers Updated Successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
@@ -158,6 +159,7 @@ class QuestionController extends Controller
             $question = Question::find($id);
             if ($question) {
                 $question->delete();
+                flash()->addError('Question and answer delete successfully.');
                 return response()->json(['success' => true, 'msg' => 'Question & Answers Deleted Successfully']);
             } else {
                 return response()->json(['success' => false, 'msg' => 'Question not found']);
@@ -228,6 +230,18 @@ class QuestionController extends Controller
             $data = QueExam::where('exam_id', $request->examId)->with('question')->get();
 
             return response()->json(['success' => true, 'msg' => 'Question found', 'data' => $data]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
+    }
+
+    public function importQna(Request $request)
+    {
+
+        try {
+            Excel::import(new QnaImport, $request->file('file'));
+            flash()->addInfo('Question import successfully.');
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }

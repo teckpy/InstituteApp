@@ -24,7 +24,7 @@ class SliderController extends Controller
     public function display()
     {
         $data = Slider::all();
-        return view('Website.index',compact('data'));
+        return view('Website.index', compact('data'));
     }
 
     /**
@@ -50,7 +50,7 @@ class SliderController extends Controller
                 'image' => $imagePath
             ]);
 
-            return redirect()->back()->with(['success' => true, 'message' => 'Slider created successfully']);
+            return redirect()->back()->with(['success' =>  'Banner created successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
@@ -85,11 +85,11 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        Log::info("message" . $id);
+
         try {
 
             Slider::where('id', $id)->delete();
-            return redirect()->back()->with(['Record Delete Successfully !']);
+            return redirect()->back()->with(['success' =>  'Banner delete successfully']);;
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
         }
@@ -100,13 +100,12 @@ class SliderController extends Controller
         $slider = Slider::find($id);
 
         if (!$slider) {
-            // Handle the case where the Slider is not found
-            return response()->json( 404);
+
+            return response()->json(404);
         }
 
         $slider->status = 1;
-
-        // Save the changes to the database
+        flash()->addInfo('Banner published successfully');
         $slider->save();
         return redirect()->back();
     }
@@ -116,14 +115,14 @@ class SliderController extends Controller
         $slider = Slider::find($id);
 
         if (!$slider) {
-            // Handle the case where the Slider is not found
-            return response()->json( 404);
+            return response()->json(404);
         }
 
         $slider->status = 0;
 
-        // Save the changes to the database
+
         $slider->save();
+        flash()->addInfo('Banner unpublished successfully');
         return redirect()->back();
     }
 }

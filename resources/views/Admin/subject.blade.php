@@ -1,5 +1,6 @@
 @extends('Admin.Dashboard')
-@section('title')Add Subjects
+@section('title')
+    Add Subjects
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -25,12 +26,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card card-primary card-outline">
+                        <div class="card card-info card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <button type="button" class="btn btn-info" data-toggle="modal"
                                         data-target="#modal-subject">
-                                       <i class="fa fa-plus"></i> New
+                                        <i class="fa fa-plus"></i> New
                                     </button>
                                 </h3>
                             </div>
@@ -46,24 +47,24 @@
                                     </thead>
                                     <tbody>
                                         @if (count($subjects) > 0)
-                                        @foreach ($subjects as $item)
-                                        <tr>
-                                            <td>{{ $item->id }}</td>
-                                            <td>{{ $item->subject }}</td>
-                                            <td><span class="badge bg-warning">
-                                                    <a class="editSubjectbutton" href="javascript:void(0);"
-                                                        data-toggle="modal" data-target="#modal-editsubject"
-                                                        data-id="{{ $item->id }}"
-                                                        data-subject="{{ $item->subject }}">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a></span>
-                                                <span class="badge bg-danger"> <a class="deleteSubject"
-                                                    data-toggle="modal" data-target="#modal-delete"
-                                                        data-id="{{ $item->id }}" href="#"> <i
-                                                            class="fas fa-trash-alt"></i></a></span>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                            @foreach ($subjects as $item)
+                                                <tr>
+                                                    <td>{{ $item->id }}</td>
+                                                    <td>{{ $item->subject }}</td>
+                                                    <td><span class="badge bg-warning">
+                                                            <a class="editSubjectbutton" href="javascript:void(0);"
+                                                                data-toggle="modal" data-target="#modal-editsubject"
+                                                                data-id="{{ $item->id }}"
+                                                                data-subject="{{ $item->subject }}">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a></span>
+                                                        <span class="badge bg-danger"> <a class="deleteSubject"
+                                                                data-toggle="modal" data-target="#modal-delete"
+                                                                data-id="{{ $item->id }}" href="#"> <i
+                                                                    class="fas fa-trash-alt"></i></a></span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @else
                                             <tr>
                                                 <td colspan="4"> Subject Data Not Found !</td>
@@ -126,7 +127,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Save</button>
+                        <button type="submit" class="btn btn-dark">Update</button>
                     </div>
                 </form>
             </div>
@@ -138,34 +139,34 @@
 
 
     <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Delete Subject</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="deletesubject">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-group">
-                        <p>Are you sure you want to delete this Subject !</p>
-                        <input type="hidden" name="id" id="delete_subject_id">
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Subject</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="deletesubject">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <p>Are you sure you want to delete this Subject !</p>
+                            <input type="hidden" name="id" id="delete_subject_id">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </div>
 
-        <!-- /.modal-content -->
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
     <script>
         $(document).ready(function() {
 

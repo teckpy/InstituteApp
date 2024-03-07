@@ -31,8 +31,13 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        $subject = Subject::create($request->all());
-        return response()->json($subject);
+        try {
+            $subject = Subject::create($request->all());
+            flash()->addSuccess('Subject added Successfully.');
+            return response()->json($subject);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -40,33 +45,31 @@ class SubjectController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-{
-
-}
+    {
+    }
 
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-{
-    try {
-        $subject = Subject::find($request->id);
-        $subject->subject = $request->subject;
-        $subject->save();
-
-        return response()->json(['success' => true, 'msg' => 'Subject Updated Successfully']);
-    } catch (\Exception $e) {
-        return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+    {
+        try {
+            $subject = Subject::find($request->id);
+            $subject->subject = $request->subject;
+            $subject->save();
+            flash()->addSuccess('Subject Updated Successfully.');
+            return response()->json(['success' => true, 'msg' => 'Subject Updated Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
     }
-}
 
 
     /**
@@ -75,7 +78,8 @@ class SubjectController extends Controller
     public function destroy(Request $request)
     {
         try {
-            Subject::where('id',$request->id)->delete();
+            Subject::where('id', $request->id)->delete();
+            flash()->addError('Subject delete Successfully.');
             return response()->json(['success' => true, 'msg' => 'Subject Delete Successfully']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
