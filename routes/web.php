@@ -40,7 +40,7 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
     })->name('dashboard')->middleware('auth:admin');
 
 
-    Route::get('/Header', [HeaderController::class, 'index'])->name('HeaderShow')->middleware('auth:admin');
+    Route::get('/websitemenu', [HeaderController::class, 'index'])->name('menu')->middleware('auth:admin');
     ////////////// Admin  subject Route /////////////////
     Route::resource('Subject', SubjectController::class)->middleware('auth:admin');
     Route::Post('/edit-subject', [SubjectController::class, 'update'])->name('editSubject')->middleware('auth:admin');

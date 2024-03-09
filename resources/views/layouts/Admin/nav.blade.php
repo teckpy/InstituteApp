@@ -57,8 +57,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <a class="dropdown-item dropdown-footer" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                         class="nav-link"><i class='fas fa-sign-out-alt' style='font-size:15px'></i> &nbsp;Logout</a>
                 </form>
             </div>

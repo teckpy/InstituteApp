@@ -49,7 +49,12 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview"
+                        style="display: @if (Request::segment(1) == 'Test' ||
+                                Request::segment(1) == 'Subject' ||
+                                Request::segment(1) == 'Question' ||
+                                Request::segment(1) == 'marks' ||
+                                Request::segment(2) == 'review-test') block @else none @endif;">
 
                         <li class="nav-item">
                             <a href="{{ route('Test.index') }}"
@@ -73,22 +78,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('marks') }}" class="nav-link">
+                            <a href="{{ route('marks') }}"
+                                class="nav-link @if (Request::segment(1) == 'marks') active @endif">
                                 <i class="fa fa-chevron-right nav-icon"></i>
                                 <p>Marks</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('reviewTest') }}" class="nav-link">
+                            <a href="{{ route('reviewTest') }}"
+                                class="nav-link @if (Request::segment(2) == 'review-test') active @endif">
                                 <i class="fa fa-chevron-right nav-icon"></i>
                                 <p>Review</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/examples/project-detail.html" class="nav-link">
-                                <i class="fa fa-chevron-right nav-icon"></i>
-                                <p>Result</p>
                             </a>
                         </li>
                     </ul>
@@ -97,17 +98,18 @@
                 <li class="nav-header"> WEBSITE</li>
 
                 <li class="nav-item ">
-                    <a href="#" class="nav-link @if (Request::segment(1) == 'image') active @endif">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-header"></i>
                         <p>
                             Navbar
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview"
+                        style="display: @if (Request::segment(1) == 'websitemenu' || Request::segment(1) == 'image') block @else none @endif;">
                         <li class="nav-item ">
-                            <a href="{{ route('HeaderShow') }}"
-                                class="nav-link @if (Request::segment(1) == 'HeaderShow') active @endif">
+                            <a href="{{ route('menu') }}"
+                                class="nav-link @if (Request::segment(1) == 'websitemenu') active @endif;">
                                 <i class="fa fa-chevron-right nav-icon"></i>
                                 <p>Menu</p>
                             </a>
