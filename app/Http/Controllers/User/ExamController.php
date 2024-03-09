@@ -93,4 +93,21 @@ class ExamController extends Controller
             }
         }
     }
+
+    public function result(Request $request)
+    {
+        $result = Exam_attempt::where('student_id', Auth()->user()->id)->with('test')->orderBy('updated_at')->get();
+
+        return view('User.result',compact('result'));
+    }
+
+    public function StudentreviewTest(Request $request)
+    {
+        try {
+            $attemptData = TestAnswer::where('attempt_id', $request->attempt_id)->with(['question', 'answers'])->get();
+            return response()->json(['success' => true, 'data' => $attemptData]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'msg' => $e->getMessage()]);
+        }
+    }
 }

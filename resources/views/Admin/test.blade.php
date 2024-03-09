@@ -330,16 +330,14 @@
                     method: "POST",
                     data: $(this).serialize(),
                     success: function(data) {
-                        location.reload(true);
-                        $("#modal-test").modal("hide");
-                        setTimeout(function() {
-
-                        }, 1000);
-                        // Refresh the page or update the table with the new item
+                        if (data.success == true) {
+                            location.reload(true);
+                            $('#modal-test').modal('hide');
+                        } else {
+                            alert(data.msg);
+                        }
                     },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
+
                 });
             });
 

@@ -51,6 +51,8 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
     Route::POST('/update/marks', [TestController::class, 'marksUpdate'])->name('updateMarks')->middleware('auth:admin');
     Route::get('/admin/review-test', [TestController::class, 'reviewTest'])->name('reviewTest')->middleware('auth:admin');
     Route::get('/admin/reviewQnA', [TestController::class, 'reviewQNA'])->name('reviewQNA')->middleware('auth:admin');
+    Route::POST('/admin/approved', [TestController::class, 'approvedTest'])->name('approvedTest')->middleware('auth:admin');
+
 ////////////// Admin question Route /////////////////
     Route::resource('Question', QuestionController::class)->middleware('auth:admin');
     Route::get('/delete-ans', [QuestionController::class, 'removeAns'])->name('removeAns')->middleware('auth:admin');
@@ -60,6 +62,7 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
     Route::get('/show-questions', [QuestionController::class, 'showQuestion'])->name('showQuestion')->middleware('auth:admin');
 
     Route::get('/show-students', [StudentsController::class, 'index'])->name('Students')->middleware('auth:admin');
+    Route::get('/export-students', [StudentsController::class, 'ExportStudent'])->name('ExportStudent')->middleware('auth:admin');
 
 
 });
@@ -69,6 +72,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
     Route::get('/getSingleRecord/{ExamID}',[ExamController::class,'getSingleRecord']);
+    Route::get('/Result',[ExamController::class,'result'])->name('result');
+    Route::get('/user/review-test', [ExamController::class, 'StudentreviewTest'])->name('testreview');
 });
 /////////////////// User registration Route ///////////////////////////
 Route::get('/examregistration/{id}', [TestController::class, 'examregistrationshow'])->name('examregistration');

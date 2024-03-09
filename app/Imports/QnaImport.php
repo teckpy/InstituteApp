@@ -16,7 +16,9 @@ class QnaImport implements ToModel
      */
     public function model(array $row)
     {
+       
         if ($row[0] != 'question') {
+
             $questionId = Question::insertGetId([
                 'question' => $row[0]
             ]);

@@ -43,6 +43,7 @@
                                             <th style="width: 10px">S.N</th>
                                             <th>Test</th>
                                             <th>Marks/Q</th>
+                                            <th>Pass Marks</th>
                                             <th>Total marks</th>
                                             <th>Action</th>
                                         </tr>
@@ -54,12 +55,14 @@
                                                     <td>{{ $item->id }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->marks }}</td>
+                                                    <td>{{ $item->passing_marks }}</td>
                                                     <td>{{ count($item->getQnaExams) * $item->marks }}</td>
                                                     <td><span class="badge bg-warning">
                                                             <a class="editmarksbtn" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-editmarks"
                                                                 data-id="{{ $item->id }}"
                                                                 data-marks="{{ $item->marks }}"
+                                                                data-pass-marks="{{ $item->passing_marks }}"
                                                                 data-totalq="{{ count($item->getQnaExams) }}">
                                                                 <i class="fas fa-edit"></i>
                                                             </a></span>
@@ -135,6 +138,12 @@
                             <input type="text" class="form-control" id="tmarks" disabled placeholder="Total Marks"
                                 required>
                         </div>
+                        <div class="form-group">
+                            <input type="text"
+                                onkeypress="return event.charCode >=48 && event.charCode <=57 || event.charCode == 46 "
+                                class="form-control" id="pmarks" name="pmarks" placeholder="Enter Passing Marks"
+                                required>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -186,9 +195,11 @@
             $('.editmarksbtn').click(function() {
                 var exam_id = $(this).attr('data-id');
                 var marks = $(this).attr('data-marks');
+                var pmarks = $(this).attr('data-pass-marks');
                 var totalq = $(this).attr('data-totalq');
 
                 $('#marks').val(marks);
+                $('#pmarks').val(pmarks);
                 $('#exam_id').val(exam_id);
                 $('#tmarks').val((marks * totalq).toFixed(1));
 
@@ -199,8 +210,42 @@
                 $('#tmarks').val(($(this).val() * totalQna).toFixed(1))
             });
 
+            $('#pmarks').keyup(function() {
+                $('.perror').remove();
+                var tmarks = $('#tmarks').val();
+                var pmarks = $(this).val();
+
+                if (parseFloat(pmarks) >= parseFloat(tmarks)) {
+                    $(this).parent().append(
+                        '<p class="text-danger perror">Passing marks will be less then total marks !</p>'
+                    );
+                    setTimeout(() => {
+                        $('.perror').remove();
+                    }, 2000);
+                } else {
+
+                }
+            });
+
             $('#editMarks').submit(function(event) {
                 event.preventDefault();
+
+                $('.perror').remove();
+                var tmarks = $('#tmarks').val();
+                var pmarks = $('#pmarks').val();
+
+                if (parseFloat(pmarks) >= parseFloat(tmarks)) {
+                    $('#pmarks').parent().append(
+                        '<p class="text-danger perror">Passing marks will be less then total marks !</p>'
+                    );
+                    setTimeout(() => {
+                        $('.perror').remove();
+                    }, 2000);
+
+                    return false;
+                } else {
+
+                }
 
                 var formData = $(this).serialize();
 

@@ -111,6 +111,10 @@
                             <input type="text" class="form-control" id="" name="question"
                                 placeholder="Enter Question" required>
                         </div>
+                        <div class="form-group">
+                            <textarea name="explanation" id="" cols="30" rows="2" class="form-control" placeholder="Enter your explanation (Optional)"></textarea>
+                            
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <span style="color: rgb(122, 8, 8)" class="error"></span>
@@ -145,6 +149,10 @@
                             <input type="hidden" id="question_id" name="question_id">
                             <input type="text" class="form-control" id="question" name="question"
                                 placeholder="Enter Question" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="explanation" id="explanation" cols="30" rows="2" class="form-control"></textarea>
+
                         </div>
                     </div>
 
@@ -411,6 +419,7 @@
                         var qna = data.data[0];
                         $("#question_id").val(qna['id']);
                         $("#question").val(qna['question']);
+                        $("#explanation").val(qna['explanation']);
                         $(".editanswers").remove();
 
                         var html = ``;

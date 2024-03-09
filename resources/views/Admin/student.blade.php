@@ -29,6 +29,7 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
+                                    <a href="{{ route('ExportStudent') }}" class="btn btn-warning">Export</a>
                                 </h3>
                             </div>
                             <div class="card-body">

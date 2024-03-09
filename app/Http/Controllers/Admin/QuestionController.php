@@ -40,8 +40,13 @@ class QuestionController extends Controller
     {
 
         try {
+            $explanation = null;
+            if (isset($request->explanation)) {
+                $explanation = $request->explanation;
+            }
             $questionId = Question::insertGetId([
-                'question' => $request->question
+                'question' => $request->question,
+                'explanation' => $explanation
             ]);
 
             foreach ($request->answers as $answer) {
@@ -93,9 +98,13 @@ class QuestionController extends Controller
     {
 
         try {
-
+            $explanation = null;
+            if (isset($request->explanation)) {
+                $explanation = $request->explanation;
+            }
             Question::where('id', $id)->update([
-                'question' => $request->question
+                'question' => $request->question,
+                'explanation' => $explanation
             ]);
 
             if (isset($request->answers)) {

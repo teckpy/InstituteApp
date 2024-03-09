@@ -24,6 +24,7 @@ class UserFactory extends Factory
         return [
             'name' => 'Akash Sharma',
             'email' => 'aakashupadhyay.25@gmail.com',
+            'mobile' => '8962625991',
             'email_verified_at' => now(),
             'password' => Hash::make('akash123'),
             'two_factor_secret' => null,
@@ -51,14 +52,14 @@ class UserFactory extends Factory
      */
     public function withPersonalTeam(callable $callback = null): static
     {
-        if (! Features::hasTeamFeatures()) {
+        if (!Features::hasTeamFeatures()) {
             return $this->state([]);
         }
 
         return $this->has(
             Team::factory()
                 ->state(fn (array $attributes, User $user) => [
-                    'name' => $user->name.'\'s Team',
+                    'name' => $user->name . '\'s Team',
                     'user_id' => $user->id,
                     'personal_team' => true,
                 ])
