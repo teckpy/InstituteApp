@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\HeaderController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\QuestionController;
@@ -40,7 +39,7 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
     })->name('dashboard')->middleware('auth:admin');
 
 
-    Route::get('/websitemenu', [HeaderController::class, 'index'])->name('menu')->middleware('auth:admin');
+
     ////////////// Admin  subject Route /////////////////
     Route::resource('Subject', SubjectController::class)->middleware('auth:admin');
     Route::Post('/edit-subject', [SubjectController::class, 'update'])->name('editSubject')->middleware('auth:admin');
@@ -88,7 +87,7 @@ Route::get('/otp-verification', [UserController::class, 'Verification'])->name('
 Route::get('user/register',[UserController::class,'create'])->name('user.regiter');
 
 ///////////////////// Website Route ////////////////////
-
+Route::get('/menu', [WebsiteController::class, 'menu'])->name('menu')->middleware('auth:admin');
 Route::resource('image', SliderController::class)->middleware('auth:admin');
 Route::resource('classes', ClassController::class)->middleware('auth:admin');
 Route::get('contact',[WebsiteController::class,'contact'])->name('contact');

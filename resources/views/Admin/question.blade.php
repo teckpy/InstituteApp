@@ -113,7 +113,7 @@
                         </div>
                         <div class="form-group">
                             <textarea name="explanation" id="" cols="30" rows="2" class="form-control" placeholder="Enter your explanation (Optional)"></textarea>
-                            
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -252,7 +252,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-info">Import</button>
+                        <button type="submit" class="btn btn-info import_btn">Import</button>
                     </div>
                 </div>
             </form>
@@ -262,8 +262,6 @@
     </div>
     <script>
         $(document).ready(function() {
-
-
 
             /////// Add  question answer /////
             $("#addquestion").submit(function(e) {
@@ -555,7 +553,7 @@
             /////// Import  question answer /////
             $("#importQna").submit(function(e) {
                 e.preventDefault();
-
+                $('.import_btn').html('Please wait <i class="fa fa-spinner fa-spin"></i>');
                 let formData = new FormData();
                 formData.append('file', fileUpload.files[0]);
 

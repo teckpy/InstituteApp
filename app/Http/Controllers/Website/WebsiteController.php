@@ -73,6 +73,12 @@ class WebsiteController extends Controller
         return view('Admin.sociallinks',compact('link'));
     }
 
+    public function menu()
+    {
+
+        return view('Admin.menu');
+    }
+
     /**
      * Update the specified resource in storage.
      */

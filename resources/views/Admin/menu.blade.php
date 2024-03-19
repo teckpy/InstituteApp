@@ -1,6 +1,6 @@
 @extends('layouts.Admin.app')
 @section('title')
-    Social Links
+   Menu
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -14,7 +14,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Social</li>
+                            <li class="breadcrumb-item active">Menu</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -47,7 +47,7 @@
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    {{-- <tbody>
                                         @if (count($link) > 0)
                                             @foreach ($link as $item)
                                                 <tr class="text-left">
@@ -69,7 +69,7 @@
                                                 </tr>
                                             @endforeach
                                         @endif
-                                    </tbody>
+                                    </tbody> --}}
                                 </table>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
 
             $("#link").submit(function(e) {
@@ -218,5 +218,5 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 @endsection

@@ -11,7 +11,7 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">       
+    <div class="sidebar">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -34,7 +34,8 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview"
+                        style="display: @if (Request::segment(1) == 'Result' || Request::segment(1) == 'Exam') block @else none @endif;">
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -42,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('result') }}" class="nav-link">
+                            <a href="{{ route('result') }}" class="nav-link @if (Request::segment(1) == 'Result') active @endif;">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Result</p>
                             </a>

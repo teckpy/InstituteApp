@@ -99,17 +99,21 @@
 
                 <li class="nav-item ">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-header"></i>
+                        <i class="nav-icon fa fa-globe"></i>
                         <p>
-                            Navbar
+                            WEBSITE
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview"
-                        style="display: @if (Request::segment(1) == 'websitemenu' || Request::segment(1) == 'image') block @else none @endif;">
+                        style="display: @if (Request::segment(1) == 'menu' ||
+                                Request::segment(1) == 'image' ||
+                                Request::segment(1) == 'classes' ||
+                                Request::segment(1) == 'contact' ||
+                                Request::segment(1) == 'link') block @else none @endif;">
                         <li class="nav-item ">
                             <a href="{{ route('menu') }}"
-                                class="nav-link @if (Request::segment(1) == 'websitemenu') active @endif;">
+                                class="nav-link @if (Request::segment(1) == 'menu') active @endif;">
                                 <i class="fa fa-chevron-right nav-icon"></i>
                                 <p>Menu</p>
                             </a>
@@ -127,37 +131,6 @@
                                 <p>Slider</p>
                             </a>
                         </li>
-
-
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
-                        <p>
-                            Feature
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/forms/general.html" class="nav-link">
-                                <i class="fa fa-chevron-right nav-icon"></i>
-                                <p>Add</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link @if (Request::segment(1) == 'classes') active @endif">
-                        <i class="nav-icon fas fa-chalkboard"></i>
-                        <p>
-                            Classes
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('classes.index') }}"
                                 class="nav-link @if (Request::segment(1) == 'classes') active @endif">
@@ -165,59 +138,18 @@
                                 <p>Classes</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                        <p>
-                            Teachers
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/tables/simple.html" class="nav-link">
-                                <i class="fa fa-chevron-right nav-icon"></i>
-                                <p>Add</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
-                <li class="nav-item">
-                    <a href="" class="nav-link @if (Request::segment(1) == 'contact') active @endif">
-                        <i class="nav-icon far fa-address-book"></i>
-                        <p>
-                            Contact
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview"
-                        style="display: @if (Request::segment(1) == 'contact') block @else none @endif;">
                         <li class="nav-item">
                             <a href="{{ route('contact') }}"
                                 class="nav-link @if (Request::segment(1) == 'contact') active @endif">
                                 <i class="fa fa-chevron-right nav-icon"></i>
-                                <p>Add</p>
+                                <p>Contact</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-comment-alt"></i>
-                        <p>
-                            Social Links
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('link') }}" class="nav-link">
+                            <a href="{{ route('link') }}"
+                                class="nav-link @if (Request::segment(1) == 'link') active @endif">
                                 <i class="fa fa-chevron-right nav-icon"></i>
-                                <p>Add</p>
+                                <p>Social Link</p>
                             </a>
                         </li>
                     </ul>
