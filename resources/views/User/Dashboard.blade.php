@@ -52,6 +52,8 @@
                                             <th>Time</th>
                                             <th>Total Attempt</th>
                                             <th>Attempt</th>
+                                            <th>Plan</th>
+                                            <th>Price</th>
                                             <th>Link</th>
                                         </tr>
                                     </thead>
@@ -68,6 +70,11 @@
                                                     <td>{{ $item->time }}</td>
                                                     <td>{{ $item->attempt }}</td>
                                                     <td>{{ $item->attempt_counter }}</td>
+                                                    <td>
+
+                                                    </td>
+                                                    <td></td>
+
 
                                                     <td class="text-center"><a onclick="openFullscreenWindow(event)"
                                                             href="{{ route('loadExam', ['id' => $item->test_exam_id]) }}"
