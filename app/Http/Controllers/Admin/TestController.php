@@ -45,6 +45,11 @@ class TestController extends Controller
     {
 
         try {
+            $plan = $request->plan;
+            $prices = null;
+            if (isset($request->inr)) {
+                $prices = json_encode(['INR' => $request->inr]);
+            }
             $test_exam_id = uniqid('TE');
             Log::info($request->all());
             $test = Test::insert([
@@ -53,7 +58,9 @@ class TestController extends Controller
                 'date' => $request->date,
                 'time' => $request->time,
                 'attempt' => $request->attempt,
-                'test_exam_id' => $test_exam_id
+                'test_exam_id' => $test_exam_id,
+                'plan' => $plan,
+                'prices' => $prices
             ]);
 
             flash()->addSuccess('Test added successfully.');
@@ -90,13 +97,19 @@ class TestController extends Controller
     public function update(Request $request, $id)
     {
         try {
-
+            $plan = $request->plan;
+            $prices = null;
+            if (isset($request->inr)) {
+                $prices = json_encode(['INR' => $request->inr]);
+            }
             $test = Test::find($id);
             $test->name = $request->name;
             $test->subject_id = $request->subject_id;
             $test->date = $request->date;
             $test->time = $request->time;
             $test->attempt = $request->attempt;
+            $test->plan = $plan;
+            $test->prices = $prices;
             $test->save();
             flash()->addSuccess('Test updated successfully.');
             return response()->json(['success' => true, 'msg' => 'Test Updated Successfully']);

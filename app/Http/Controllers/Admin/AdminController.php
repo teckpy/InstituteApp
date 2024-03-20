@@ -20,7 +20,9 @@ use Laravel\Fortify\Http\Requests\LoginRequest;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use App\Actions\Fortify\AttemptToAuthenticate;
 use App\Actions\Fortify\RedirectIfTwoFactorAuthenticatable;
-
+use App\Models\Admin\Subject;
+use App\Models\Admin\Test;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -42,9 +44,19 @@ class AdminController extends Controller
         $this->guard = $guard;
     }
 
+    public function index()
+    {
+        $StudentData = User::get();
+        $TestData =     Test::get();
+        $Subject = Subject::get();
+
+        return view('Admin.Dashboard',compact('StudentData','TestData','Subject'));
+    }
+
+
     public function loginForm()
     {
-        return view('Admin.login',['guard' => 'admin']);
+        return view('Admin.login', ['guard' => 'admin']);
     }
 
     /**

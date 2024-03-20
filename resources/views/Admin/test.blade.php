@@ -46,6 +46,8 @@
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Attempt</th>
+                                            <th>Plan</th>
+                                            <th>Price</th>
                                             <th>Add</th>
                                             <th>Show</th>
                                             <th>Registration Link</th>
@@ -62,6 +64,25 @@
                                                     <td>{{ date('d-m-Y', strtotime($test->date)) }}</td>
                                                     <td>{{ $test->time }}</td>
                                                     <td>{{ $test->attempt }}</td>
+                                                    <td>
+                                                        @if ($test->plan != 0)
+                                                            <span class="badge bg-danger">Paid</span>
+                                                        @else
+                                                            <span class="badge bg-success">Free</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if ($test->plan != null)
+                                                            @php
+                                                                $planPrices = json_decode($test->prices);
+                                                            @endphp
+                                                            @foreach ($planPrices as $key => $price)
+                                                                <span>{{ $key }}{{ $price }}</span>
+                                                            @endforeach
+                                                        @else
+                                                            <span class="badge bg-success">Not Prices</span>
+                                                        @endif
+                                                    </td>
                                                     <td class="text-center">
                                                         <span class="badge bg-success">
                                                             <a class="Addquestions" href="javascript:void(0);"
@@ -151,6 +172,14 @@
                             <input type="number" class="form-control" min="1"
                                 placeholder="Enter Exam Attempt Time" id="" name="attempt" required>
                         </div>
+                        <div class="form-group">
+                            <select class="form-control mb-4 plan" name="plan" required>
+                                <option value="">Select Plan</option>
+                                <option value="0">Free</option>
+                                <option value="1">Paid</option>
+                            </select>
+                            <input type="number" placeholder="INR" name="inr" disabled>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -201,6 +230,14 @@
                         <div class="form-group">
                             <input type="number" min="1" class="form-control" id="attempt" name="attempt"
                                 required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control mb-4 Editplan" name="plan" id="planEdit" required>
+                                <option value="">Select Plan</option>
+                                <option value="0">Free</option>
+                                <option value="1">Paid</option>
+                            </select>
+                            <input type="number" placeholder="INR" name="inr" id="priceEdit" disabled>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -351,6 +388,7 @@
 
                 var url = '{{ route('Test.edit', 'id') }}';
                 url = url.replace('id', id);
+                $('#priceEdit').val('');
                 $.ajax({
                     url: url,
                     method: "GET",
@@ -362,6 +400,21 @@
                             $("#date").val(test[0].date);
                             $("#timeedit").val(test[0].time);
                             $("#attempt").val(test[0].attempt);
+                            $("#planEdit").val(test[0].plan);
+                            if (test[0].plan == 1) {
+
+                                let prices = JSON.parse(test[0].prices);
+
+                                $('#priceEdit').val(prices.INR);
+
+                                $('#priceEdit').prop('disabled', false);
+                                $('#priceEdit').attr('required', 'required');
+
+                            } else {
+                                $('#priceEdit').prop('disabled', true);
+                                $('#priceEdit').removeAttr('required');
+                            }
+
                         } else {
                             alert(data.msg);
                         }
@@ -542,6 +595,25 @@
                     }
 
                 });
+            });
+
+            ///plan
+            $('.plan').change(function() {
+
+                var plan = $(this).val();
+                if (plan == 1) {
+                    $(this).next().attr('required', 'required');
+                    $(this).next().next().attr('required', 'required');
+
+                    $(this).next().prop('disabled', false);
+                    $(this).next().next().prop('disabled', false);
+                } else {
+                    $(this).next().removeAttr('required', 'required');
+                    $(this).next().next().removeAttr('required', 'required');
+
+                    $(this).next().prop('disabled', true);
+                    $(this).next().next().prop('disabled', true);
+                }
             });
 
         });
