@@ -73,12 +73,8 @@
                                                     </td>
                                                     <td>
                                                         @if ($test->plan != null)
-                                                            @php
-                                                                $planPrices = json_decode($test->prices);
-                                                            @endphp
-                                                            @foreach ($planPrices as $key => $price)
-                                                                <span>{{ $key }}{{ $price }}</span>
-                                                            @endforeach
+
+                                                                INR: {{ $test->Prices}}
                                                         @else
                                                             <span class="badge bg-success">Not Prices</span>
                                                         @endif
@@ -232,12 +228,12 @@
                                 required>
                         </div>
                         <div class="form-group">
-                            <select class="form-control mb-4 Editplan" name="plan" id="planEdit" required>
+                            <select class="form-control mb-4 plan" name="plan" id="planEdit" required>
                                 <option value="">Select Plan</option>
                                 <option value="0">Free</option>
                                 <option value="1">Paid</option>
                             </select>
-                            <input type="number" placeholder="INR" name="inr" id="priceEdit" disabled>
+                            <input type="number"  name="inredit" id="priceEdit" disabled>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -401,6 +397,7 @@
                             $("#timeedit").val(test[0].time);
                             $("#attempt").val(test[0].attempt);
                             $("#planEdit").val(test[0].plan);
+                            $("#priceEdit").val(test[0].Prices);
                             if (test[0].plan == 1) {
 
                                 let prices = JSON.parse(test[0].prices);
@@ -441,6 +438,9 @@
                         date: $("#date").val(),
                         time: $("#timeedit").val(),
                         attempt: $("#attempt").val(),
+                        plan: $("#planEdit").val(),
+                        Prices: $("#priceEdit").val(),
+
                     },
                     success: function(data) {
                         if (data.success == true) {
@@ -615,6 +615,7 @@
                     $(this).next().next().prop('disabled', true);
                 }
             });
+
 
         });
     </script>

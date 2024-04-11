@@ -13,8 +13,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = Test::with('subjects')->orderBy('date')->get();
+        $data = Test::where('plan',0)->with('subjects')->orderBy('date','DESC')->get();
         return view('User.Dashboard',compact('data'));
+    }
+
+    public function paidExam()
+    {
+        $data = Test::where('plan',1)->with('subjects')->orderBy('date','DESC')->get();
+        return view('User.paidExam',compact('data'));
     }
 
     /**

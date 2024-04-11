@@ -56,7 +56,6 @@
                                             @php $count = 1; @endphp
                                             @foreach ($result as $item)
                                                 <tr class="text-center">
-
                                                     <td>{{ $count++ }}</td>
                                                     <td>{{ $item->test->name }}</td>
                                                     <td>
