@@ -110,7 +110,50 @@
                                 Request::segment(1) == 'image' ||
                                 Request::segment(1) == 'classes' ||
                                 Request::segment(1) == 'contact' ||
+                                Request::segment(1) == 'annauncement' ||
+                                Request::segment(1) == 'newsletter' ||
+                                Request::segment(1) == 'testimonial' ||
+                                Request::segment(1) == 'blog' ||
+                                Request::segment(1) == 'pages' ||
+                                Request::segment(1) == 'galleries' ||
+                                Request::segment(1) == 'faq' ||
                                 Request::segment(1) == 'link') block @else none @endif;">
+                        <li class="nav-item ">
+                            <a href="{{route('annauncement')}}" class="nav-link @if (Request::segment(1) == 'annauncement') active @endif;">
+                                <i class="fa fa-chevron-right nav-icon"></i>
+                                <p>Annauncement</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{route('newsletter')}}" class="nav-link @if (Request::segment(1) == 'newsletter') active @endif;">
+                                <i class="fa fa-chevron-right nav-icon"></i>
+                                <p>Newsletter</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{route('testimonial')}}" class="nav-link @if (Request::segment(1) == 'testimonial') active @endif;">
+                                <i class="fa fa-chevron-right nav-icon"></i>
+                                <p>Testimonial</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{route('blog')}}" class="nav-link @if (Request::segment(1) == 'blog') active @endif;">
+                                <i class="fa fa-chevron-right nav-icon"></i>
+                                <p>Blog</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{route('pages')}}" class="nav-link @if (Request::segment(1) == 'pages') active @endif;">
+                                <i class="fa fa-chevron-right nav-icon"></i>
+                                <p>Pages</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{route('galleries')}}" class="nav-link @if (Request::segment(1) == 'galleries') active @endif;">
+                                <i class="fa fa-chevron-right nav-icon"></i>
+                                <p>Galleries</p>
+                            </a>
+                        </li>
                         <li class="nav-item ">
                             <a href="{{ route('menu') }}"
                                 class="nav-link @if (Request::segment(1) == 'menu') active @endif;">
@@ -150,6 +193,12 @@
                                 class="nav-link @if (Request::segment(1) == 'link') active @endif">
                                 <i class="fa fa-chevron-right nav-icon"></i>
                                 <p>Social Link</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{{route('faq')}}" class="nav-link @if (Request::segment(1) == 'faq') active @endif;">
+                                <i class="fa fa-chevron-right nav-icon"></i>
+                                <p>FAQ</p>
                             </a>
                         </li>
                     </ul>

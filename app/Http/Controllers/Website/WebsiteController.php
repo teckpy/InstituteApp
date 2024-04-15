@@ -105,4 +105,39 @@ class WebsiteController extends Controller
     {
         //
     }
+
+    public function annauncementIndex()
+    {
+        return view('Admin.annauncement');
+    }
+
+    public function newsletterIndex()
+    {
+        return view('Admin.Newsletter');
+    }
+
+    public function testimonialIndex()
+    {
+        return view('Admin.testimonial');
+    }
+
+    public function blogIndex()
+    {
+        return view('Admin.blog');
+    }
+
+    public function pagesIndex()
+    {
+        return view('Admin.pages');
+    }
+
+    public function galleriesIndex()
+    {
+        return view('');
+    }
+
+    public function faqIndex()
+    {
+        return view('');
+    }
 }

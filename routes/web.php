@@ -97,3 +97,39 @@ Route::post('link/update/{id}',[WebsiteController::class,'LinkUpdate'])->name('l
 
 Route::GET('image/publish/{id}', [SliderController::class, 'publish'])->name('publish');
 Route::GET('image/unpublish/{id}', [SliderController::class, 'unpublish'])->name('unpublish');
+
+Route::GET('/annauncement',[WebsiteController::class,'annauncementIndex'])->name('annauncement');
+Route::post('annauncement-save',[WebsiteController::class,'annauncementSave'])->name('annauncementSave');
+Route::get('annauncement/{id}',[WebsiteController::class,'annauncementEdit'])->name('annauncementEdit');
+Route::post('annauncement/update/{id}',[WebsiteController::class,'annauncementUpdate'])->name('annauncementUpdate');
+
+Route::GET('/newsletter',[WebsiteController::class,'newsletterIndex'])->name('newsletter');
+Route::post('newsletter-save',[WebsiteController::class,'newsletterSave'])->name('newsletterSave');
+Route::get('newsletter/{id}',[WebsiteController::class,'newsletterEdit'])->name('newsletterEdit');
+Route::post('newsletter/update/{id}',[WebsiteController::class,'newsletterUpdate'])->name('newsletterUpdate');
+
+Route::GET('/testimonial',[WebsiteController::class,'testimonialIndex'])->name('testimonial');
+Route::post('testimonial-save',[WebsiteController::class,'testimonialSave'])->name('testimonialSave');
+Route::get('testimonial/{id}',[WebsiteController::class,'testimonialEdit'])->name('testimonialEdit');
+Route::post('testimonial/update/{id}',[WebsiteController::class,'testimonialUpdate'])->name('testimonialUpdate');
+
+Route::GET('/blog',[WebsiteController::class,'blogIndex'])->name('blog');
+Route::post('blog-save',[WebsiteController::class,'blogSave'])->name('blogSave');
+Route::get('blog/{id}',[WebsiteController::class,'blogEdit'])->name('blogEdit');
+Route::post('blog/update/{id}',[WebsiteController::class,'blogUpdate'])->name('blogUpdate');
+
+Route::GET('/pages',[WebsiteController::class,'pagesIndex'])->name('pages');
+Route::post('pages-save',[WebsiteController::class,'pagesSave'])->name('pagesSave');
+Route::get('pages/{id}',[WebsiteController::class,'pagesEdit'])->name('pagesEdit');
+Route::post('pages/update/{id}',[WebsiteController::class,'pagesUpdate'])->name('pagesUpdate');
+
+Route::GET('/galleries',[WebsiteController::class,'galleriesIndex'])->name('galleries');
+Route::post('galleries-save',[WebsiteController::class,'galleriesSave'])->name('galleriesSave');
+Route::get('galleries/{id}',[WebsiteController::class,'galleriesEdit'])->name('galleriesEdit');
+Route::post('galleries/update/{id}',[WebsiteController::class,'galleriesUpdate'])->name('galleriesUpdate');
+
+
+Route::GET('/faq',[WebsiteController::class,'faqIndex'])->name('faq');
+Route::post('faq-save',[WebsiteController::class,'faqSave'])->name('faqSave');
+Route::get('faq/{id}',[WebsiteController::class,'faqEdit'])->name('faqEdit');
+Route::post('faq/update/{id}',[WebsiteController::class,'faqUpdate'])->name('faqUpdate');
