@@ -35,11 +35,11 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview"
-                        style="display: @if (Request::segment(1) == 'Result' || Request::segment(1) == 'Exam') block @else none @endif;">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
+                        style="display: @if (Request::segment(1) == 'Result' || Request::segment(2) == 'paid-exam') block @else none @endif;">
+                        <li class="nav-item ">
+                            <a href="{{route('paidExam')}}" class="nav-link @if (Request::segment(2) == 'paid-exam') active @endif;">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Exam</p>
+                                <p>Paid Exam</p>
                             </a>
                         </li>
                         <li class="nav-item">
