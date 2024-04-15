@@ -1,6 +1,6 @@
 @extends('layouts.Admin.app')
 @section('title')
-   Blog
+    Blog
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -84,17 +84,31 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Annauncement</h4>
+                        <h4 class="modal-title">Blog</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" placeholder="Social Name">
+                            <input type="text" class="form-control" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="link" placeholder="Link">
+                            <select class="form-control" name="category" id="">
+                                <option value="">Category</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="tag" id="">
+                                <option value="">Tags</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="description" id="" cols="30" rows="2" class="form-control"
+                                placeholder="Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="file">
                         </div>
                     </div>
                     <div class="modal-footer">

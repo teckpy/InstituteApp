@@ -91,10 +91,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" placeholder="Social Name">
+                            <input type="text" class="form-control" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="link" placeholder="Link">
+                            <textarea name="description" id="" cols="30" rows="2" class="form-control" placeholder="Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="file">
                         </div>
                     </div>
                     <div class="modal-footer">

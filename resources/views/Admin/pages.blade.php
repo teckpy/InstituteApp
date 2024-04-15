@@ -1,6 +1,6 @@
 @extends('layouts.Admin.app')
 @section('title')
-   Annauncement
+   Custom Page
 @endsection
 @section('content')
     <div class="content-wrapper">

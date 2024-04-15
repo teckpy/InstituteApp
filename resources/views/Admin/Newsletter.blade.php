@@ -81,28 +81,31 @@
     <div class="modal fade" id="modal-linkadd">
         <div class="modal-dialog">
             <form id="link" method="POST">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Newsletter</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            @csrf
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Newsletter</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" placeholder="Title">
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="name" placeholder="Social Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="link" placeholder="Link">
-                        </div>
+                    <div class="form-group">
+                        <textarea name="description" id="" cols="30" rows="2" class="form-control" placeholder="Description"></textarea>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-dark">Save</button>
+                    <div class="form-group">
+                        <input type="file" name="file">
                     </div>
                 </div>
-            </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-dark">Save</button>
+                </div>
+            </div>
+        </form>
         </div>
     </div>
     <div class="modal fade" id="modal-link">
