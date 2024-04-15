@@ -138,6 +138,6 @@ class WebsiteController extends Controller
 
     public function faqIndex()
     {
-        return view('');
+        return view('Admin.faq');
     }
 }
