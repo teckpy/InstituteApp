@@ -1,6 +1,6 @@
 @extends('layouts.Admin.app')
 @section('title')
-   Annauncement
+    Annauncement
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -29,33 +29,35 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <button type="button" class="btn btn-info" data-toggle="modal"
-                                        data-target="#modal-linkadd">
+                                        data-target="#modal-annauncementAdd">
                                         New
                                     </button>
                                 </h3>
                             </div>
                             <div class="card-body">
 
-                                <table class="table table-bordered table-fit">
+                                <table class="table table-bordered table-fit table-hover">
                                     <thead>
                                         <tr class="text-center">
                                             <th style="width: 10px">S.N</th>
                                             <th>Name</th>
-                                            <th>Link</th>
+                                            <th>Description</th>
+                                            <th>File</th>
                                             <th>Created</th>
                                             <th>Updated</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    {{-- <tbody>
-                                        @if (count($link) > 0)
-                                            @foreach ($link as $item)
+                                    <tbody>
+                                        @if (count($data) > 0)
+                                            @foreach ($data as $item)
                                                 <tr class="text-left">
                                                     <td> {{ $item->id }}</td>
-                                                    <td> {{ $item->name }}</td>
-                                                    <td> {{ $item->link }}</td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td> {{ $item->title }}</td>
+                                                    <td> {{ $item->desc }}</td>
+                                                    <td>{{ $item->file }}</td>
+                                                    <td>{{ $item->created_at }}</td>
+                                                    <td>{{ $item->updated_at }}</td>
                                                     <td><span class="badge bg-warning">
                                                             <a class="editlink" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-link"
@@ -69,7 +71,7 @@
                                                 </tr>
                                             @endforeach
                                         @endif
-                                    </tbody> --}}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -78,9 +80,9 @@
             </div>
         </section>
     </div>
-    <div class="modal fade" id="modal-linkadd">
+    <div class="modal fade" id="modal-annauncementAdd">
         <div class="modal-dialog">
-            <form id="link" method="POST">
+            <form id="annauncement" method="POST" enctype="multipart/form-data" action="{{ route('annauncementSave') }}">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -94,10 +96,10 @@
                             <input type="text" class="form-control" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <textarea name="description" id="" cols="30" rows="2" class="form-control" placeholder="Description"></textarea>
+                            <textarea name="desc" id="" cols="30" rows="2" class="form-control" placeholder="Description"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="file" name="file">
+                            <input type="file" name="Annfile">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -121,12 +123,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name_" name="name"
-                                placeholder="Social Name">
-                            <input type="hidden" name="" id="id">
+                            <input type="text" class="form-control" name="title" id="title">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="link_" name="link" placeholder="Link">
+                            <textarea name="desc" id="desc" cols="30" rows="2" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" name="Annfile" id="Annfile">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -138,18 +141,22 @@
         </div>
     </div>
 
-    {{-- <script>
+    <script>
         $(document).ready(function() {
 
-            $("#link").submit(function(e) {
+            $("#annauncement").submit(function(e) {
                 e.preventDefault();
+                var formData = new FormData(this);
                 $.ajax({
-                    url: "{{ route('linkstore') }}",
+                    url: "{{ route('annauncementSave') }}",
                     method: "POST",
-                    data: $(this).serialize(),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    cache: false, // Set cache to false for file uploads
                     success: function(data) {
                         location.reload(true);
-                        $("#modal-linkadd").modal("hide");
+                        $("#modal-annauncementAdd").modal("hide");
                         setTimeout(function() {
 
                         }, 1000);
@@ -162,64 +169,64 @@
             });
 
 
-            $(".editlink").click(function(e) {
-                e.preventDefault();
+            // $(".editlink").click(function(e) {
+            //     e.preventDefault();
 
-                var id = $(this).data("id");
-                $("#id").val(id);
+            //     var id = $(this).data("id");
+            //     $("#id").val(id);
 
-                var url = '{{ route('linkedit', 'id') }}';
-                url = url.replace('id', id);
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    success: function(data) {
-                        if (data.success == true) {
-                            var contact = data.data;
-                            $("#id").val(contact[0].id);
-                            $("#name_").val(contact[0].email);
-                            $("#link_").val(contact[0].mobile);
+            //     var url = '{{ route('linkedit', 'id') }}';
+            //     url = url.replace('id', id);
+            //     $.ajax({
+            //         url: url,
+            //         method: "GET",
+            //         success: function(data) {
+            //             if (data.success == true) {
+            //                 var contact = data.data;
+            //                 $("#id").val(contact[0].id);
+            //                 $("#name_").val(contact[0].email);
+            //                 $("#link_").val(contact[0].mobile);
 
-                        } else {
-                            alert(data.msg);
-                        }
-                    },
+            //             } else {
+            //                 alert(data.msg);
+            //             }
+            //         },
 
-                });
-            });
+            //     });
+            // });
 
-            $("#editlink").submit(function(e) {
-                e.preventDefault();
+            // $("#editlink").submit(function(e) {
+            //     e.preventDefault();
 
-                var id = $("#id").val();
-                var url = '{{ route('linkupdate', 'id') }}';
-                url = url.replace('id', id);
+            //     var id = $("#id").val();
+            //     var url = '{{ route('linkupdate', 'id') }}';
+            //     url = url.replace('id', id);
 
-                $.ajax({
-                    url: url,
-                    method: "POST",
-                    data: {
+            //     $.ajax({
+            //         url: url,
+            //         method: "POST",
+            //         data: {
 
-                        _token: $('input[name="_token"]').val(),
-                        email: $("#name").val(),
-                        mobile: $("#link_").val(),
+            //             _token: $('input[name="_token"]').val(),
+            //             email: $("#name").val(),
+            //             mobile: $("#link_").val(),
 
 
-                    },
-                    success: function(data) {
-                        if (data.success == true) {
-                            location.reload(true);
-                            $('#modal-contact').modal('hide');
-                        } else {
-                            alert(data.msg);
-                        }
+            //         },
+            //         success: function(data) {
+            //             if (data.success == true) {
+            //                 location.reload(true);
+            //                 $('#modal-contact').modal('hide');
+            //             } else {
+            //                 alert(data.msg);
+            //             }
 
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
+            //         },
+            //         error: function(xhr, status, error) {
+            //             console.error(xhr.responseText);
+            //         }
+            //     });
+            // });
         });
-    </script> --}}
+    </script>
 @endsection

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Annauncement;
 use App\Models\Webiste\Slider;
 use App\Models\Website\Classes;
 use App\Models\Website\Contactus;
-use App\Models\Website\Slide;
 use App\Models\Website\Sociallink;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,8 @@ class WebsiteController extends Controller
         $classdata = Classes::all();
         $contact = Contactus::all();
         $link = Sociallink::all();
-        return view('Website.index', compact('slidedata', 'classdata','contact','link'));
+
+        return view('Website.index', compact('slidedata', 'classdata', 'contact', 'link'));
     }
 
     /**
@@ -30,6 +31,7 @@ class WebsiteController extends Controller
     public function contact()
     {
         $contact = Contactus::all();
+
         return view('Admin.contactus', compact('contact'));
     }
 
@@ -40,6 +42,7 @@ class WebsiteController extends Controller
     {
         try {
             $contact = Contactus::where('id', $id)->get();
+
             return response()->json(['success' => true, 'data' => $contact]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'msg' => $e->getMessage()]);
@@ -53,12 +56,12 @@ class WebsiteController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'link' => 'required|string'
+            'link' => 'required|string',
         ]);
 
         Sociallink::create([
             'name' => $request->name,
-            'link' => $request->link
+            'link' => $request->link,
         ]);
 
         return redirect()->back()->with(['success' => true, 'message' => 'created successfully']);
@@ -70,7 +73,8 @@ class WebsiteController extends Controller
     public function Link()
     {
         $link = Sociallink::all();
-        return view('Admin.sociallinks',compact('link'));
+
+        return view('Admin.sociallinks', compact('link'));
     }
 
     public function menu()
@@ -108,7 +112,31 @@ class WebsiteController extends Controller
 
     public function annauncementIndex()
     {
-        return view('Admin.annauncement');
+        $data = Annauncement::all();
+
+        return view('Admin.annauncement', compact('data'));
+    }
+
+    public function annauncementSave(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string',
+            'desc' => 'required|string',
+        ]);
+        $file = $request->file('Annfile');
+
+        $fileName = time().'.'.$file->getClientOriginalExtension();
+        $file->move(public_path('Website/files'), $fileName);
+        $filePath = 'Website/files'.$fileName;
+
+        Annauncement::create([
+            'title' => $request->title,
+            'desc' => $request->desc,
+            'file' => $filePath,
+        ]);
+        flash()->addInfo('Create successfully');
+
+        return redirect()->back();
     }
 
     public function newsletterIndex()
