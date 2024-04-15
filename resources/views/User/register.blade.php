@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('Admin/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/dist/css/adminlte.css') }}">
 </head>
 
 <body class="hold-transition register-page">
@@ -27,7 +28,7 @@
             <div class="card-body">
                 <p class="login-box-msg">Register a new membership</p>
 
-                <form action="{{ route('razorpay.create.payment') }}" method="POST">
+                <form action="" method="POST">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" name="name" class="form-control" placeholder="Full name" required autofocus autocomplete="Full Name" required>

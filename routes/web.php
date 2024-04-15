@@ -36,8 +36,6 @@ Route::middleware('admin:admin')->group(function () {
 Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/admin/Dashboard',[AdminController::class,'index'])->name('dashboard')->middleware('auth:admin');
 
-
-
     ////////////// Admin  subject Route /////////////////
     Route::resource('Subject', SubjectController::class)->middleware('auth:admin');
     Route::Post('/edit-subject', [SubjectController::class, 'update'])->name('editSubject')->middleware('auth:admin');
@@ -73,8 +71,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/review-test', [ExamController::class, 'StudentreviewTest'])->name('testreview');
 });
 /////////////////// User registration Route ///////////////////////////
-Route::get('/examregistration/{id}', [TestController::class, 'examregistrationshow'])->name('examregistration');
-Route::POST('/registration/{id}',[TestController::class,'examregistrationstore'])->name('test.register');
+Route::get('/user/registration', [UserController::class, 'userRegister'])->name('userRegister');
+
 /////////////////// User payement Route ///////////////////////////
 Route::controller(StripePaymentController::class)->group(function(){
     Route::get('stripe', 'stripe')->name('payement');

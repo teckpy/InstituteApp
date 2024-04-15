@@ -100,7 +100,7 @@
                                                             </a></span>
                                                     </td>
                                                     <td class="text-center"><a
-                                                            href="{{ route('examregistration', ['id' => $test->test_exam_id]) }}"
+                                                            href="{{ route('userRegister') }}"
                                                             target="_blank"><span class="badge badge-info"><i
                                                                     class="fas fa-hand-pointer"></i></span></a></td>
 

@@ -15,9 +15,13 @@
     <link rel="stylesheet" href="{{ asset('Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('Admin/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/dist/css/adminlte.css') }}">
 </head>
 
 <body class="hold-transition login-page">
+    <script>
+        console.log('{{ asset("Admin/image/17973908.jpg") }}');
+    </script>
     <div class="login-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
