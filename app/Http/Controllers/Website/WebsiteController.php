@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Annauncement;
 use App\Models\Admin\BlogCategory;
+use App\Models\Admin\BlogPost;
 use App\Models\Admin\BlogTag;
 use App\Models\Webiste\Slider;
 use App\Models\Website\Classes;
@@ -151,9 +152,11 @@ class WebsiteController extends Controller
         return view('Admin.testimonial');
     }
 
-    public function blogIndex()
+    public function postIndex()
     {
-        return view('Admin.blog');
+        $data = BlogPost::with('categories', 'tags')->get();
+
+        return view('Admin.post', compact('data'));
     }
 
     public function categoryIndex()

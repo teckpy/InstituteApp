@@ -12,4 +12,9 @@ class BlogTag extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function posts()
+    {
+        return $this->belongsTo(BlogPost::class);
+    }
 }

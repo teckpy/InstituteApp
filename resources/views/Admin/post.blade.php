@@ -1,6 +1,6 @@
 @extends('layouts.Admin.app')
 @section('title')
-    Blog
+    Blog Post
 @endsection
 @section('content')
     <div class="content-wrapper">

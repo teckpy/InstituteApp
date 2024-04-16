@@ -112,10 +112,10 @@ Route::post('testimonial-save', [WebsiteController::class, 'testimonialSave'])->
 Route::get('testimonial/{id}', [WebsiteController::class, 'testimonialEdit'])->name('testimonialEdit');
 Route::post('testimonial/update/{id}', [WebsiteController::class, 'testimonialUpdate'])->name('testimonialUpdate');
 
-Route::GET('/blog', [WebsiteController::class, 'blogIndex'])->name('blog');
-Route::post('blog-save', [WebsiteController::class, 'blogSave'])->name('blogSave');
-Route::get('blog/{id}', [WebsiteController::class, 'blogEdit'])->name('blogEdit');
-Route::post('blog/update/{id}', [WebsiteController::class, 'blogUpdate'])->name('blogUpdate');
+Route::GET('/post', [WebsiteController::class, 'postIndex'])->name('postIndex');
+Route::post('post-save', [WebsiteController::class, 'postSave'])->name('postSave');
+Route::get('post/{id}', [WebsiteController::class, 'postEdit'])->name('postEdit');
+Route::post('post/update/{id}', [WebsiteController::class, 'postUpdate'])->name('postUpdate');
 
 Route::GET('/category', [WebsiteController::class, 'categoryIndex'])->name('categoryIndex');
 Route::post('category-save', [WebsiteController::class, 'categorySave'])->name('categorySave');

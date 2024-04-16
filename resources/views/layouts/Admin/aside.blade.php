@@ -212,13 +212,13 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview"
-                        style="display: @if (Request::segment(1) == 'blog' ||
+                        style="display: @if (Request::segment(1) == 'post' ||
                                 Request::segment(1) == 'post' ||
                                 Request::segment(1) == 'category' ||
                                 Request::segment(1) == 'tag') block @else none @endif;">
                         <li class="nav-item ">
-                            <a href="{{ route('blog') }}"
-                                class="nav-link @if (Request::segment(1) == 'blog') active @endif;">
+                            <a href="{{ route('postIndex') }}"
+                                class="nav-link @if (Request::segment(1) == 'post') active @endif;">
                                 <i class="fa fa-chevron-right nav-icon"></i>
                                 <p>Post</p>
                             </a>
