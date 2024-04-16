@@ -155,8 +155,10 @@ class WebsiteController extends Controller
     public function postIndex()
     {
         $data = BlogPost::with('categories', 'tags')->get();
+        $categories = BlogCategory::all();
+        $tags = BlogTag::all();
 
-        return view('Admin.post', compact('data'));
+        return view('Admin.post', compact('data', 'tags', 'categories'));
     }
 
     public function categoryIndex()

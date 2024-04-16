@@ -94,17 +94,32 @@
                             <input type="text" class="form-control" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="category" id="">
-                                <option value="">Category</option>
-                            </select>
+                            <div class="select2-purple">
+                                <select class="select2" name="" multiple="multiple"
+                                    data-placeholder="Select Category" data-dropdown-css-class="select2-purple"
+                                    style="width: 100%;">
+                                    @if (count($categories) > 0)
+                                        @foreach ($categories as $item)
+                                            <option>{{ $item->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="tag" id="">
-                                <option value="">Tags</option>
-                            </select>
+                            <div class="select2-purple">
+                                <select class="select2" name="" multiple="multiple" data-placeholder="Select Tag"
+                                    data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                    @if (count($tags) > 0)
+                                        @foreach ($tags as $item)
+                                            <option>{{ $item->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <textarea name="description" id="" cols="30" rows="2" class="form-control"
+                            <textarea name="description" id="summernote" cols="30" rows="2" class="form-control"
                                 placeholder="Description"></textarea>
                         </div>
                         <div class="form-group">
@@ -137,7 +152,8 @@
                             <input type="hidden" name="" id="id">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="link_" name="link" placeholder="Link">
+                            <input type="text" class="form-control" id="link_" name="link"
+                                placeholder="Link">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -233,4 +249,23 @@
             });
         });
     </script> --}}
+    <script>
+        $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+        })
+    </script>
+    <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
+    </script>
 @endsection

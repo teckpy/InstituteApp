@@ -34,6 +34,8 @@
     <link rel="stylesheet" href="{{ asset('Admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('Admin/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/plugins/select2/css/select2.min.css') }}">
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('Admin/js/multiselect-dropdown.js') }}"></script>
@@ -112,6 +114,7 @@
     <script src="{{ asset('Admin/plugins/codemirror/mode/css/css.js') }}"></script>
     <script src="{{ asset('Admin/plugins/codemirror/mode/xml/xml.js') }}"></script>
     <script src="{{ asset('Admin/plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+    <script src="{{ asset('Admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
 </body>
 
