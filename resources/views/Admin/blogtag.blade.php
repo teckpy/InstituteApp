@@ -1,6 +1,6 @@
 @extends('layouts.Admin.app')
 @section('title')
-    Newsletter
+    Blog Tag
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -14,7 +14,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Newsletter</li>
+                            <li class="breadcrumb-item active">Tag</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -29,33 +29,31 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <button type="button" class="btn btn-info" data-toggle="modal"
-                                        data-target="#modal-linkadd">
+                                        data-target="#modal-tagadd">
                                         New
                                     </button>
                                 </h3>
                             </div>
                             <div class="card-body">
 
-                                <table class="table table-bordered table-fit">
+                                <table class="table table-bordered table-fit table-hover">
                                     <thead>
                                         <tr class="text-center">
                                             <th style="width: 10px">S.N</th>
                                             <th>Name</th>
-                                            <th>Link</th>
                                             <th>Created</th>
                                             <th>Updated</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                    {{-- <tbody>
-                                        @if (count($link) > 0)
-                                            @foreach ($link as $item)
+                                    <tbody>
+                                        @if (count($data) > 0)
+                                            @foreach ($data as $item)
                                                 <tr class="text-left">
                                                     <td> {{ $item->id }}</td>
                                                     <td> {{ $item->name }}</td>
-                                                    <td> {{ $item->link }}</td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>{{ $item->created_at }}</td>
+                                                    <td>{{ $item->updated_at }}</td>
                                                     <td><span class="badge bg-warning">
                                                             <a class="editlink" href="javascript:void(0);"
                                                                 data-toggle="modal" data-target="#modal-link"
@@ -69,7 +67,7 @@
                                                 </tr>
                                             @endforeach
                                         @endif
-                                    </tbody> --}}
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -78,26 +76,20 @@
             </div>
         </section>
     </div>
-    <div class="modal fade" id="modal-linkadd">
+    <div class="modal fade" id="modal-tagadd">
         <div class="modal-dialog">
-            <form id="link" method="POST">
+            <form id="tag" method="POST">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Newsletter</h4>
+                        <h4 class="modal-title">Tag</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="title" placeholder="Title">
-                        </div>
-                        <div class="form-group">
-                            <textarea name="desc" id="summernote" rows="2" class="form-control" placeholder="Description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="file" name="file">
+                            <input type="text" class="form-control" name="name" placeholder="Tag Name">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -138,18 +130,18 @@
         </div>
     </div>
 
-    {{-- <script>
+    <script>
         $(document).ready(function() {
 
-            $("#link").submit(function(e) {
+            $("#tag").submit(function(e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "{{ route('linkstore') }}",
+                    url: "{{ route('tagSave') }}",
                     method: "POST",
                     data: $(this).serialize(),
                     success: function(data) {
                         location.reload(true);
-                        $("#modal-linkadd").modal("hide");
+                        $("#modal-tagadd").modal("hide");
                         setTimeout(function() {
 
                         }, 1000);
@@ -221,17 +213,5 @@
                 });
             });
         });
-    </script> --}}
-    <script>
-        $(function() {
-            // Summernote
-            $('#summernote').summernote()
-
-            // CodeMirror
-            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-                mode: "htmlmixed",
-                theme: "monokai"
-            });
-        })
     </script>
 @endsection

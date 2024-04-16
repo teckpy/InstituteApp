@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Annauncement;
+use App\Models\Admin\BlogCategory;
+use App\Models\Admin\BlogTag;
 use App\Models\Webiste\Slider;
 use App\Models\Website\Classes;
 use App\Models\Website\Contactus;
@@ -152,6 +154,48 @@ class WebsiteController extends Controller
     public function blogIndex()
     {
         return view('Admin.blog');
+    }
+
+    public function categoryIndex()
+    {
+        $data = BlogCategory::all();
+
+        return view('Admin.blogcategory', compact('data'));
+    }
+
+    public function categorySave(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        BlogCategory::create([
+            'name' => $request->name,
+        ]);
+        flash()->addInfo('Create successfully');
+
+        return redirect()->back();
+    }
+
+    public function tagIndex()
+    {
+        $data = BlogTag::all();
+
+        return view('Admin.blogtag', compact('data'));
+    }
+
+    public function tagSave(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        BlogTag::create([
+            'name' => $request->name,
+        ]);
+        flash()->addInfo('Create successfully');
+
+        return redirect()->back();
     }
 
     public function pagesIndex()

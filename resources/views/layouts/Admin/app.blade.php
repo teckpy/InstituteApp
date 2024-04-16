@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('Admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('Admin/plugins/summernote/summernote-bs4.min.css') }}">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('Admin/js/multiselect-dropdown.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -106,6 +107,11 @@
     <script src="{{ asset('Admin/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('Admin/dist/js/pages/dashboard.js') }}"></script>
+    <script src="{{ asset('Admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('Admin/plugins/codemirror/codemirror.js') }}"></script>
+    <script src="{{ asset('Admin/plugins/codemirror/mode/css/css.js') }}"></script>
+    <script src="{{ asset('Admin/plugins/codemirror/mode/xml/xml.js') }}"></script>
+    <script src="{{ asset('Admin/plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
 
 </body>
 

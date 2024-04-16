@@ -96,7 +96,7 @@
                             <input type="text" class="form-control" name="title" placeholder="Title">
                         </div>
                         <div class="form-group">
-                            <textarea name="desc" id="" cols="30" rows="2" class="form-control" placeholder="Description"></textarea>
+                            <textarea name="desc" id="summernote" rows="2" class="form-control" placeholder="Description"></textarea>
                         </div>
                         <div class="form-group">
                             <input type="file" name="Annfile">
@@ -126,7 +126,7 @@
                             <input type="text" class="form-control" name="title" id="title">
                         </div>
                         <div class="form-group">
-                            <textarea name="desc" id="desc" cols="30" rows="2" class="form-control"></textarea>
+                            <textarea name="desc" id="summernote" cols="30" rows="2" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <input type="file" name="Annfile" id="Annfile">
@@ -228,5 +228,17 @@
             //     });
             // });
         });
+    </script>
+    <script>
+        $(function() {
+            // Summernote
+            $('#summernote').summernote()
+
+            // CodeMirror
+            CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+                mode: "htmlmixed",
+                theme: "monokai"
+            });
+        })
     </script>
 @endsection
