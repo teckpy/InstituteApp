@@ -37,7 +37,7 @@
                             </div>
                             <div class="card-body">
 
-                                <table class="table table-bordered">
+                                <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">S.N</th>

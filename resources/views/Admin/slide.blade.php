@@ -39,7 +39,7 @@
                             </div>
                             <div class="card-body">
 
-                                <table class="table table-bordered table-fit">
+                                <table class="table table-bordered table-hover">
                                     <thead class="text-center">
                                         <tr>
                                             <th style="width: 10px">S.N</th>
