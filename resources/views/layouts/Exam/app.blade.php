@@ -50,8 +50,7 @@
     <script src="{{ asset('Admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('Admin/dist/js/adminlte.min.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('Admin/dist/js/demo.js') }}"></script>
+
 </body>
 
 </html>
