@@ -63,6 +63,7 @@ Route::middleware(['auth:sanctum,admin', config('jetstream.auth_session'), 'veri
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/paid-exam', [UserController::class, 'paidExam'])->name('paidExam');
+    Route::get('/dashboard/free-exam', [UserController::class, 'freeExam'])->name('freeExam');
     Route::get('/exam/{id}', [ExamController::class, 'index'])->name('loadExam');
     Route::POST('/exam-submit', [ExamController::class, 'examSubmit'])->name('examSubmit');
     Route::get('/getSingleRecord/{ExamID}', [ExamController::class, 'getSingleRecord']);
@@ -71,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
 });
 /////////////////// User registration Route ///////////////////////////
 Route::get('/user/registration', [UserController::class, 'userRegister'])->name('userRegister');
+Route::post('/user/submit',[UserController::class,'userSubmit'])->name('userSubmit');
 
 /////////////////// User payement Route ///////////////////////////
 Route::controller(StripePaymentController::class)->group(function () {

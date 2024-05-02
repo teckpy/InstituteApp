@@ -23,6 +23,12 @@ class UserController extends Controller
         return view('User.paidExam',compact('data'));
     }
 
+    public function freeExam()
+    {
+        $data = Test::where('plan',0)->with('subjects')->orderBy('date','DESC')->get();
+        return view('User.freeExam',compact('data'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

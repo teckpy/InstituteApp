@@ -31,6 +31,7 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         $otp = mt_rand(100000, 999999);
+
         return User::create([
             'name' => $input['name'],
             'mobile' => $input['mobile'],

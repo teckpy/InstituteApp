@@ -33,66 +33,18 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-info card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">
-
-                                </h3>
-                            </div>
-                            <div class="card-body">
-
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr class="text-center">
-                                            <th style="width: 10px">S.N</th>
-                                            <th>Test Name</th>
-                                            <th>Subject Name</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Total Attempt</th>
-                                            <th>Attempt</th>
-                                            <th>Plan</th>
-                                            <th>Price</th>
-                                            <th>Link</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if ($data && count($data) > 0)
-                                            @php $count = 1; @endphp
-                                            @foreach ($data as $item)
-                                                <tr class="text-center">
-                                                    <td style="display: none">{{ $item->id }}</td>
-                                                    <td>{{ $count++ }}</td>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->subjects[0]['subject'] }}</td>
-                                                    <td>{{ $item->date }}</td>
-                                                    <td>{{ $item->time }}</td>
-                                                    <td>{{ $item->attempt }}</td>
-                                                    <td>{{ $item->attempt_counter }}</td>
-                                                    <td>
-
-                                                    </td>
-                                                    <td></td>
-
-
-                                                    <td class="text-center"><a onclick="openFullscreenWindow(event)"
-                                                            href="{{ route('loadExam', ['id' => $item->test_exam_id]) }}"
-                                                            target="_blank" data-code="{{ $item->test_exam_id }}"
-                                                            class="copy"><span class="badge bg-danger"><i class="fa fa-copy"></i></span></a></td>
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            <tr>
-                                                <td colspan="4"> Subject Data Not Found !</td>
-                                            </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            Featured
+                          </div>
+                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                                the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
-
                 </div>
                 <div class="row">
                     <section class="col-lg-7 connectedSortable">
@@ -124,5 +76,4 @@
             });
         });
     </script>
-
 @endsection

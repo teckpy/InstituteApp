@@ -28,10 +28,11 @@
             <div class="card-body">
                 <p class="login-box-msg">Register a new membership</p>
 
-                <form action="" method="POST">
+                <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control" placeholder="Full name" required autofocus autocomplete="Full Name" required>
+                        <input type="text" name="name" class="form-control" placeholder="Full name" required
+                            autofocus autocomplete="Full Name" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -39,7 +40,8 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="mobile" class="form-control" placeholder="Mobile" required autofocus autocomplete="Mobile" required>
+                        <input type="text" name="mobile" class="form-control" placeholder="Mobile" required
+                            autofocus autocomplete="Mobile" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-phone"></span>
@@ -47,7 +49,8 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus autocomplete="Email" required>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus
+                            autocomplete="Email" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -55,7 +58,8 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required autofocus autocomplete="Password" required>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required
+                            autofocus autocomplete="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -63,7 +67,9 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password_confirmation" class="form-control" placeholder="password_confirmation" required autofocus autocomplete="password_confirmation" required>
+                        <input type="password" name="password_confirmation" class="form-control"
+                            placeholder="password_confirmation" required autofocus autocomplete="password_confirmation"
+                            required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -72,32 +78,12 @@
                     </div>
 
                     <div class="row">
-                        {{-- <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
-                        </div> --}}
-                        <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
-
-                {{-- <div class="social-auth-links text-center">
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i>
-                        Sign up using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i>
-                        Sign up using Google+
-                    </a>
-                </div> --}}
 
                 <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
             </div>
